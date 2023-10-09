@@ -1,5 +1,5 @@
-#ifndef VEC3_H
-#define VEC3_H
+#ifndef CSG_TREE_H
+#define CSG_TREE_H
 
 class CSGTree
 {
