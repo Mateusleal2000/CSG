@@ -9,9 +9,9 @@
 
 InputWidget::InputWidget(QWidget *parent) : QWidget(parent)
 {
-    setFixedSize(400, 480);
+    setFixedSize(400, 600);
+    setContentsMargins(0,0,0,0);
     layout = new QGridLayout(this);
-    layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(0);
     mainScreen();
     setLayout(layout);
@@ -48,8 +48,10 @@ void InputWidget::mainScreen()
     // QObject::connect(buttonAdd, &QPushButton::clicked, addSolidScreen);
     // connect(m_button, &QPushButton::released, this, &MainWindow::handleButton);
     QPushButton::connect(buttonAdd, &QPushButton::clicked, this, &InputWidget::addSolidScreen);
-    layout->setVerticalSpacing(0);
-    layout->addWidget(label, 0, 0, 3, 1);
+    layout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+    
+    layout->setVerticalSpacing(2);
+    layout->addWidget(label, 0, 0, 1, 1);
     layout->addWidget(buttonAdd, 2, 0, 1, 2);
     layout->addWidget(buttonTransform, 3, 0, 1, 2);
     layout->addWidget(buttonOperation, 4, 0, 1, 2);
@@ -67,10 +69,13 @@ void InputWidget::addSolidScreen()
     QLineEdit *qlineedit5 = new QLineEdit(this);
     QLineEdit *qlineedit6 = new QLineEdit(this);
     QComboBox *solidsList = new QComboBox(this);
-    QSpacerItem * spacer  = new QSpacerItem(400,1000);
+
+    //QSpacerItem * spacer  = new QSpacerItem();
+
+    solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
 
-
+    //solidsList->setMaximumSize(300,30);
     
     qlineedit1->setVisible(false);
     qlineedit2->setVisible(false);
@@ -97,16 +102,17 @@ void InputWidget::addSolidScreen()
     //Still struggling with gridlayout 
 
 
-    layout->addItem(spacer,     10, 0, 1 , 1);
-    layout->addWidget(solidsList, 1, 1, 2, 7);
-    layout->addWidget(qlineedit1, 2, 2, 1, 5);
-    layout->addWidget(qlineedit2, 3, 2, 1, 5);
-    layout->addWidget(qlineedit3, 4, 2, 1, 5);
-    layout->addWidget(qlineedit4, 5, 2, 1, 5);
-    layout->addWidget(qlineedit5, 6, 2, 1, 5);
-    layout->addWidget(qlineedit6, 7, 2, 1, 5);
-    layout->addWidget(buttonConfirm, 9, 2, 1, 1);
-    layout->addWidget(buttonReturn, 9, 3, 1, 1);
+    //layout->addItem(spacer,     9, 0, 1 , 10);
+    layout->addWidget(solidsList, 0, 0, 1, 2);
+    layout->addWidget(qlineedit1, 2, 2, 1, 2);
+    layout->addWidget(qlineedit2, 3, 2, 1, 2);
+    layout->addWidget(qlineedit3, 4, 2, 1, 2);
+    layout->addWidget(qlineedit4, 5, 2, 1, 2);
+    layout->addWidget(qlineedit5, 6, 2, 1, 2);
+    layout->addWidget(qlineedit6, 7, 2, 1, 2);
+    layout->addWidget(buttonConfirm, 8, 0, 1, 2);
+    layout->addWidget(buttonReturn, 8, 3, 1, 1);
+
 
     // layout->addWidget();
 }
