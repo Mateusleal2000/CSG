@@ -4,9 +4,6 @@
 #include <QWidget>
 #include <QLayoutItem>
 #include <QGridLayout>
-#include <QPushButton>
-#include <QComboBox>
-#include <QLabel>
 
 class InputWidget : public QWidget
 {
@@ -22,6 +19,9 @@ public:
 public slots:
     void mainScreen();
     void addSolidScreen();
+    void confirmSolidSelection(QString solidType);
+    void setNewInputs(QString solidType);
+    // void setSolidSelection();
 signals:
     void addSolid();
 };

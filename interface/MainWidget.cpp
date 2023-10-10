@@ -4,7 +4,7 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
 {
     layout = new QHBoxLayout(this);
     inputWidget = new InputWidget(this);
-    setFixedSize(640, 480);
+    setFixedSize(800, 600);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     sceneWidget = new GraphicsSceneWidget();
