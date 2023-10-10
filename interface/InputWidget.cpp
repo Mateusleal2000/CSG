@@ -4,11 +4,15 @@
 #include <QPushButton>
 #include <QComboBox>
 #include <QLineEdit>
+#include <QSpacerItem>
+#include <QSizePolicy>
 
 InputWidget::InputWidget(QWidget *parent) : QWidget(parent)
 {
     setFixedSize(400, 480);
     layout = new QGridLayout(this);
+    layout->setContentsMargins(0,0,0,0);
+    layout->setSpacing(0);
     mainScreen();
     setLayout(layout);
 }
@@ -44,7 +48,7 @@ void InputWidget::mainScreen()
     // QObject::connect(buttonAdd, &QPushButton::clicked, addSolidScreen);
     // connect(m_button, &QPushButton::released, this, &MainWindow::handleButton);
     QPushButton::connect(buttonAdd, &QPushButton::clicked, this, &InputWidget::addSolidScreen);
-    layout->setVerticalSpacing(10);
+    layout->setVerticalSpacing(0);
     layout->addWidget(label, 0, 0, 3, 1);
     layout->addWidget(buttonAdd, 2, 0, 1, 2);
     layout->addWidget(buttonTransform, 3, 0, 1, 2);
@@ -63,6 +67,11 @@ void InputWidget::addSolidScreen()
     QLineEdit *qlineedit5 = new QLineEdit(this);
     QLineEdit *qlineedit6 = new QLineEdit(this);
     QComboBox *solidsList = new QComboBox(this);
+    QSpacerItem * spacer  = new QSpacerItem(400,1000);
+
+
+
+    
     qlineedit1->setVisible(false);
     qlineedit2->setVisible(false);
     qlineedit3->setVisible(false);
@@ -72,28 +81,32 @@ void InputWidget::addSolidScreen()
     solidsList->addItem(QString(""));
     solidsList->addItem(QString("Sphere"));
     solidsList->addItem(QString("Block"));
-    QComboBox::connect(solidsList, &QComboBox::activated, this, [&]
+    QComboBox::connect(solidsList, &QComboBox::activated, this, [=,this] (int i) -> void
                        {if (solidsList->currentText().toStdString() == "Sphere")
                        {
                         qlineedit1->setVisible(true);
                         qlineedit2->setVisible(true);
                         qlineedit3->setVisible(true);
                         qlineedit4->setVisible(true);
-                        std::cout << "Hide\n";
                        }
                         setNewInputs(solidsList->currentText()); });
     QPushButton::connect(buttonConfirm, &QPushButton::clicked, this, [this, solidsList]
                          { confirmSolidSelection(solidsList->currentText()); });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
-    layout->addWidget(solidsList, 0, 2, 2, 2);
-    layout->addWidget(qlineedit1, 2, 2, 1, 2);
-    layout->addWidget(qlineedit2, 3, 2, 1, 2);
-    layout->addWidget(qlineedit3, 4, 2, 1, 2);
-    layout->addWidget(qlineedit4, 5, 2, 1, 2);
-    layout->addWidget(qlineedit5, 6, 2, 1, 2);
-    layout->addWidget(qlineedit6, 7, 2, 1, 2);
-    layout->addWidget(buttonConfirm, 8, 2, 1, 1);
-    layout->addWidget(buttonReturn, 8, 3, 1, 1);
+
+    //Still struggling with gridlayout 
+
+
+    layout->addItem(spacer,     10, 0, 1 , 1);
+    layout->addWidget(solidsList, 1, 1, 2, 7);
+    layout->addWidget(qlineedit1, 2, 2, 1, 5);
+    layout->addWidget(qlineedit2, 3, 2, 1, 5);
+    layout->addWidget(qlineedit3, 4, 2, 1, 5);
+    layout->addWidget(qlineedit4, 5, 2, 1, 5);
+    layout->addWidget(qlineedit5, 6, 2, 1, 5);
+    layout->addWidget(qlineedit6, 7, 2, 1, 5);
+    layout->addWidget(buttonConfirm, 9, 2, 1, 1);
+    layout->addWidget(buttonReturn, 9, 3, 1, 1);
 
     // layout->addWidget();
 }
