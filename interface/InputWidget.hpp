@@ -4,12 +4,13 @@
 #include <QWidget>
 #include <QLayoutItem>
 #include <QGridLayout>
+#include <QFormLayout>
 
 class InputWidget : public QWidget
 {
     Q_OBJECT
 private:
-    QGridLayout *layout;
+    QFormLayout *layout;
 
 public:
     InputWidget(QWidget *parent = 0);
