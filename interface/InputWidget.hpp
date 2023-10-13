@@ -20,9 +20,10 @@ public:
 public slots:
     void mainScreen();
     void addSolidScreen();
+    void transformSolidScreen();
     void confirmSolidSelection(QString solidType);
+    void confirmSolidTransform(QString solidName);
     void setNewInputs(QString solidType);
-    // void setSolidSelection();
 signals:
     void addSolid();
 };

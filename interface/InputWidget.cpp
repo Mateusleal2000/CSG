@@ -49,6 +49,8 @@ void InputWidget::mainScreen()
     // QObject::connect(buttonAdd, &QPushButton::clicked, addSolidScreen);
     // connect(m_button, &QPushButton::released, this, &MainWindow::handleButton);
     QPushButton::connect(buttonAdd, &QPushButton::clicked, this, &InputWidget::addSolidScreen);
+    QPushButton::connect(buttonTransform, &QPushButton::clicked, this, &InputWidget::transformSolidScreen);
+    // QPushButton::connect(buttonOperation, &QPushButton::clicked, this, &InputWidget::operationSolidScreen);
     layout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 
     // layout->setVerticalSpacing(2);
@@ -81,8 +83,6 @@ void InputWidget::addSolidScreen()
     QLineEdit *qlineedit6 = new QLineEdit(this);
     qlineedit6->setPlaceholderText(QString("moooh"));
     QComboBox *solidsList = new QComboBox(this);
-
-    // QSpacerItem * spacer  = new QSpacerItem();
 
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
@@ -146,9 +146,52 @@ void InputWidget::addSolidScreen()
     // layout->addWidget();
 }
 
+void InputWidget::transformSolidScreen()
+{
+    cleanLayout();
+    layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
+    QPushButton *buttonReturn = new QPushButton("Return", this);
+    QPushButton *buttonTransform = new QPushButton("Transform", this);
+    QLineEdit *qlineedit1 = new QLineEdit(this);
+    qlineedit1->setPlaceholderText(QString("X value"));
+    QLineEdit *qlineedit2 = new QLineEdit(this);
+    qlineedit2->setPlaceholderText(QString("Y value"));
+    QLineEdit *qlineedit3 = new QLineEdit(this);
+    qlineedit3->setPlaceholderText(QString("Z value"));
+    QComboBox *solidsList = new QComboBox(this);
+
+    // QSpacerItem * spacer  = new QSpacerItem();
+
+    solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
+    solidsList->setMaximumSize(300, 30);
+
+    qlineedit1->setVisible(true);
+    qlineedit2->setVisible(true);
+    qlineedit3->setVisible(true);
+    solidsList->addItem(QString(""));
+    // Antes de fazer o addItem(), precisamos pegar as primitivas disponíveis, então temos que descobrir como fazer isso ainda
+    solidsList->addItem(QString("Primitive 1"));
+    solidsList->addItem(QString("Primitive 2"));
+    solidsList->addItem(QString("Primitive 3"));
+    QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
+                       { setNewInputs(solidsList->currentText()); });
+    QPushButton::connect(buttonTransform, &QPushButton::clicked, this, [this, solidsList]
+                         { confirmSolidTransform(solidsList->currentText()); });
+    QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
+
+    layout->addRow(solidsList);
+    layout->addRow(qlineedit1);
+    layout->addRow(qlineedit2);
+    layout->addRow(qlineedit3);
+    layout->addRow(buttonTransform);
+    layout->addRow(buttonReturn);
+
+    // layout->addWidget();
+}
+
 void InputWidget::confirmSolidSelection(QString solidType)
 {
-    // cleanLayout();
     if (solidType.toStdString() == "")
     {
         std::cout << "Are you trying to break our program?... shame on you >:(\n";
@@ -162,10 +205,6 @@ void InputWidget::setNewInputs(QString solidType)
     if (solidType.toStdString() == "Sphere")
     {
         std::cout << "Sphere selected\n";
-        // QLabel *radiusLabel = new QLabel("Radius", this);
-        // QLineEdit *radius = new QLineEdit(this);
-        // layout->addWidget(radius, 2, 2, 2, 2);
-        // layout->addWidget(radiusLabel, 2, 1, 2, 2);
         return;
     }
     else if (solidType.toStdString() == "Block")
@@ -175,4 +214,9 @@ void InputWidget::setNewInputs(QString solidType)
     }
     std::cout << "Adding a " << solidType.toStdString() << "\n";
     return;
+}
+
+void InputWidget::confirmSolidTransform(QString solidName)
+{
+    std::cout << "Transforming " << solidName.toStdString() << "\n";
 }
