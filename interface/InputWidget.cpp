@@ -50,14 +50,9 @@ void InputWidget::mainScreen()
     // connect(m_button, &QPushButton::released, this, &MainWindow::handleButton);
     QPushButton::connect(buttonAdd, &QPushButton::clicked, this, &InputWidget::addSolidScreen);
     QPushButton::connect(buttonTransform, &QPushButton::clicked, this, &InputWidget::transformSolidScreen);
-    // QPushButton::connect(buttonOperation, &QPushButton::clicked, this, &InputWidget::operationSolidScreen);
+    QPushButton::connect(buttonOperation, &QPushButton::clicked, this, &InputWidget::operationScreen);
     layout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 
-    // layout->setVerticalSpacing(2);
-    // layout->addWidget(label, 0, 0, 1, 1);
-    // layout->addWidget(buttonAdd, 2, 0, 1, 2);
-    // layout->addWidget(buttonTransform, 3, 0, 1, 2);
-    // layout->addWidget(buttonOperation, 4, 0, 1, 2);
     layout->addRow(label);
     layout->addRow(buttonAdd);
     layout->addRow(buttonTransform);
@@ -77,11 +72,11 @@ void InputWidget::addSolidScreen()
     QLineEdit *qlineedit3 = new QLineEdit(this);
     qlineedit3->setPlaceholderText(QString("Z value"));
     QLineEdit *qlineedit4 = new QLineEdit(this);
-    qlineedit4->setPlaceholderText(QString("auau"));
+    qlineedit4->setPlaceholderText(QString("Height"));
     QLineEdit *qlineedit5 = new QLineEdit(this);
-    qlineedit5->setPlaceholderText(QString("miau"));
+    qlineedit5->setPlaceholderText(QString("Length"));
     QLineEdit *qlineedit6 = new QLineEdit(this);
-    qlineedit6->setPlaceholderText(QString("moooh"));
+    qlineedit6->setPlaceholderText(QString("Width"));
     QComboBox *solidsList = new QComboBox(this);
 
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
@@ -104,6 +99,7 @@ void InputWidget::addSolidScreen()
                         qlineedit2->setVisible(true);
                         qlineedit3->setVisible(true);
                         qlineedit4->setVisible(true);
+                        qlineedit4->setPlaceholderText(QString("Radius"));
                         qlineedit5->setVisible(false);
                         qlineedit6->setVisible(false);
                        }
@@ -113,6 +109,7 @@ void InputWidget::addSolidScreen()
                         qlineedit2->setVisible(true);
                         qlineedit3->setVisible(true);
                         qlineedit4->setVisible(true);
+                        qlineedit4->setPlaceholderText(QString("Height"));
                         qlineedit5->setVisible(true);
                         qlineedit6->setVisible(true);
                        }
@@ -121,18 +118,6 @@ void InputWidget::addSolidScreen()
                          { confirmSolidSelection(solidsList->currentText()); });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
-    // Still struggling with gridlayout
-
-    // layout->addItem(spacer,     9, 0, 1 , 10);
-    // layout->addWidget(solidsList, 0, 0, 1, 1);
-    // layout->addWidget(qlineedit1, 1, 2, 1, 2);
-    // layout->addWidget(qlineedit2, 2, 2, 1, 2);
-    // layout->addWidget(qlineedit3, 3, 2, 1, 2);
-    // layout->addWidget(qlineedit4, 4, 2, 1, 2);
-    // layout->addWidget(qlineedit5, 5, 2, 1, 2);
-    // layout->addWidget(qlineedit6, 6, 2, 1, 2);
-    // layout->addWidget(buttonConfirm, 8, 0, 1, 2);
-    // layout->addWidget(buttonReturn, 8, 3, 1, 1);
     layout->addRow(solidsList);
     layout->addRow(qlineedit1);
     layout->addRow(qlineedit2);
@@ -142,8 +127,6 @@ void InputWidget::addSolidScreen()
     layout->addRow(qlineedit6);
     layout->addRow(buttonConfirm);
     layout->addRow(buttonReturn);
-
-    // layout->addWidget();
 }
 
 void InputWidget::transformSolidScreen()
@@ -159,8 +142,6 @@ void InputWidget::transformSolidScreen()
     QLineEdit *qlineedit3 = new QLineEdit(this);
     qlineedit3->setPlaceholderText(QString("Z value"));
     QComboBox *solidsList = new QComboBox(this);
-
-    // QSpacerItem * spacer  = new QSpacerItem();
 
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
@@ -186,8 +167,42 @@ void InputWidget::transformSolidScreen()
     layout->addRow(qlineedit3);
     layout->addRow(buttonTransform);
     layout->addRow(buttonReturn);
+}
 
-    // layout->addWidget();
+void InputWidget::operationScreen()
+{
+    cleanLayout();
+    layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
+    QPushButton *buttonReturn = new QPushButton("Return", this);
+    QPushButton *buttonConfirmOp = new QPushButton("Confirm Operation", this);
+    QComboBox *solidOperand1 = new QComboBox(this);
+    QComboBox *solidOperand2 = new QComboBox(this);
+
+    solidOperand1->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    solidOperand2->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
+    solidOperand1->setMaximumSize(300, 30);
+    solidOperand2->setMaximumSize(300, 30);
+
+    solidOperand1->addItem(QString(""));
+    solidOperand2->addItem(QString(""));
+    // Antes de fazer o addItem(), precisamos pegar as primitivas disponíveis, então temos que descobrir como fazer isso ainda
+    solidOperand1->addItem(QString("Primitive 1"));
+    solidOperand1->addItem(QString("Primitive 2"));
+    solidOperand1->addItem(QString("Primitive 3"));
+    solidOperand2->addItem(QString("Primitive 1"));
+    solidOperand2->addItem(QString("Primitive 2"));
+    solidOperand2->addItem(QString("Primitive 3"));
+    // QComboBox::connect(solidOperand1, &QComboBox::activated, this, [=, this](int i) -> void
+    //                    { setNewInputs(solidsList->currentText()); });
+    QPushButton::connect(buttonConfirmOp, &QPushButton::clicked, this, [this, solidOperand1, solidOperand2]
+                         { confirmSolidUnion(solidOperand1->currentText(), solidOperand2->currentText()); });
+    QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
+
+    layout->addRow(solidOperand1);
+    layout->addRow(solidOperand2);
+    layout->addRow(buttonConfirmOp);
+    layout->addRow(buttonReturn);
 }
 
 void InputWidget::confirmSolidSelection(QString solidType)
@@ -219,4 +234,18 @@ void InputWidget::setNewInputs(QString solidType)
 void InputWidget::confirmSolidTransform(QString solidName)
 {
     std::cout << "Transforming " << solidName.toStdString() << "\n";
+}
+
+void InputWidget::confirmSolidUnion(QString solidName1, QString solidName2)
+{
+    if (solidName1.toStdString() != solidName2.toStdString())
+    {
+        std::cout << solidName1.toStdString() << " Union " << solidName2.toStdString() << "\n";
+        return;
+    }
+    else
+    {
+        std::cout << "Not a valid operation\n";
+        return;
+    }
 }

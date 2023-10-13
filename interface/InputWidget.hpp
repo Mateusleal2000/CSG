@@ -21,8 +21,10 @@ public slots:
     void mainScreen();
     void addSolidScreen();
     void transformSolidScreen();
+    void operationScreen();
     void confirmSolidSelection(QString solidType);
     void confirmSolidTransform(QString solidName);
+    void confirmSolidUnion(QString solidName1, QString solidName2);
     void setNewInputs(QString solidType);
 signals:
     void addSolid();
