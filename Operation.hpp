@@ -11,8 +11,8 @@ public:
     virtual State setMembership(Point3 edgeMin, Point3 edgeMax);
 
 private:
-    Solid *RightSolid;
-    Solid *LeftSolid;
+    Solid *rightSolid;
+    Solid *leftSolid;
 };
 
 #endif // OPERATION_H
