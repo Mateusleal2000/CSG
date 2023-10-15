@@ -65,6 +65,8 @@ void InputWidget::addSolidScreen()
     layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
     QPushButton *buttonReturn = new QPushButton("Return", this);
     QPushButton *buttonConfirm = new QPushButton("Add", this);
+    QLineEdit *treeName = new QLineEdit(this);
+    treeName->setPlaceholderText(QString("Tree Name"));
     QLineEdit *qlineedit1 = new QLineEdit(this);
     qlineedit1->setPlaceholderText(QString("X value"));
     QLineEdit *qlineedit2 = new QLineEdit(this);
@@ -78,6 +80,7 @@ void InputWidget::addSolidScreen()
     QLineEdit *qlineedit6 = new QLineEdit(this);
     qlineedit6->setPlaceholderText(QString("Width"));
     QComboBox *solidsList = new QComboBox(this);
+    QComboBox *treesList = new QComboBox(this);
 
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
@@ -92,6 +95,9 @@ void InputWidget::addSolidScreen()
     solidsList->addItem(QString(""));
     solidsList->addItem(QString("Sphere"));
     solidsList->addItem(QString("Block"));
+    treesList->addItem(QString("Create New Tree"));
+    treesList->addItem(QString("Tree 1"));
+    treesList->addItem(QString("Tree 2"));
     QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
                        {if (solidsList->currentText().toStdString() == "Sphere")
                        {
@@ -114,11 +120,30 @@ void InputWidget::addSolidScreen()
                         qlineedit6->setVisible(true);
                        }
                         setNewInputs(solidsList->currentText()); });
-    QPushButton::connect(buttonConfirm, &QPushButton::clicked, this, [this, solidsList]
-                         { confirmSolidSelection(solidsList->currentText()); });
+
+    QComboBox::connect(treesList, &QComboBox::activated, this, [=, this](int i) -> void
+                       {if (treesList->currentText().toStdString() == "Create New Tree")
+                       {
+                        treeName->setVisible(true);
+                       }
+                       else
+                       {
+                        treeName->setVisible(false);
+                       } });
+    QPushButton::connect(buttonConfirm, &QPushButton::clicked, this, [=, this](int i) -> void
+                         {if (treesList->currentText().toStdString() == "Create New Tree")
+                        {
+                            std::cout << "Create a new tree called " << treeName->text().toStdString() << " and add the " << solidsList->currentText().toStdString()<< "\n";
+                        }
+                        else{
+                            std::cout << "Add the " << solidsList->currentText().toStdString() << " to " << treesList->currentText().toStdString() << "\n";
+                            }
+                            /*confirmSolidSelection(solidsList->currentText(), treesList->currentText());*/ });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
     layout->addRow(solidsList);
+    layout->addRow(treesList);
+    layout->addRow(treeName);
     layout->addRow(qlineedit1);
     layout->addRow(qlineedit2);
     layout->addRow(qlineedit3);
@@ -205,15 +230,18 @@ void InputWidget::operationScreen()
     layout->addRow(buttonReturn);
 }
 
-void InputWidget::confirmSolidSelection(QString solidType)
-{
-    if (solidType.toStdString() == "")
-    {
-        std::cout << "Are you trying to break our program?... shame on you >:(\n";
-        return;
-    }
-    std::cout << "Adding a " << solidType.toStdString() << "\n";
-}
+// void InputWidget::confirmSolidSelection(QString solidType, QString tree)
+// {
+//     if (tree.toStdString() == "Create New Tree")
+//     {
+
+//         std::cout << "Create a new tree called " << tree.toStdString() << " and add the " << solidType.toStdString() << "\n";
+//     }
+//     else
+//     {
+//         std::cout << "Add the " << solidType.toStdString() << " to " << tree.toStdString() << "\n";
+//     }
+// }
 
 void InputWidget::setNewInputs(QString solidType)
 {
