@@ -9,6 +9,7 @@ class SolidNode : public Node
 public:
     Solid *getSolid();
     void setSolid(Solid *solid);
+    State setMembership(Point3 edgeMin, Point3 edgeMax) override;
 
 private:
     Solid *solid;

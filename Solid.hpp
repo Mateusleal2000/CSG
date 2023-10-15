@@ -29,4 +29,4 @@ inline void Solid::setColor(RGBcolor color)
     this->color = color;
 }
 
-#endif
+#endif // SOLID_H

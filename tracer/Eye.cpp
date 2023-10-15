@@ -5,7 +5,7 @@ Eye::Eye(Point3 position)
     pos = position;
 }
 
-Eye::~Eye {}
+Eye::~Eye() {}
 
 Point3 Eye::getPos() const
 {

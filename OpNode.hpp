@@ -8,12 +8,14 @@ class OpNode : public Node
 {
 public:
   template <class T>
-    requires isOpNode<T> || isTransNode<T>
-  T getChild(int idx);
+    requires isOpNode<T> || isTransNode<T> || isWorld<T>
+  T *getChild(int idx);
 
   template <class T>
-    requires isOpNode<T> || isTransNode<T>
-  void setChild(T node);
+    requires isOpNode<T> || isTransNode<T> || isWorld<T>
+  void setChild(T *node, int idx);
+
+  State setMembership(Point3 edgeMin, Point3 edgeMax) override;
 
 private:
   Node *left;

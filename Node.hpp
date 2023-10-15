@@ -11,7 +11,7 @@ public:
     RGBcolor getColor();
     Node *getParent();
     void setParent(Node *parent);
-    virtual Node *child();
+    virtual State setMembership(Point3 edgeMin, Point3 edgeMax);
 
 private:
     Node *parent;

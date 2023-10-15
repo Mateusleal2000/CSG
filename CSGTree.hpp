@@ -4,15 +4,16 @@
 #include "OpNode.hpp"
 #include "TransNode.hpp"
 #include "SolidNode.hpp"
+#include "World.hpp"
 class CSGTree
 {
 public:
-    CSGTree();
+    CSGTree(OpNode *root = nullptr);
     ~CSGTree();
     void setRoot(OpNode *root);
-    void addSolid();
-    void addOperation();
-    void addTransformation();
+    void add(Operation op, Node *node);
+    // void addOperation();
+    // void addTransformation();
 
 private:
     OpNode *root;

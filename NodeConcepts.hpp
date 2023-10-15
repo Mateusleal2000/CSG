@@ -1,9 +1,15 @@
 #ifndef NODECONCEPTS_HPP
 #define NODECONCEPTS_HPP
 #include <concepts>
-// #include "InternalNode.hpp"
 
-// class InternalNode;
+class SolidNode;
+class OpNode;
+class TransNode;
+class World;
+
+template <class T>
+concept isWorld = std::same_as<World, T>;
+
 template <class T>
 concept isSolidNode = std::same_as<SolidNode, T>;
 
