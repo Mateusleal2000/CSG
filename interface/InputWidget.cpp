@@ -200,32 +200,38 @@ void InputWidget::operationScreen()
     layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
     QPushButton *buttonReturn = new QPushButton("Return", this);
     QPushButton *buttonConfirmOp = new QPushButton("Confirm Operation", this);
-    QComboBox *solidOperand1 = new QComboBox(this);
-    QComboBox *solidOperand2 = new QComboBox(this);
+    QComboBox *operation = new QComboBox(this);
+    QComboBox *treeOperand1 = new QComboBox(this);
+    QComboBox *treeOperand2 = new QComboBox(this);
 
-    solidOperand1->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-    solidOperand2->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    operation->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    treeOperand1->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    treeOperand2->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
-    solidOperand1->setMaximumSize(300, 30);
-    solidOperand2->setMaximumSize(300, 30);
+    operation->setMaximumSize(300, 30);
+    treeOperand1->setMaximumSize(300, 30);
+    treeOperand2->setMaximumSize(300, 30);
 
-    solidOperand1->addItem(QString(""));
-    solidOperand2->addItem(QString(""));
+    operation->addItem(QString("Union"));
+
+    treeOperand1->addItem(QString(""));
+    treeOperand2->addItem(QString(""));
     // Antes de fazer o addItem(), precisamos pegar as primitivas disponíveis, então temos que descobrir como fazer isso ainda
-    solidOperand1->addItem(QString("Primitive 1"));
-    solidOperand1->addItem(QString("Primitive 2"));
-    solidOperand1->addItem(QString("Primitive 3"));
-    solidOperand2->addItem(QString("Primitive 1"));
-    solidOperand2->addItem(QString("Primitive 2"));
-    solidOperand2->addItem(QString("Primitive 3"));
+    treeOperand1->addItem(QString("Tree 1"));
+    treeOperand1->addItem(QString("Tree 2"));
+    treeOperand1->addItem(QString("Tree 3"));
+    treeOperand2->addItem(QString("Tree 1"));
+    treeOperand2->addItem(QString("Tree 2"));
+    treeOperand2->addItem(QString("Tree 3"));
     // QComboBox::connect(solidOperand1, &QComboBox::activated, this, [=, this](int i) -> void
     //                    { setNewInputs(solidsList->currentText()); });
-    QPushButton::connect(buttonConfirmOp, &QPushButton::clicked, this, [this, solidOperand1, solidOperand2]
-                         { confirmSolidUnion(solidOperand1->currentText(), solidOperand2->currentText()); });
+    QPushButton::connect(buttonConfirmOp, &QPushButton::clicked, this, [this, treeOperand1, treeOperand2]
+                         { confirmSolidUnion(treeOperand1->currentText(), treeOperand2->currentText()); });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
-    layout->addRow(solidOperand1);
-    layout->addRow(solidOperand2);
+    layout->addRow(QString("Operation "), operation);
+    layout->addRow(QString("Operand 1 "), treeOperand1);
+    layout->addRow(QString("Operand 2 "), treeOperand2);
     layout->addRow(buttonConfirmOp);
     layout->addRow(buttonReturn);
 }
