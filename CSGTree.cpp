@@ -1,8 +1,10 @@
 #include "CSGTree.hpp"
+//headers para métodos de teste
+#include "Sphere.hpp"
 
 CSGTree::CSGTree(OpNode *root) : root(root)
 {
-    root->setChild(new World(), 1);
+    this->root->setChild(new World(), 1);
 }
 
 CSGTree::~CSGTree()
@@ -15,14 +17,56 @@ void CSGTree::setRoot(OpNode *root)
     return;
 }
 
-// adiciona uma primitiva ou uma árvore
-// primitiva: deve ser adicionado um nó TransNode com a primitiva
-// árvore: adiciona o nó raiz, discartando a união com o mundo
-void CSGTree::add(Operation op, Node *node)
+OpNode* CSGTree::getRoot()
 {
-    // temporário
+    return this->root;
+}
 
+// adiciona primitiva
+// primitiva: deve ser adicionado um nó TransNode com a primitiva
+template <class T>
+    requires isTransNode<T> 
+void CSGTree::add(Operation op, T* node)
+{
+    swapRoot(node);
     return;
+}
+
+// adiciona subárvore
+// subárvore: adiciona o nó raiz, discartando a união com o mundo
+// a convenção é que toda árvore tem um nó World como filho da direita
+template <class T>
+    requires isOpNode<T>
+void CSGTree::add(Operation op, T* node)
+{
+    auto OtherLeftChild = node->getChild(0);
+    swapRoot(OtherLeftChild);
+    return;
+}
+
+template <class T>
+    requires isOpNode<T> || isTransNode<T> 
+void CSGTree::swapRoot(T* substituteForWorldNode){
+    this->getRoot()->setChild(substituteForWorldNode, 1);
+    OpNode* newRoot = new OpNode(new Union());
+    newRoot->setChild(this->getRoot(), 0);
+    newRoot->setChild(new World(), 1);
+    this->setRoot(newRoot);
+    return;
+}
+
+//metodo teste para criar uma árvore com uma esfera.
+void CSGTree::_initTest(){
+    Sphere* sphere = new Sphere(1., Point3(0.,0.,0.));
+    SolidNode* sphereNode = new SolidNode(sphere);
+    TransNode* sphereTransNode = new TransNode();
+    sphereTransNode->setChild(sphereNode);
+    this->add(Union(), sphereTransNode);
+}
+
+void CSGTree::_print(){
+    std::cout<<"CSGTree\n";
+    this->getRoot()->_print();
 }
 // void CSGTree::addOperation()
 // {

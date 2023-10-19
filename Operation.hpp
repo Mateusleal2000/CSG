@@ -9,10 +9,6 @@ class Operation
 public:
     virtual ~Operation();
     virtual State setMembership(Point3 edgeMin, Point3 edgeMax);
-
-private:
-    Solid *rightSolid;
-    Solid *leftSolid;
 };
 
 #endif // OPERATION_H

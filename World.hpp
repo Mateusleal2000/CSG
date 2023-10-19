@@ -12,6 +12,11 @@ public:
     {
         return;
     }
+
+    void _print() override 
+    {
+        std::cout<<"World\n";
+    }
 };
 
 #endif // WORLD_HPP

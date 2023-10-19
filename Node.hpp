@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <vec3.hpp>
+#include "vec3.hpp"
 #include "NodeConcepts.hpp"
 class Node
 {
@@ -12,7 +12,7 @@ public:
     Node *getParent();
     void setParent(Node *parent);
     virtual State setMembership(Point3 edgeMin, Point3 edgeMax);
-
+    virtual void _print(); 
 private:
     Node *parent;
     RGBcolor color;
