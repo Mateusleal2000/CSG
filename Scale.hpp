@@ -2,15 +2,10 @@
 #define SCALE_HPP
 
 #include "Transformation.hpp"
-class Scale
+class Scale : public Transformation
 {
 public:
-    virtual ~Scale();
-    virtual State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax);
-
-private:
-    glm::mat4 *matrix;
-    Solid *tranformedSolid;
+    Scale(float v = 0);
+    ~Scale() = default;
 };
-
 #endif // SCALE_HPP

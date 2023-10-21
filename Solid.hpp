@@ -2,6 +2,8 @@
 #define SOLID_H
 
 #include <glm/vec3.hpp>
+#include "tracer/Material.hpp"
+//// #include "State.hpp"
 
 // esse enum é relativo à aresta passada como argumento do setMembership
 // pode mudar pra estar em outra classe caso necessario
@@ -18,15 +20,20 @@ class Solid
 public:
     virtual ~Solid() {}
     virtual State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) = 0;
-    void setColor(glm::vec3 color);
+    virtual Material *getMaterial();
 
 private:
-    glm::vec3 color;
+    Material *material;
 };
 
-inline void Solid::setColor(glm::vec3 color)
+inline Material *Solid::getMaterial()
 {
-    this->color = color;
+    return material;
 }
+
+// inline void Solid::setColor(glm::vec3 color)
+//{
+//     this->color = color;
+// }
 
 #endif // SOLID_H

@@ -22,6 +22,7 @@ qt_add_executable(
     interface/MainWidget.cpp
     Node.hpp
     Operation.hpp
+    tracer/Material.hpp
     Solid.hpp
     CSGTree.cpp
     main.cpp
@@ -31,6 +32,10 @@ qt_add_executable(
     TransNode.cpp
     Union.cpp
     World.cpp
+    Transformation.hpp
+    Translation.cpp
+    Scale.cpp
+    Rotation.cpp
 )
 
 target_link_libraries(csg PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)

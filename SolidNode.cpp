@@ -16,6 +16,11 @@ void SolidNode::setSolid(Solid *solid)
   this->solid = solid;
 }
 
+State SolidNode::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax, glm::mat4 trans)
+{
+  return State::IN;
+}
+
 State SolidNode::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
 {
   return State::IN;

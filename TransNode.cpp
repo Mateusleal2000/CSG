@@ -3,7 +3,9 @@
 
 TransNode::TransNode()
 {
-    this->transVec = std::vector<Transformation>();
+    this->scaleVec = std::vector<Scale>();
+    this->rotationVec = std::vector<Rotation>();
+    this->translationVec = std::vector<Translation>();
 }
 
 // template <class T>
@@ -21,9 +23,19 @@ void TransNode::setChild(Node *node)
     this->child = node;
 }
 
-void TransNode::addTransformation(Transformation trans)
+void TransNode::addRotation(Rotation trans)
 {
-    transVec.push_back(trans);
+    rotationVec.push_back(trans);
+}
+
+void TransNode::addScale(Scale trans)
+{
+    scaleVec.push_back(trans);
+}
+
+void TransNode::addTranslation(Translation trans)
+{
+    translationVec.push_back(trans);
 }
 
 void TransNode::_print()
@@ -33,6 +45,12 @@ void TransNode::_print()
     std::cout << "====end of TransNode====\n";
 }
 
+glm::mat4 TransNode::getTransformMatrix()
+{
+    // temporario
+    return glm::mat4(1.0);
+}
+
 // Node *TransNode::getChild(int idx)
 // {
 //     return this->child;
@@ -40,5 +58,7 @@ void TransNode::_print()
 
 State TransNode::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
 {
-    return State::OUT;
+    SolidNode *sn = dynamic_cast<SolidNode *>(this->getChild(0));
+    State set = sn->setMembership(edgeMin, edgeMax, this->getTransformMatrix());
+    return set;
 }

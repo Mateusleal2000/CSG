@@ -65,5 +65,8 @@ void OpNode::_print()
 
 State OpNode::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
 {
-  return State::OUT;
+  // State s1 = this->getChild(0)->setMembership(edgeMin, edgeMax);
+  // State s2 = this->getChild(1)->setMembership(edgeMin, edgeMax);
+  // return this->getOperation()->apply(s1, s2);
+  return State::IN;
 }

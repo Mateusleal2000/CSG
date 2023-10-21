@@ -15,7 +15,7 @@ public:
     ~CSGTree();
     void setRoot(OpNode *root);
     OpNode *getRoot();
-
+    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax);
     void swapRoot(Node *substituteForWorldNode);
     void add(Operation *op, TransNode *node);
     void add(Operation *op, OpNode *node);

@@ -9,7 +9,7 @@ class Sphere : public Solid
 public:
     // Sphere();
     Sphere(float rad, glm::vec3 center);
-    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) override;
+    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax);
     void setRadius(float rad);
     void setCenter(glm::vec3 center);
     float getRadius();

@@ -36,7 +36,7 @@ OpNode *CSGTree::getRoot()
 
 void CSGTree::add(Operation *op, TransNode *node)
 {
-    // std::cout<<"Adding a TransNode\n";
+    std::cout << "Adding a TransNode\n";
     swapRoot(node);
     return;
 }
@@ -47,7 +47,7 @@ void CSGTree::add(Operation *op, TransNode *node)
 
 void CSGTree::add(Operation *op, OpNode *node)
 {
-    // std::cout<<"Adding a OpNode\n";
+    std::cout << "Adding a OpNode\n";
     auto OtherLeftChild = node->getChild(0);
     swapRoot(OtherLeftChild);
     return;
@@ -70,13 +70,22 @@ void CSGTree::_initTest()
     SolidNode *sphereNode = new SolidNode(sphere);
     TransNode *sphereTransNode = new TransNode();
     sphereTransNode->setChild(sphereNode);
-    this->add(new Union(), sphereTransNode);
+    OpNode *opNode = new OpNode(new Union());
+    opNode->setChild(sphereTransNode, 0);
+    opNode->setChild(new World(), 1);
+    this->add(new Union(), opNode);
+    this->add(new Union(), opNode);
 }
 
 void CSGTree::_print()
 {
     std::cout << "CSGTree\n";
     this->getRoot()->_print();
+}
+
+State CSGTree::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
+{
+    return this->getRoot()->setMembership(edgeMin, edgeMax);
 }
 // void CSGTree::addOperation()
 // {

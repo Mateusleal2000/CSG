@@ -1,22 +1,23 @@
 #ifndef RAY_H
 #define RAY_H
 
-#include "../vec3.hpp"
+#include <glm/vec3.hpp>
+#include <glm/geometric.hpp>
 
 class Ray
 {
 public:
-    Ray(Point3 point = Point3(), Vec3 direction = Vec3());
+    Ray(glm::vec3 point = glm::vec3(), glm::vec3 direction = glm::vec3());
     ~Ray();
 
-    Point3 getPoint() const;
-    Vec3 getDir() const;
-    Vec3 getUnitRay() const;
+    glm::vec3 getPoint() const;
+    glm::vec3 getDir() const;
+    glm::vec3 getUnitRay() const;
 
 private:
-    Point3 p;
-    Vec3 dir;
-    Vec3 unitRay;
+    glm::vec3 p;
+    glm::vec3 dir;
+    glm::vec3 unitRay;
 };
 
 #endif
