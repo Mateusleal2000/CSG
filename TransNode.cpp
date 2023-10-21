@@ -29,7 +29,7 @@ void TransNode::addTransformation(Transformation trans)
 void TransNode::_print()
 {
     std::cout << "====TransNode====\n";
-    // this->getChild(0)->_print();
+    this->getChild(0)->_print();
     std::cout << "====end of TransNode====\n";
 }
 

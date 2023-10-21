@@ -57,9 +57,9 @@ void OpNode::_print()
 {
   std::cout << "=======OpNode======\n";
   std::cout << "=======left child======\n";
-  // this->getChild(0)->_print();
+  this->getChild(0)->_print();
   std::cout << "=======right child======\n";
-  // this->getChild(1)->_print();
+  this->getChild(1)->_print();
   std::cout << "=======End of OpNode======\n";
 }
 

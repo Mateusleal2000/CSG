@@ -2,6 +2,7 @@
 
 CSGTree::CSGTree(OpNode *root) : root(root)
 {
+    this->root->setChild(new World(), 0);
     this->root->setChild(new World(), 1);
     // if (root != nullptr)
     // {
@@ -35,6 +36,7 @@ OpNode *CSGTree::getRoot()
 
 void CSGTree::add(Operation *op, TransNode *node)
 {
+    // std::cout<<"Adding a TransNode\n";
     swapRoot(node);
     return;
 }
@@ -45,6 +47,7 @@ void CSGTree::add(Operation *op, TransNode *node)
 
 void CSGTree::add(Operation *op, OpNode *node)
 {
+    // std::cout<<"Adding a OpNode\n";
     auto OtherLeftChild = node->getChild(0);
     swapRoot(OtherLeftChild);
     return;
