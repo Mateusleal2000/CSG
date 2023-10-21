@@ -167,25 +167,31 @@ void InputWidget::transformSolidScreen()
     QLineEdit *qlineedit3 = new QLineEdit(this);
     qlineedit3->setPlaceholderText(QString("Z value"));
     QComboBox *solidsList = new QComboBox(this);
+    QComboBox *transformationList = new QComboBox(this);
 
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    transformationList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     solidsList->setMaximumSize(300, 30);
+    transformationList->setMaximumSize(300, 30);
 
     qlineedit1->setVisible(true);
     qlineedit2->setVisible(true);
     qlineedit3->setVisible(true);
-    solidsList->addItem(QString(""));
+    // solidsList->addItem(QString(""));
     // Antes de fazer o addItem(), precisamos pegar as primitivas disponíveis, então temos que descobrir como fazer isso ainda
     solidsList->addItem(QString("Primitive 1"));
     solidsList->addItem(QString("Primitive 2"));
     solidsList->addItem(QString("Primitive 3"));
-    QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
-                       { setNewInputs(solidsList->currentText()); });
-    QPushButton::connect(buttonTransform, &QPushButton::clicked, this, [this, solidsList]
-                         { confirmSolidTransform(solidsList->currentText()); });
+    transformationList->addItem(QString("Scale"));
+    transformationList->addItem(QString("Translation"));
+    // QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
+    //                    { setNewInputs(solidsList->currentText()); });
+    QPushButton::connect(buttonTransform, &QPushButton::clicked, this, [=, this](int i) -> void
+                         { std::cout << "Performing a " << transformationList->currentText().toStdString() << " to " << solidsList->currentText().toStdString() << "\n"; });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
+    layout->addRow(transformationList);
     layout->addRow(solidsList);
     layout->addRow(qlineedit1);
     layout->addRow(qlineedit2);
@@ -236,19 +242,6 @@ void InputWidget::operationScreen()
     layout->addRow(buttonReturn);
 }
 
-// void InputWidget::confirmSolidSelection(QString solidType, QString tree)
-// {
-//     if (tree.toStdString() == "Create New Tree")
-//     {
-
-//         std::cout << "Create a new tree called " << tree.toStdString() << " and add the " << solidType.toStdString() << "\n";
-//     }
-//     else
-//     {
-//         std::cout << "Add the " << solidType.toStdString() << " to " << tree.toStdString() << "\n";
-//     }
-// }
-
 void InputWidget::setNewInputs(QString solidType)
 {
     if (solidType.toStdString() == "Sphere")
@@ -263,11 +256,6 @@ void InputWidget::setNewInputs(QString solidType)
     }
     std::cout << "Adding a " << solidType.toStdString() << "\n";
     return;
-}
-
-void InputWidget::confirmSolidTransform(QString solidName)
-{
-    std::cout << "Transforming " << solidName.toStdString() << "\n";
 }
 
 void InputWidget::confirmSolidUnion(QString solidName1, QString solidName2)
