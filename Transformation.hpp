@@ -2,16 +2,14 @@
 #define TRANSFORMATION_HPP
 
 #include "Solid.hpp"
-#include "matrix.hpp"
+#include <glm/mat4x4.hpp>
 class Transformation
 {
 public:
-    virtual ~Transformation();
-    virtual State setMembership(Point3 edgeMin, Point3 edgeMax);
+    virtual ~Transformation() {}
 
 private:
-    Matrix<float, 4, 4> *matrix;
-    Solid *tranformedSolid;
+    glm::mat4x4 matrix;
 };
 
 #endif // TRANSFORMATION_HPP

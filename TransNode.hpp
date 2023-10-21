@@ -3,22 +3,27 @@
 
 #include "Transformation.hpp"
 #include "Node.hpp"
-
+#include <vector>
 class TransNode : public Node
 {
 public:
     TransNode();
-    ~TransNode();
-    // template <class T>
-    //     requires isSolidNode<T>
-    // T* getChild();
-    Node* getChild();
-    template <class T>
-        requires isSolidNode<T>
-    void setChild(T* node);
+
+    void setChild(Node *node);
+    // {
+    //     node->setParent(this);
+    //     this->child = node;
+    // }
+
+    Node *getChild(int idx);
+    // {
+    //     return this->child;
+    // }
+
     void addTransformation(Transformation trans);
-    State setMembership(Point3 edgeMin, Point3 edgeMax) override;
+    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) override;
     void _print() override;
+
 private:
     Node *child;
     std::vector<Transformation> transVec;

@@ -2,7 +2,7 @@
 
 Block::Block() {}
 
-Block::Block(Point3 p_min, float size_x, float size_y, float size_z)
+Block::Block(glm::vec3 p_min, float size_x, float size_y, float size_z)
 {
     this->size_x = size_x;
     this->size_y = size_y;
@@ -10,7 +10,7 @@ Block::Block(Point3 p_min, float size_x, float size_y, float size_z)
     this->p_min = p_min;
 }
 
-State Block::setMembership(Point3 edgeMin, Point3 edgeMax)
+State Block::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
 {
     /*TODO*/
     return State::IN;

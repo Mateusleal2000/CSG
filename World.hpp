@@ -8,15 +8,13 @@ class World : public Node
 public:
     World() {}
     ~World() {}
-    State setMembership(Point3 edgeMin, Point3 edgeMax) override
-    {
-        return;
-    }
+    void setChild(Node *node) override;
+    Node *getChild(int idx) override;
+    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) override;
+    void _print() override;
 
-    void _print() override 
-    {
-        std::cout<<"World\n";
-    }
+private:
+    Node *child;
 };
 
 #endif // WORLD_HPP

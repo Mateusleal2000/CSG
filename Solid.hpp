@@ -1,7 +1,7 @@
 #ifndef SOLID_H
 #define SOLID_H
 
-#include "vec3.hpp"
+#include <glm/vec3.hpp>
 
 // esse enum é relativo à aresta passada como argumento do setMembership
 // pode mudar pra estar em outra classe caso necessario
@@ -17,14 +17,14 @@ class Solid
 
 public:
     virtual ~Solid() {}
-    virtual State setMembership(Point3 edgeMin, Point3 edgeMax);
-    void setColor(RGBcolor color);
+    virtual State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) = 0;
+    void setColor(glm::vec3 color);
 
 private:
-    RGBcolor color;
+    glm::vec3 color;
 };
 
-inline void Solid::setColor(RGBcolor color)
+inline void Solid::setColor(glm::vec3 color)
 {
     this->color = color;
 }

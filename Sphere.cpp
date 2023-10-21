@@ -2,11 +2,11 @@
 #include <iostream>
 #include <math.h>
 
-Sphere::Sphere(float rad, Point3 center) : radius(rad), center(center)
+Sphere::Sphere(float rad, glm::vec3 center) : radius(rad), center(center)
 {
 }
 
-State Sphere::setMembership(Point3 edgeMin, Point3 edgeMax)
+State Sphere::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
 {
     /*TODO*/
     return State::IN;
@@ -53,7 +53,7 @@ void Sphere::setRadius(float rad)
     this->radius = rad;
 }
 
-void Sphere::setCenter(Point3 center)
+void Sphere::setCenter(glm::vec3 center)
 {
     this->center = center;
 }
@@ -63,7 +63,7 @@ float Sphere::getRadius()
     return radius;
 }
 
-Point3 Sphere::getCenter()
+glm::vec3 Sphere::getCenter()
 {
     return center;
 }

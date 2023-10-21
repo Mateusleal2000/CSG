@@ -5,27 +5,20 @@
 #include "TransNode.hpp"
 #include "SolidNode.hpp"
 #include "World.hpp"
+// headers para métodos de teste
+#include "Sphere.hpp"
 class CSGTree
 {
-    //convenção: Toda árvore possui um nó World como filho da direita do nó raiz. 
+    // convenção: Toda árvore possui um nó World como filho da direita do nó raiz.
 public:
     CSGTree(OpNode *root = nullptr);
     ~CSGTree();
     void setRoot(OpNode *root);
-    OpNode* getRoot();
+    OpNode *getRoot();
 
-    template <class T>
-        requires isOpNode<T> || isTransNode<T> 
-    void swapRoot(T* substituteForWorld);
-
-    template <class T>
-        requires isTransNode<T> 
-    void add(Operation op, T* node);
-
-    template <class T>
-        requires isOpNode<T> 
-    void add(Operation op, T* node);
-
+    void swapRoot(Node *substituteForWorldNode);
+    void add(Operation *op, TransNode *node);
+    void add(Operation *op, OpNode *node);
     void _initTest();
     void _print();
 

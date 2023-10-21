@@ -1,16 +1,15 @@
 #ifndef SCALE_HPP
 #define SCALE_HPP
 
-#include "Solid.hpp"
-#include "matrix.hpp"
+#include "Transformation.hpp"
 class Scale
 {
 public:
     virtual ~Scale();
-    virtual State setMembership(Point3 edgeMin, Point3 edgeMax);
+    virtual State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax);
 
 private:
-    Matrix<float, 4, 4> *matrix;
+    glm::mat4 *matrix;
     Solid *tranformedSolid;
 };
 

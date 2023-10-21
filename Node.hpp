@@ -1,21 +1,24 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "vec3.hpp"
-#include "NodeConcepts.hpp"
+#include <glm/vec3.hpp>
+#include "Solid.hpp"
 class Node
 {
 public:
     virtual ~Node() {}
-    void setColor(RGBcolor color);
-    RGBcolor getColor();
+    void setColor(glm::vec3 color);
+    glm::vec3 getColor();
     Node *getParent();
     void setParent(Node *parent);
-    virtual State setMembership(Point3 edgeMin, Point3 edgeMax);
-    virtual void _print(); 
+    virtual void setChild(Node *node) = 0;
+    virtual Node *getChild(int idx) = 0;
+    virtual State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) = 0;
+    virtual void _print() = 0;
+
 private:
     Node *parent;
-    RGBcolor color;
+    glm::vec3 color;
 };
 
 inline void Node::setParent(Node *parent)
@@ -28,12 +31,12 @@ inline Node *Node::getParent()
     return this->parent;
 }
 
-inline RGBcolor Node::getColor()
+inline glm::vec3 Node::getColor()
 {
     return this->color;
 }
 
-inline void Node::setColor(RGBcolor color)
+inline void Node::setColor(glm::vec3 color)
 {
     this->color = color;
 }

@@ -3,32 +3,24 @@
 
 #include "Union.hpp"
 #include "Node.hpp"
-
+#include <iostream>
 class OpNode : public Node
 {
 public:
+  OpNode(Operation *op);
+  Operation *getOperation();
+  void setOperation(Operation *op);
 
-  OpNode(Operation* op);
-  ~OpNode();
-  Operation* getOperation();
-  void setOperation(Operation* op);
-
-  // template <class T>
-  //   requires isOpNode<T> || isTransNode<T> || isWorld<T>
-  // T *getChild(int idx);
-  Node*getChild(int idx);
-
-  template <class T>
-    requires isOpNode<T> || isTransNode<T> || isWorld<T>
-  void setChild(T *node, int idx);
-
+  Node *getChild(int idx);
+  void setChild(Node *) override;
+  void setChild(Node *node, int idx);
   void _print() override;
-  State setMembership(Point3 edgeMin, Point3 edgeMax) override;
+  State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) override;
 
 private:
   Node *left;
   Node *right;
-  Operation* op;
+  Operation *op;
 };
 
 #endif // OPNODE_HPP

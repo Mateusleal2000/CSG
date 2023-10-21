@@ -1,4 +1,5 @@
 #include "TransNode.hpp"
+#include <iostream>
 
 TransNode::TransNode()
 {
@@ -6,16 +7,15 @@ TransNode::TransNode()
 }
 
 // template <class T>
-//         requires isSolidNode<T>
-// T* TransNode::getChild()
-Node* TransNode::getChild()
+//     requires isSolidNode<T>
+Node *TransNode::getChild(int idx)
 {
     return this->child;
 }
 
-template <class T>
-    requires isSolidNode<T>
-void TransNode::setChild(T* node)
+// template <class T>
+//     requires isSolidNode<T>
+void TransNode::setChild(Node *node)
 {
     node->setParent(this);
     this->child = node;
@@ -28,7 +28,17 @@ void TransNode::addTransformation(Transformation trans)
 
 void TransNode::_print()
 {
-    std::cout<<"====TransNode====\n";
-    this->getChild()->_print();
-    std::cout<<"====end of TransNode====\n";
+    std::cout << "====TransNode====\n";
+    // this->getChild(0)->_print();
+    std::cout << "====end of TransNode====\n";
+}
+
+// Node *TransNode::getChild(int idx)
+// {
+//     return this->child;
+// }
+
+State TransNode::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
+{
+    return State::OUT;
 }

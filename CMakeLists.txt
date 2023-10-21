@@ -6,7 +6,8 @@ include(CMakePrintHelpers)
 
 
 project(modelagem LANGUAGES CXX)
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets )
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(glm)
 
 
 set(CMAKE_AUTOMOC ON)
@@ -14,12 +15,22 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 qt_add_executable(
-    csg 
-    main.cpp
+    csg
     interface/GraphicsSceneWidget.cpp
-    interface/GraphicsViewWidget.cpp 
-    interface/InputWidget.cpp 
+    interface/GraphicsViewWidget.cpp
+    interface/InputWidget.cpp
     interface/MainWidget.cpp
+    Node.hpp
+    Operation.hpp
+    Solid.hpp
+    CSGTree.cpp
+    main.cpp
+    OpNode.cpp
+    SolidNode.cpp
+    Sphere.cpp
+    TransNode.cpp
+    Union.cpp
+    World.cpp
 )
 
 target_link_libraries(csg PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
