@@ -1,8 +1,5 @@
-
 #include "Union.hpp"
 
-Union::Union() {}
-State Union::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
+void Union::apply(VertexList &vlist1, VertexList &vlist2, VertexList &result)
 {
-    return State::IN;
 }

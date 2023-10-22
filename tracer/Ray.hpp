@@ -12,12 +12,12 @@ public:
 
     glm::vec3 getPoint() const;
     glm::vec3 getDir() const;
-    glm::vec3 getUnitRay() const;
+    glm::vec3 getUnitDir() const;
 
 private:
     glm::vec3 p;
     glm::vec3 dir;
-    glm::vec3 unitRay;
+    glm::vec3 unitDir;
 };
 
-#endif
+#endif // RAY_H

@@ -1,14 +1,13 @@
 #ifndef OPERATION_H
 #define OPERATION_H
 
-#include <glm/vec3.hpp>
-#include "Solid.hpp"
+#include "VertexList.hpp"
 
 class Operation
 {
 public:
     virtual ~Operation() {}
-    virtual State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) = 0;
+    virtual void apply(VertexList &vlist1, VertexList &vlist2, VertexList &result);
 };
 
 #endif // OPERATION_H

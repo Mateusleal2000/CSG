@@ -4,14 +4,14 @@ Ray::Ray(glm::vec3 point, glm::vec3 direction)
 {
     p = point;
     dir = direction;
-    unitRay = glm::normalize(p + dir);
+    unitDir = glm::normalize(p + dir);
 }
 
 Ray::~Ray() {}
 
-glm::vec3 Ray::getUnitRay() const
+glm::vec3 Ray::getUnitDir() const
 {
-    return unitRay;
+    return this->unitDir;
 }
 
 glm::vec3 Ray::getPoint() const

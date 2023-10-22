@@ -7,8 +7,8 @@
 class Union : public Operation
 {
 public:
-    Union();
-    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) override;
+    Union() {}
+    void apply(VertexList &vlist1, VertexList &vlist2, VertexList &result);
 };
 
 #endif // UNION_H
