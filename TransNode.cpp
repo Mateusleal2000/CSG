@@ -8,15 +8,11 @@ TransNode::TransNode()
     this->translationVec = std::vector<Translation>();
 }
 
-// template <class T>
-//     requires isSolidNode<T>
 Node *TransNode::getChild(int idx)
 {
     return this->child;
 }
 
-// template <class T>
-//     requires isSolidNode<T>
 void TransNode::setChild(Node *node)
 {
     node->setParent(this);
@@ -38,27 +34,48 @@ void TransNode::addTranslation(Translation trans)
     translationVec.push_back(trans);
 }
 
+glm::mat4 TransNode::getScaleMatrix()
+{
+    glm::mat4 resultScale;
+    for (int i = 0; i < scaleVec.size(); i++)
+    {
+        resultScale = resultScale * scaleVec.at(i).getMatrix();
+    }
+
+    return resultScale;
+}
+
+glm::mat4 TransNode::getTranslationMatrix()
+{
+    glm::mat4 resultTranslation;
+    for (int i = 0; i < translationVec.size(); i++)
+    {
+        resultTranslation = resultTranslation * translationVec.at(i).getMatrix();
+    }
+
+    return resultTranslation;
+}
+
+glm::mat4 TransNode::getRotationMatrix()
+{
+    glm::mat4 resultRotation;
+    for (int i = 0; i < rotationVec.size(); i++)
+    {
+        resultRotation = resultRotation * rotationVec.at(i).getMatrix();
+    }
+
+    return resultRotation;
+}
+
+void TransNode::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
+{
+    SolidNode *sn = dynamic_cast<SolidNode *>(this->getChild(0));
+    sn->setMembership(eye, D, vl, getScaleMatrix(), getTranslationMatrix(), getRotationMatrix());
+}
+
 void TransNode::_print()
 {
     std::cout << "====TransNode====\n";
     this->getChild(0)->_print();
     std::cout << "====end of TransNode====\n";
-}
-
-glm::mat4 TransNode::getTransformMatrix()
-{
-    // temporario
-    return glm::mat4(1.0);
-}
-
-// Node *TransNode::getChild(int idx)
-// {
-//     return this->child;
-// }
-
-State TransNode::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
-{
-    SolidNode *sn = dynamic_cast<SolidNode *>(this->getChild(0));
-    State set = sn->setMembership(edgeMin, edgeMax, this->getTransformMatrix());
-    return set;
 }

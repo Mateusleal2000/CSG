@@ -7,12 +7,12 @@
 class Sphere : public Solid
 {
 public:
-    // Sphere();
     Sphere(float rad, glm::vec3 center);
-    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax);
+    void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl) override;
     void setRadius(float rad);
     void setCenter(glm::vec3 center);
     float getRadius();
+    void applyTransformations(glm::mat4 scaleMatrix, glm::mat4 translationMatrix, glm::mat4 rotationMatrix) override;
     glm::vec3 getCenter();
 
 private:

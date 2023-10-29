@@ -13,7 +13,7 @@ public:
     void setParent(Node *parent);
     virtual void setChild(Node *node) = 0;
     virtual Node *getChild(int idx) = 0;
-    virtual State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) = 0;
+    virtual void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl) = 0;
     virtual void _print() = 0;
 
 private:

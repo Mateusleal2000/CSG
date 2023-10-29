@@ -16,8 +16,11 @@ public:
     void addRotation(Rotation trans);
     void addScale(Scale trans);
     void addTranslation(Translation trans);
+    glm::mat4 getScaleMatrix();
+    glm::mat4 getTranslationMatrix();
+    glm::mat4 getRotationMatrix();
     glm::mat4 getTransformMatrix();
-    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) override;
+    void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl) override;
     void _print() override;
     // void get
 

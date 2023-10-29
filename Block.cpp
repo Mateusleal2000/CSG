@@ -10,10 +10,10 @@ Block::Block(glm::vec3 p_min, float size_x, float size_y, float size_z)
     this->p_min = p_min;
 }
 
-State Block::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
+void Block::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
 {
     /*TODO*/
-    return State::IN;
+    return;
     // Point3 p_max = p_min + Point3(size_x, size_y, size_z);
     // Point3 boxMax = node->getBox()->getMax();
     // Point3 boxMin = node->getBox()->getMin();

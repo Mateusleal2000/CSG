@@ -63,10 +63,12 @@ void OpNode::_print()
   std::cout << "=======End of OpNode======\n";
 }
 
-State OpNode::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
+void OpNode::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
 {
-  // State s1 = this->getChild(0)->setMembership(edgeMin, edgeMax);
-  // State s2 = this->getChild(1)->setMembership(edgeMin, edgeMax);
-  // return this->getOperation()->apply(s1, s2);
-  return State::IN;
+  VertexList vl1 = VertexList(eye);
+  VertexList vl2 = VertexList(eye);
+  VertexList result = VertexList(eye);
+  this->getChild(0)->setMembership(eye, D, vl1);
+  this->getChild(1)->setMembership(eye, D, vl2);
+  this->getOperation()->apply(vl1, vl2, result);
 }

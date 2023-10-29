@@ -66,7 +66,7 @@ void CSGTree::swapRoot(Node *substituteForWorldNode)
 // metodo teste para criar uma árvore com uma esfera.
 void CSGTree::_initTest()
 {
-    Sphere *sphere = new Sphere(1., glm::vec3(0., 0., 0.));
+    Sphere *sphere = new Sphere(1.0, glm::vec3(0., 0., 0.));
     SolidNode *sphereNode = new SolidNode(sphere);
     TransNode *sphereTransNode = new TransNode();
     sphereTransNode->setChild(sphereNode);
@@ -83,9 +83,9 @@ void CSGTree::_print()
     this->getRoot()->_print();
 }
 
-State CSGTree::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
+void CSGTree::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
 {
-    return this->getRoot()->setMembership(edgeMin, edgeMax);
+    this->getRoot()->setMembership(eye, D, vl);
 }
 // void CSGTree::addOperation()
 // {

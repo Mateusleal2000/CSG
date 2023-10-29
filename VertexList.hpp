@@ -1,10 +1,11 @@
 #ifndef VERTEXLIST_HPP
 #define VERTEXLIST_HPP
-#include "Interval.hpp"
 #include "Vertex.hpp"
 #include <vector>
 #include <algorithm>
 #include <iostream>
+
+class Vertex;
 class VertexList
 {
 public:
@@ -19,15 +20,11 @@ public:
     Vertex &firstVertex();
     Vertex &lastVertex();
 
-    void addInterval(Interval *interval);
-    void removeInterval(Interval &interval);
-    void removeInterval(int idx);
     void refactorIntervals();
     void _print();
 
 private:
     std::vector<Vertex> *vertexList;
-    std::vector<Interval> *intervalList;
 };
 
 #endif // VERTEXLIST_HPP

@@ -8,7 +8,8 @@ class Union : public Operation
 {
 public:
     Union() {}
-    void apply(VertexList &vlist1, VertexList &vlist2, VertexList &result);
+    void apply(VertexList &vlist1, VertexList &vlist2, VertexList &result) override;
+    State classify(State &s1, State &s2) override;
 };
 
 #endif // UNION_H

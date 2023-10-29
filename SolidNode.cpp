@@ -16,14 +16,17 @@ void SolidNode::setSolid(Solid *solid)
   this->solid = solid;
 }
 
-State SolidNode::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax, glm::mat4 trans)
+void SolidNode::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl, glm::mat4 scaleMatrix, glm::mat4 translationMatrix, glm::mat4 rotationMatrix)
 {
-  return State::IN;
+  Solid *solid = getSolid();
+  solid->applyTransformations(scaleMatrix, translationMatrix, rotationMatrix);
+  solid->setMembership(eye, D, vl);
 }
 
-State SolidNode::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
+void SolidNode::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
 {
-  return State::IN;
+  std::cout << "Chamada de Função setMembership não utilizável do SolidNode!!\n";
+  exit(-1);
 }
 
 void SolidNode::_print()

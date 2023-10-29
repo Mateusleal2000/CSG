@@ -33,15 +33,6 @@ bool checkEquals(Vertex a, Vertex b)
     return false;
 }
 
-// bool canInsert(Interval a, Interval b)
-// {
-//     if ()
-//     {
-//         return true;
-//     }
-//     return false;
-// }
-
 // remove por vértice
 void VertexList::removeVertex(Vertex &v)
 {
@@ -71,44 +62,17 @@ Vertex &VertexList::lastVertex()
     return this->vertexList->at(this->vertexList->size() - 1);
 }
 
-void VertexList::addInterval(Interval *interval)
-{
-    for (int i = 0; i < intervalList->size(); i++)
-    {
-        if (intervalList->at(i).getInitial() > interval->getInitial())
-        {
-            this->intervalList->insert(intervalList->begin() + i, *interval);
-            return;
-        }
-    }
-    this->intervalList->push_back(*interval);
-    return;
-}
-
-void VertexList::removeInterval(Interval &interval)
-{
-
-    return;
-}
-
-void VertexList::removeInterval(int idx)
-{
-    intervalList->erase(intervalList->begin() + idx);
-    return;
-}
-
+// remover vértices que são IN/IN e OUT/OUT
 void VertexList::refactorIntervals()
 {
-    for (int i = 0; i < intervalList->size() - 1; i++)
-    {
-        if (intervalList->at(i).getState() == intervalList->at(i + 1).getState())
-        {
-            Interval *newInterval = new Interval(intervalList->at(i).getInitial(), intervalList->at(i + 1).getFinal(), intervalList->at(i).getState());
-            removeInterval(i);
-            removeInterval(i + 1);
-            addInterval(newInterval);
-        }
-    }
+    // std::vector<Vertex> newVertexList = {};
+
+    // for (int i = 0; i < vertexList->size(); i++)
+    // {
+    //     if (vertexList->at(i).getSmsPair()->second)
+    //     {
+    //     }
+    // }
 }
 
 void VertexList::_print()

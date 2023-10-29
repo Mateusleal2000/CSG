@@ -36,6 +36,8 @@ qt_add_executable(
     Translation.cpp
     Scale.cpp
     Rotation.cpp
+    Vertex.cpp
+    VertexList.cpp
 )
 
 target_link_libraries(csg PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)

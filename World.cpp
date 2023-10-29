@@ -1,26 +1,20 @@
 #include "World.hpp"
 #include <iostream>
 
-State World::setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax)
-{
-    getParent();
-    return State::OUT;
-}
-
-// Node *World::getChild(int idx)
-//{
-//     std::cout << "World Error\n";
-//     exit(-1);
-// }
-
-void World::setChild(Node *node)
+void World::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
 {
     return;
 }
+
+void World::setChild(Node *node)
+{
+    std::cout << "WORLD NAO PODE TER FILHOS!\n";
+    exit(-1);
+}
 Node *World::getChild(int idx)
 {
-    // auto node = new Node();
-    return child;
+    std::cout << "WORLD NAO PODE TER FILHOS!\n";
+    exit(-1);
 }
 
 void World::_print()

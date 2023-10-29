@@ -10,8 +10,8 @@ public:
     SolidNode(Solid *solid);
     Solid *getSolid();
     void setSolid(Solid *solid);
-    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax, glm::mat4 trans);
-    State setMembership(glm::vec3 edgeMin, glm::vec3 edgeMax) override;
+    void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl, glm::mat4 scaleMatrix, glm::mat4 translationMatrix, glm::mat4 rotationMatrix);
+    void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl) override;
     void _print() override;
     Node *getChild(int idx) override;
     void setChild(Node *node) override;
