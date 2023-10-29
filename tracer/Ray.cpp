@@ -1,10 +1,10 @@
 #include "Ray.hpp"
 
-Ray::Ray(glm::vec3 point, glm::vec3 direction)
+Ray::Ray(glm::vec3 point, glm::vec3 _end)
 {
-    p = point;
-    dir = direction;
-    unitDir = glm::normalize(p + dir);
+    begin = point;
+    end = _end;
+    unitDir = glm::normalize(end-begin);
 }
 
 Ray::~Ray() {}
@@ -16,10 +16,10 @@ glm::vec3 Ray::getUnitDir() const
 
 glm::vec3 Ray::getPoint() const
 {
-    return p;
+    return begin;
 }
 
 glm::vec3 Ray::getDir() const
 {
-    return dir;
+    return unitDir;
 }

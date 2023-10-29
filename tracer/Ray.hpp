@@ -7,7 +7,7 @@
 class Ray
 {
 public:
-    Ray(glm::vec3 point = glm::vec3(), glm::vec3 direction = glm::vec3());
+    Ray(glm::vec3 point = glm::vec3(), glm::vec3 end = glm::vec3());
     ~Ray();
 
     glm::vec3 getPoint() const;
@@ -15,8 +15,8 @@ public:
     glm::vec3 getUnitDir() const;
 
 private:
-    glm::vec3 p;
-    glm::vec3 dir;
+    glm::vec3 begin;
+    glm::vec3 end;
     glm::vec3 unitDir;
 };
 
