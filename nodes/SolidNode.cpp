@@ -19,7 +19,7 @@ void SolidNode::setSolid(Solid *solid)
 void SolidNode::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl, glm::mat4 scaleMatrix, glm::mat4 translationMatrix, glm::mat4 rotationMatrix)
 {
   Solid *solid = getSolid();
-  solid->applyTransformations(scaleMatrix, translationMatrix, rotationMatrix);
+  // solid->applyTransformations(scaleMatrix, translationMatrix, rotationMatrix);
   solid->setMembership(eye, D, vl);
 }
 

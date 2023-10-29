@@ -1,7 +1,7 @@
 #ifndef TRANSFORMATION_HPP
 #define TRANSFORMATION_HPP
 
-#include "Solid.hpp"
+#include "../solids/Solid.hpp"
 #include <iostream>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>

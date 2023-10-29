@@ -1,7 +1,7 @@
 #ifndef OPNODE_HPP
 #define OPNODE_HPP
 
-#include "Union.hpp"
+#include "../operations/Union.hpp"
 #include "Node.hpp"
 #include <iostream>
 class OpNode : public Node

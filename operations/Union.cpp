@@ -2,8 +2,8 @@
 
 void Union::apply(VertexList &vlist1, VertexList &vlist2, VertexList &result)
 {
-    int i = 0;
-    int j = 0;
+    int i = 1;
+    int j = 1;
 
     while (i < vlist1.getVertexList()->size() && j < vlist2.getVertexList()->size())
     {

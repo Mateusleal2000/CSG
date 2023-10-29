@@ -1,7 +1,7 @@
 #ifndef OPERATION_H
 #define OPERATION_H
 
-#include "VertexList.hpp"
+#include "../VertexList.hpp"
 
 class Operation
 {

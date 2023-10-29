@@ -1,17 +1,17 @@
 #ifndef CSG_TREE_H
 #define CSG_TREE_H
 
-#include "OpNode.hpp"
-#include "TransNode.hpp"
-#include "SolidNode.hpp"
-#include "World.hpp"
+#include "nodes/OpNode.hpp"
+#include "nodes/TransNode.hpp"
+#include "nodes/SolidNode.hpp"
+#include "nodes/World.hpp"
 // headers para métodos de teste
-#include "Sphere.hpp"
+#include "solids/Sphere.hpp"
 class CSGTree
 {
     // convenção: Toda árvore possui um nó World como filho da direita do nó raiz.
 public:
-    CSGTree(OpNode *root = nullptr);
+    CSGTree();
     ~CSGTree();
     void setRoot(OpNode *root);
     OpNode *getRoot();

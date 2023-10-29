@@ -20,22 +20,22 @@ qt_add_executable(
     interface/GraphicsViewWidget.cpp
     interface/InputWidget.cpp
     interface/MainWidget.cpp
-    Node.hpp
-    Operation.hpp
+    nodes/Node.hpp
+    operations/Operation.hpp
     tracer/Material.hpp
-    Solid.hpp
+    solids/Solid.hpp
     CSGTree.cpp
     main.cpp
-    OpNode.cpp
-    SolidNode.cpp
-    Sphere.cpp
-    TransNode.cpp
-    Union.cpp
-    World.cpp
-    Transformation.hpp
-    Translation.cpp
-    Scale.cpp
-    Rotation.cpp
+    nodes/OpNode.cpp
+    nodes/SolidNode.cpp
+    solids/Sphere.cpp
+    nodes/TransNode.cpp
+    operations/Union.cpp
+    nodes/World.cpp
+    transformations/Transformation.hpp
+    transformations/Translation.cpp
+    transformations/Scale.cpp
+    transformations/Rotation.cpp
     Vertex.cpp
     VertexList.cpp
 )

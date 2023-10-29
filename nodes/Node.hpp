@@ -2,7 +2,7 @@
 #define NODE_H
 
 #include <glm/vec3.hpp>
-#include "Solid.hpp"
+#include "../solids/Solid.hpp"
 class Node
 {
 public:

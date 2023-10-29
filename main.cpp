@@ -6,7 +6,7 @@ int main(int argc, char **argv)
 {
     Operation *op = new Union();
     OpNode *root = new OpNode(op);
-    CSGTree *csg = new CSGTree(root);
+    CSGTree *csg = new CSGTree();
     csg->_initTest();
     csg->_print();
 

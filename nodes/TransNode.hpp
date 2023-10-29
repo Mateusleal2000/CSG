@@ -1,9 +1,9 @@
 #ifndef TRANSNODE_HPP
 #define TRANSNODE_HPP
 
-#include "Translation.hpp"
-#include "Rotation.hpp"
-#include "Scale.hpp"
+#include "../transformations/Translation.hpp"
+#include "../transformations/Rotation.hpp"
+#include "../transformations/Scale.hpp"
 #include "SolidNode.hpp"
 #include <vector>
 class TransNode : public Node

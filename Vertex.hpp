@@ -4,7 +4,7 @@
 #include <glm/geometric.hpp>
 #include <utility>
 #include "tracer/Material.hpp"
-#include "Solid.hpp"
+#include "solids/Solid.hpp"
 #include "State.hpp"
 
 class Solid;

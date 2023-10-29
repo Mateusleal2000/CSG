@@ -3,7 +3,7 @@
 
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
-#include "VertexList.hpp"
+#include "../VertexList.hpp"
 
 class VertexList;
 class Solid
