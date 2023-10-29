@@ -33,3 +33,6 @@
 
 .vscode
 build
+tracer/CMakeLists.txt
+tracer/textures/*
+tracer/main.cpp
