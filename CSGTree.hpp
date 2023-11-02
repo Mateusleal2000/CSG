@@ -24,6 +24,7 @@ public:
     void _initTest();
     void _print();
     void setName(std::string _name);
+    std::string getName();
 
     // void addOperation();
     // void addTransformation();

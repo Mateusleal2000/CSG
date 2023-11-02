@@ -14,6 +14,9 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     layout->addWidget(glview);
     layout->addWidget(inputWidget);
     setLayout(layout);
+    connect(&timer, &QTimer::timeout, this, &MainWidget::checkTreeSize);
+    timer.setInterval(2000);
+    timer.start();
     show();
 }
 
@@ -21,4 +24,16 @@ MainWidget::~MainWidget()
 {
     delete inputWidget;
     delete glview;
+}
+
+void MainWidget::checkTreeSize()
+{
+    if (trees.size() > 0)
+    {
+        std::cout << "Size: " << trees.size() << "Last Name: " << trees.back().getName() << "\n";
+    }
+    else
+    {
+        std::cout << "Vazio\n";
+    }
 }

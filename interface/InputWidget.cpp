@@ -71,11 +71,38 @@ void InputWidget::addSolidScreen()
     treeName->setVisible(true);
     QComboBox *solidsList = new QComboBox(this);
 
+    QLineEdit *qlineedit1 = new QLineEdit(this);
+    qlineedit1->setVisible(true);
+    qlineedit1->setPlaceholderText(QString("Translate X"));
+    QLineEdit *qlineedit2 = new QLineEdit(this);
+    qlineedit2->setVisible(true);
+    qlineedit2->setPlaceholderText(QString("Translate Y"));
+    QLineEdit *qlineedit3 = new QLineEdit(this);
+    qlineedit3->setVisible(true);
+    qlineedit3->setPlaceholderText(QString("Translate Z"));
+    QLineEdit *qlineedit4 = new QLineEdit(this);
+    qlineedit4->setVisible(true);
+    qlineedit4->setPlaceholderText(QString("Scale X"));
+    QLineEdit *qlineedit5 = new QLineEdit(this);
+    qlineedit5->setVisible(true);
+    qlineedit5->setPlaceholderText(QString("Scale Y"));
+    QLineEdit *qlineedit6 = new QLineEdit(this);
+    qlineedit6->setVisible(true);
+    qlineedit6->setPlaceholderText(QString("Scale Z"));
+    QLineEdit *qlineedit7 = new QLineEdit(this);
+    qlineedit7->setVisible(true);
+    qlineedit7->setPlaceholderText(QString("Rotate X"));
+    QLineEdit *qlineedit8 = new QLineEdit(this);
+    qlineedit8->setVisible(true);
+    qlineedit8->setPlaceholderText(QString("Rotate Y"));
+    QLineEdit *qlineedit9 = new QLineEdit(this);
+    qlineedit9->setVisible(true);
+    qlineedit9->setPlaceholderText(QString("Rotate Z"));
+
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     solidsList->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
 
-    solidsList->addItem(QString(""));
     solidsList->addItem(QString("Sphere"));
     solidsList->addItem(QString("Block"));
     QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
@@ -92,11 +119,34 @@ void InputWidget::addSolidScreen()
                         setNewInputs(solidsList->currentText()); });
 
     QPushButton::connect(buttonConfirm, &QPushButton::clicked, this, [=, this](int i) -> void
-                         { std::cout << "Create a new tree called " << treeName->text().toStdString() << " and add the " << solidsList->currentText().toStdString() << "\n"; });
+                         { std::cout << "Create a new tree called " << treeName->text().toStdString() << " and add the " << solidsList->currentText().toStdString() << "\n";
+                         if(solidsList->currentText().toStdString() == "Sphere"){
+                            CSGTree new_csg = CSGTree();
+                            Sphere sphere = Sphere();
+
+                            SolidNode sphereNode = SolidNode(&sphere);
+                            TransNode sphereTransNode = TransNode();
+                            sphereTransNode.setChild(&sphereNode);
+                            sphereTransNode.addScale(Scale(1.0));
+                            sphereTransNode.addTranslation(Translation(0., 0., 0.));
+                            new_csg.add(new Union(), &sphereTransNode);
+                            new_csg.setName(treeName->text().toStdString());
+                            trees->push_back(new_csg);
+                            
+                         } });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
     layout->addRow(solidsList);
     layout->addRow(treeName);
+    layout->addRow(qlineedit1);
+    layout->addRow(qlineedit2);
+    layout->addRow(qlineedit3);
+    layout->addRow(qlineedit4);
+    layout->addRow(qlineedit5);
+    layout->addRow(qlineedit6);
+    layout->addRow(qlineedit7);
+    layout->addRow(qlineedit8);
+    layout->addRow(qlineedit9);
     layout->addRow(buttonConfirm);
     layout->addRow(buttonReturn);
 }

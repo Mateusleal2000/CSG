@@ -128,3 +128,8 @@ void CSGTree::setName(std::string _name)
 {
     name = _name;
 }
+
+std::string CSGTree::getName()
+{
+    return name;
+}
