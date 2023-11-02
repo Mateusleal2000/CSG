@@ -51,7 +51,6 @@ inline void GLObject::loadTexture(QString filePath)
   dir.cd("tracer/textures");
   std::string s = "/" + filePath.toStdString();
   texImage = new QImage(dir.absolutePath().append(QString::fromStdString(s)));
-  // texImage = new QImage("/home/mateus/trabalho2_modelagem/CSG/tracer/textures/container.jpg");
   texImage->convertTo(QImage::Format_RGB888);
 }
 

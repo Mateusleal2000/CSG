@@ -1,10 +1,16 @@
 #include "Camera.hpp"
 #include <iostream>
 
-Camera::Camera(float _fov, float _near, float _far)
+Camera::Camera()
 {
-    viewPortWidth = 10;
-    viewPortHeight = 10;
+}
+
+Camera::~Camera() {}
+
+void Camera::init(float _fov, float _near, float _far, int _viewPortWidth, int _viewPortHeight)
+{
+    viewPortWidth = _viewPortWidth;
+    viewPortHeight = _viewPortHeight;
     near = _near;
     fov = _fov;
     far = _far;
@@ -18,8 +24,6 @@ Camera::Camera(float _fov, float _near, float _far)
     projMatrix = glm::mat4(1.0);
     updateCamera();
 }
-
-Camera::~Camera() {}
 
 glm::vec3 Camera::getPos() const
 {
@@ -41,13 +45,7 @@ void Camera::updateCamera()
 {
     viewMatrix = glm::lookAtRH(pos, pos + foward, up);
     invViewMatrix = glm::inverse(viewMatrix);
-    // for(int i = 0;i<4;i++){
-    //     for(int j = 0;j<4;j++){
-    //         std::cout<<invViewMatrix[i][j] << " ";
-    //     }
-    //     std::cout<<std::endl;
-    // }
-    projMatrix = glm::perspectiveFovRH(glm::radians(fov), (float)viewPortWidth, (float)viewPortHeight, near, far);
+    projMatrix = glm::perspectiveFov(glm::radians(fov), (float)viewPortWidth, (float)viewPortHeight, near, far);
     invProjMatrix = glm::inverse(projMatrix);
 }
 

@@ -123,3 +123,8 @@ void CSGTree::setMembership(const Ray &ray, VertexList &vl)
 // {
 //     return;
 // }
+
+void CSGTree::setName(std::string _name)
+{
+    name = _name;
+}

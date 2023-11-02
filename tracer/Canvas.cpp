@@ -86,7 +86,14 @@ void Canvas::init()
   loadTexture("container.jpg");
   std::cout << "Leu\n";
 
-  uchar *data = texImage->bits();
+  for (int i = 0; i < 640 * 480; i++)
+  {
+    v.push_back(150);
+    v.push_back(150);
+    v.push_back(150);
+  }
+
+  uchar *data = v.data(); // texImage->bits();
 
   f->glGenTextures(1, &textures[0]);
   // f->glActiveTexture(GL_TEXTURE0);
@@ -123,6 +130,8 @@ void Canvas::draw()
   f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   f->glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+  f->glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 640, 480, 0, GL_RGB, GL_UNSIGNED_BYTE, v.data());
+
   f->glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
   f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO[0]);
 
@@ -138,4 +147,17 @@ void Canvas::draw()
   f->glBindVertexArray(0);
   f->glBindBuffer(GL_ARRAY_BUFFER, 0);
   f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void Canvas::updateColor(int c1, int c2, int c3)
+{
+  v.clear();
+  for (int i = 0; i < 640 * 480; i++)
+  {
+    v.push_back(c1);
+    v.push_back(c2);
+    v.push_back(c3);
+  }
+  std::cout << "Timer tick\n";
+  return;
 }

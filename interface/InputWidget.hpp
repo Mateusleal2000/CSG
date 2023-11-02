@@ -5,17 +5,20 @@
 #include <QLayoutItem>
 #include <QGridLayout>
 #include <QFormLayout>
+#include "../CSGTree.hpp"
 
 class InputWidget : public QWidget
 {
     Q_OBJECT
 private:
     QFormLayout *layout;
+    std::vector<CSGTree> *trees;
 
 public:
     InputWidget(QWidget *parent = 0);
     ~InputWidget();
     void cleanLayout();
+    void setTrees(std::vector<CSGTree> *_trees);
 
 public slots:
     void mainScreen();

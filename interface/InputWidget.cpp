@@ -65,92 +65,38 @@ void InputWidget::addSolidScreen()
     cleanLayout();
     layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
     QPushButton *buttonReturn = new QPushButton("Return", this);
-    QPushButton *buttonConfirm = new QPushButton("Add", this);
+    QPushButton *buttonConfirm = new QPushButton("Create new Tree", this);
     QLineEdit *treeName = new QLineEdit(this);
     treeName->setPlaceholderText(QString("Tree Name"));
-    QLineEdit *qlineedit1 = new QLineEdit(this);
-    qlineedit1->setPlaceholderText(QString("X value"));
-    QLineEdit *qlineedit2 = new QLineEdit(this);
-    qlineedit2->setPlaceholderText(QString("Y value"));
-    QLineEdit *qlineedit3 = new QLineEdit(this);
-    qlineedit3->setPlaceholderText(QString("Z value"));
-    QLineEdit *qlineedit4 = new QLineEdit(this);
-    qlineedit4->setPlaceholderText(QString("Height"));
-    QLineEdit *qlineedit5 = new QLineEdit(this);
-    qlineedit5->setPlaceholderText(QString("Length"));
-    QLineEdit *qlineedit6 = new QLineEdit(this);
-    qlineedit6->setPlaceholderText(QString("Width"));
+    treeName->setVisible(true);
     QComboBox *solidsList = new QComboBox(this);
-    QComboBox *treesList = new QComboBox(this);
 
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     solidsList->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
 
-    qlineedit1->setVisible(false);
-    qlineedit2->setVisible(false);
-    qlineedit3->setVisible(false);
-    qlineedit4->setVisible(false);
-    qlineedit5->setVisible(false);
-    qlineedit6->setVisible(false);
     solidsList->addItem(QString(""));
     solidsList->addItem(QString("Sphere"));
     solidsList->addItem(QString("Block"));
-    treesList->addItem(QString("Create New Tree"));
-    treesList->addItem(QString("Tree 1"));
-    treesList->addItem(QString("Tree 2"));
     QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
                        {if (solidsList->currentText().toStdString() == "Sphere")
                        {
-                        qlineedit1->setVisible(true);
-                        qlineedit2->setVisible(true);
-                        qlineedit3->setVisible(true);
-                        qlineedit4->setVisible(true);
-                        qlineedit4->setPlaceholderText(QString("Radius"));
-                        qlineedit5->setVisible(false);
-                        qlineedit6->setVisible(false);
+                        // Adiciona esfera
+                        std::cout<<"Adiciona esfera\n";
                        }
                        if (solidsList->currentText().toStdString() == "Block")
                        {
-                        qlineedit1->setVisible(true);
-                        qlineedit2->setVisible(true);
-                        qlineedit3->setVisible(true);
-                        qlineedit4->setVisible(true);
-                        qlineedit4->setPlaceholderText(QString("Height"));
-                        qlineedit5->setVisible(true);
-                        qlineedit6->setVisible(true);
+                        // Adiciona bloco
+                        std::cout<<"Adiciona bloco\n";
                        }
                         setNewInputs(solidsList->currentText()); });
 
-    QComboBox::connect(treesList, &QComboBox::activated, this, [=, this](int i) -> void
-                       {if (treesList->currentText().toStdString() == "Create New Tree")
-                       {
-                        treeName->setVisible(true);
-                       }
-                       else
-                       {
-                        treeName->setVisible(false);
-                       } });
     QPushButton::connect(buttonConfirm, &QPushButton::clicked, this, [=, this](int i) -> void
-                         {if (treesList->currentText().toStdString() == "Create New Tree")
-                        {
-                            std::cout << "Create a new tree called " << treeName->text().toStdString() << " and add the " << solidsList->currentText().toStdString()<< "\n";
-                        }
-                        else{
-                            std::cout << "Add the " << solidsList->currentText().toStdString() << " to " << treesList->currentText().toStdString() << "\n";
-                            }
-                            /*confirmSolidSelection(solidsList->currentText(), treesList->currentText());*/ });
+                         { std::cout << "Create a new tree called " << treeName->text().toStdString() << " and add the " << solidsList->currentText().toStdString() << "\n"; });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
     layout->addRow(solidsList);
-    layout->addRow(treesList);
     layout->addRow(treeName);
-    layout->addRow(qlineedit1);
-    layout->addRow(qlineedit2);
-    layout->addRow(qlineedit3);
-    layout->addRow(qlineedit4);
-    layout->addRow(qlineedit5);
-    layout->addRow(qlineedit6);
     layout->addRow(buttonConfirm);
     layout->addRow(buttonReturn);
 }
@@ -186,8 +132,6 @@ void InputWidget::transformSolidScreen()
     solidsList->addItem(QString("Primitive 3"));
     transformationList->addItem(QString("Scale"));
     transformationList->addItem(QString("Translation"));
-    // QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
-    //                    { setNewInputs(solidsList->currentText()); });
     QPushButton::connect(buttonTransform, &QPushButton::clicked, this, [=, this](int i) -> void
                          { std::cout << "Performing a " << transformationList->currentText().toStdString() << " to " << solidsList->currentText().toStdString() << "\n"; });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
@@ -271,4 +215,9 @@ void InputWidget::confirmSolidUnion(QString solidName1, QString solidName2)
         std::cout << "Not a valid operation\n";
         return;
     }
+}
+
+void InputWidget::setTrees(std::vector<CSGTree> *_trees)
+{
+    trees = _trees;
 }

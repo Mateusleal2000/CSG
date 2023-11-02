@@ -26,6 +26,8 @@ qt_add_executable(
     tracer/Canvas.cpp
     tracer/GLProgram.cpp
     tracer/GLObject.hpp
+    tracer/Sampler.hpp
+    tracer/Camera.cpp
 
     
     nodes/Node.hpp

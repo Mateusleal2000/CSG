@@ -8,6 +8,7 @@
 #include "tracer/Ray.hpp"
 // headers para métodos de teste
 #include "solids/Sphere.hpp"
+#include <string>
 class CSGTree
 {
     // convenção: Toda árvore possui um nó World como filho da direita do nó raiz.
@@ -22,11 +23,13 @@ public:
     void add(Operation *op, OpNode *node);
     void _initTest();
     void _print();
+    void setName(std::string _name);
 
     // void addOperation();
     // void addTransformation();
 private:
     OpNode *root;
+    std::string name;
 };
 
 #endif // CSG_TREE_H
