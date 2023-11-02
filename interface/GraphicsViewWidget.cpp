@@ -1,4 +1,5 @@
 #include "GraphicsViewWidget.hpp"
+#include "definitions.hpp"
 #include <fstream>
 #include <iostream>
 
@@ -14,6 +15,10 @@ GraphicsViewWidget::GraphicsViewWidget(QGraphicsScene *parent) : QGraphicsView(p
     QString path = dir.path();
     QString s = path + QString(fileName.c_str());
     std::cout << s.toStdString() << "\n";
+    // setFixedSize((Definitions::MAIN_WIDTH / 1.875), (Definitions::MAIN_HEIGHT / 1.666666667));
+    // std::cout << "width: " << width() << " height" << height() << std::endl;
+    // setContentsMargins(0., 0., 0., 0.);
+    // setFrameShape(QFrame::NoFrame);
     showImage(s);
 }
 

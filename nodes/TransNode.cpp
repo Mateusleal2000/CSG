@@ -36,7 +36,7 @@ void TransNode::addTranslation(Translation trans)
 
 glm::mat4 TransNode::getScaleMatrix()
 {
-    glm::mat4 resultScale;
+    glm::mat4 resultScale(1.);
     for (int i = 0; i < scaleVec.size(); i++)
     {
         resultScale = resultScale * scaleVec.at(i).getMatrix();
@@ -47,7 +47,7 @@ glm::mat4 TransNode::getScaleMatrix()
 
 glm::mat4 TransNode::getTranslationMatrix()
 {
-    glm::mat4 resultTranslation;
+    glm::mat4 resultTranslation(1.);
     for (int i = 0; i < translationVec.size(); i++)
     {
         resultTranslation = resultTranslation * translationVec.at(i).getMatrix();
@@ -58,7 +58,7 @@ glm::mat4 TransNode::getTranslationMatrix()
 
 glm::mat4 TransNode::getRotationMatrix()
 {
-    glm::mat4 resultRotation;
+    glm::mat4 resultRotation(1.);
     for (int i = 0; i < rotationVec.size(); i++)
     {
         resultRotation = resultRotation * rotationVec.at(i).getMatrix();
@@ -67,10 +67,23 @@ glm::mat4 TransNode::getRotationMatrix()
     return resultRotation;
 }
 
-void TransNode::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
+glm::mat4 TransNode::getModelMatrix()
+{
+    auto scale = getScaleMatrix();
+    auto translate = getTranslationMatrix();
+    auto rotation = getRotationMatrix();
+    return translate * scale * rotation;
+}
+
+glm::mat4 TransNode::getModelMatrixInv()
+{
+    return glm::inverse(getModelMatrix());
+}
+
+void TransNode::setMembership(const Ray &ray, VertexList &vl)
 {
     SolidNode *sn = dynamic_cast<SolidNode *>(this->getChild(0));
-    sn->setMembership(eye, D, vl, getScaleMatrix(), getTranslationMatrix(), getRotationMatrix());
+    sn->setMembership(ray, vl, getModelMatrix(), getModelMatrixInv());
 }
 
 void TransNode::_print()

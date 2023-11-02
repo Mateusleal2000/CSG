@@ -86,18 +86,22 @@ void CSGTree::add(Operation *op, OpNode *node)
 // metodo teste para criar uma árvore com uma esfera.
 void CSGTree::_initTest()
 {
-    Sphere *sphere = new Sphere(4.0f, glm::vec3(0., 0., -10.));
+    Sphere *sphere = new Sphere();
     glm::vec3 eye(0.);
-    glm::vec3 D = glm::normalize(sphere->getCenter() - eye);
+    glm::vec3 D = glm::normalize(glm::vec3(0., 0., -1.));
+    const Ray ray = Ray(eye, eye + D);
     std::cout << "DIRECAO " << D.x << " " << D.y << " " << D.z << "\n";
 
     SolidNode *sphereNode = new SolidNode(sphere);
     TransNode *sphereTransNode = new TransNode();
     sphereTransNode->setChild(sphereNode);
+    sphereTransNode->addScale(Scale(4.0));
+    sphereTransNode->addTranslation(Translation(0., 0., -10.));
     this->add(new Union(), sphereTransNode);
-    // this->add(new Union(), sphereTransNode);
+    this->add(new Union(), sphereTransNode);
+    this->add(new Union(), sphereTransNode);
     VertexList vl(eye);
-    setMembership(eye, D, vl);
+    setMembership(ray, vl);
     vl._print();
 }
 
@@ -107,9 +111,9 @@ void CSGTree::_print()
     this->getRoot()->_print();
 }
 
-void CSGTree::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
+void CSGTree::setMembership(const Ray &ray, VertexList &vl)
 {
-    this->getRoot()->setMembership(eye, D, vl);
+    this->getRoot()->setMembership(ray, vl);
 }
 // void CSGTree::addOperation()
 // {

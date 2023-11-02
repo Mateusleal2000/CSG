@@ -8,8 +8,7 @@ class Block : public Solid
 public:
     Block();
     Block(glm::vec3 p_min, float size_x, float size_y, float size_z);
-    void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl) override;
-    // Point3 getCenter();
+    void setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &modelMatrix, const glm::mat4 &modelMatrixInv) override;
 
 private:
     float size_x;

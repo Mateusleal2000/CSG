@@ -1,28 +1,30 @@
 #include "Canvas.hpp"
 #include <iostream>
 
-Canvas::Canvas(QOpenGLContext * _context) : GLObject(){
-  if(_context != nullptr){
+Canvas::Canvas(QOpenGLContext *_context) : GLObject()
+{
+  if (_context != nullptr)
+  {
     currentContext = _context;
   }
 }
 
+Canvas::~Canvas() {}
 
-Canvas::~Canvas(){}
-
-void Canvas::init(){
+void Canvas::init()
+{
   f = QOpenGLVersionFunctionsFactory::get<QOpenGLFunctions_3_3_Core>(currentContext);
-  if(currentContext == nullptr){
-    std::cout<<"Context is null\n";
+  if (currentContext == nullptr)
+  {
+    std::cout << "Context is null\n";
   }
 
   vertexVector.reserve(4);
 
-
-  vertexVector.emplace_back(Vertex{glm::vec3(1.0,1.0,0.),glm::vec3(1.,0.,0.),glm::vec2(1.,0.)});
-  vertexVector.emplace_back(Vertex{glm::vec3(1.0,-1.0,0.),glm::vec3(0.,1.,0.),glm::vec2(1.,1.)});
-  vertexVector.emplace_back(Vertex{glm::vec3(-1.0,-1.0,0.),glm::vec3(0.,0.,1.),glm::vec2(0.,1.)});
-  vertexVector.emplace_back(Vertex{glm::vec3(-1.0,1.0,0.),glm::vec3(1.,1.,0.),glm::vec2(0.,0.)});
+  vertexVector.emplace_back(Vertex{glm::vec3(1.0, 1.0, 0.), glm::vec3(1., 0., 0.), glm::vec2(1., 0.)});
+  vertexVector.emplace_back(Vertex{glm::vec3(1.0, -1.0, 0.), glm::vec3(0., 1., 0.), glm::vec2(1., 1.)});
+  vertexVector.emplace_back(Vertex{glm::vec3(-1.0, -1.0, 0.), glm::vec3(0., 0., 1.), glm::vec2(0., 1.)});
+  vertexVector.emplace_back(Vertex{glm::vec3(-1.0, 1.0, 0.), glm::vec3(1., 1., 0.), glm::vec2(0., 0.)});
 
   indiciesVector.reserve(6);
   indiciesVector.emplace_back(0);
@@ -47,51 +49,48 @@ void Canvas::init(){
   program.reserve(1);
   program.resize(1);
 
-  std::cout<<"naoleu\n";
+  std::cout << "naoleu\n";
 
-  f->glGenBuffers(1,&VBO[0]);
-  f->glGenBuffers(1,&EBO[0]);
-  f->glGenVertexArrays(1,&VAO[0]);
+  f->glGenBuffers(1, &VBO[0]);
+  f->glGenBuffers(1, &EBO[0]);
+  f->glGenVertexArrays(1, &VAO[0]);
 
   program[0] = GLProgram(currentContext);
-  program[0].createShaderFromFile("vert_shader.vert","frag_shader.frag");
-
+  program[0].createShaderFromFile("vert_shader.vert", "frag_shader.frag");
 
   f->glBindVertexArray(VAO[0]);
 
-  f->glBindBuffer(GL_ARRAY_BUFFER,VBO[0]);
-  f->glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertexVector.size(),vertexVector.data(),GL_DYNAMIC_DRAW);
+  f->glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+  f->glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertexVector.size(), vertexVector.data(), GL_DYNAMIC_DRAW);
 
   f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO[0]);
-  f->glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indiciesVector.size(), indiciesVector.data(),GL_DYNAMIC_DRAW);
+  f->glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indiciesVector.size(), indiciesVector.data(), GL_DYNAMIC_DRAW);
 
-  GLint pos_attrib = f->glGetAttribLocation(program[0].getProgramId(),"position");
-  GLint color_attrib = f->glGetAttribLocation(program[0].getProgramId(),"color_a");
-  GLint tex_attrib = f->glGetAttribLocation(program[0].getProgramId(),"text");
+  GLint pos_attrib = f->glGetAttribLocation(program[0].getProgramId(), "position");
+  GLint color_attrib = f->glGetAttribLocation(program[0].getProgramId(), "color_a");
+  GLint tex_attrib = f->glGetAttribLocation(program[0].getProgramId(), "text");
 
-  f->glVertexAttribPointer(pos_attrib,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),0);
+  f->glVertexAttribPointer(pos_attrib, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
   f->glEnableVertexAttribArray(pos_attrib);
 
-  f->glVertexAttribPointer(color_attrib,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),(void*)sizeof(glm::vec3));
+  f->glVertexAttribPointer(color_attrib, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)sizeof(glm::vec3));
   f->glEnableVertexAttribArray(color_attrib);
 
-  f->glVertexAttribPointer(tex_attrib,2,GL_FLOAT,GL_FALSE,sizeof(Vertex),(void*)(2*sizeof(glm::vec3)));
+  f->glVertexAttribPointer(tex_attrib, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(2 * sizeof(glm::vec3)));
   f->glEnableVertexAttribArray(tex_attrib);
 
-
-  f->glBindBuffer(GL_ARRAY_BUFFER,0); //unbid current VBO
-  f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0); //unbid current EBO
-  f->glBindVertexArray(0); //unbind current VAO 
+  f->glBindBuffer(GL_ARRAY_BUFFER, 0);         // unbid current VBO
+  f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // unbid current EBO
+  f->glBindVertexArray(0);                     // unbind current VAO
 
   loadTexture("container.jpg");
-  std::cout<<"Leu\n";
+  std::cout << "Leu\n";
 
-  uchar * data = texImage->bits();
+  uchar *data = texImage->bits();
 
-  f->glGenTextures(1,&textures[0]);
-  //f->glActiveTexture(GL_TEXTURE0);
-  f->glBindTexture(GL_TEXTURE_2D,textures[0]);
-
+  f->glGenTextures(1, &textures[0]);
+  // f->glActiveTexture(GL_TEXTURE0);
+  f->glBindTexture(GL_TEXTURE_2D, textures[0]);
 
   f->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
   f->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
@@ -102,51 +101,41 @@ void Canvas::init(){
   int width = texImage->width();
   int height = texImage->height();
 
-  std::cout<<"Data:"<<std::endl;
-
-  std::cout<<(int)data[0]<<std::endl;
-  std::cout<<(int)data[1]<<std::endl;
-  std::cout<<(int)data[2]<<std::endl;
-  std::cout<<(int)data[3]<<std::endl;
-
-  if(data !=nullptr){
+  if (data != nullptr)
+  {
     f->glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
     f->glGenerateMipmap(GL_TEXTURE_2D);
   }
-  else{
-    std::cout<<"Erro! nullimage\n";
+  else
+  {
+    std::cout << "Erro! nullimage\n";
     exit(-1);
   }
   f->glUseProgram(program[0].getProgramId());
-  f->glUniform1i(f->glGetUniformLocation(program[0].getProgramId(), "text"),0);
-
-
-
-
+  f->glUniform1i(f->glGetUniformLocation(program[0].getProgramId(), "text"), 0);
 }
 
-void Canvas::draw(){
+void Canvas::draw()
+{
 
-  std::cout<<"Desenhando\n";
+  std::cout << "Desenhando\n";
 
   f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  f->glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+  f->glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-  
-  f->glBindBuffer(GL_ARRAY_BUFFER,VBO[0]);
-  f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO[0]);
+  f->glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+  f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO[0]);
 
   f->glActiveTexture(GL_TEXTURE0);
   f->glBindTexture(GL_TEXTURE_2D, textures[0]);
 
   f->glUseProgram(program[0].getProgramId());
 
-
   f->glBindVertexArray(VAO[0]);
 
   f->glDrawElements(GL_TRIANGLES, indiciesVector.size(), GL_UNSIGNED_INT, indiciesVector.data());
 
   f->glBindVertexArray(0);
-  f->glBindBuffer(GL_ARRAY_BUFFER,0);
-  f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+  f->glBindBuffer(GL_ARRAY_BUFFER, 0);
+  f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }

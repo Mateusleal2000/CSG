@@ -1,4 +1,5 @@
 #include "InputWidget.hpp"
+#include "definitions.hpp"
 #include <iostream>
 #include <QLabel>
 #include <QPushButton>
@@ -9,7 +10,7 @@
 
 InputWidget::InputWidget(QWidget *parent) : QWidget(parent)
 {
-    setFixedSize(400, 600);
+    setFixedSize(Definitions::MAIN_WIDTH / 3, Definitions::MAIN_HEIGHT);
     setContentsMargins(0, 0, 0, 0);
     layout = new QFormLayout(this);
     layout->setSpacing(0);
@@ -84,7 +85,7 @@ void InputWidget::addSolidScreen()
 
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
-    solidsList->setMaximumSize(300, 30);
+    solidsList->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
 
     qlineedit1->setVisible(false);
     qlineedit2->setVisible(false);
@@ -172,8 +173,8 @@ void InputWidget::transformSolidScreen()
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     transformationList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
-    solidsList->setMaximumSize(300, 30);
-    transformationList->setMaximumSize(300, 30);
+    solidsList->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
+    transformationList->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
 
     qlineedit1->setVisible(true);
     qlineedit2->setVisible(true);
@@ -214,9 +215,9 @@ void InputWidget::operationScreen()
     treeOperand1->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     treeOperand2->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
-    operation->setMaximumSize(300, 30);
-    treeOperand1->setMaximumSize(300, 30);
-    treeOperand2->setMaximumSize(300, 30);
+    operation->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
+    treeOperand1->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
+    treeOperand2->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
 
     operation->addItem(QString("Union"));
 

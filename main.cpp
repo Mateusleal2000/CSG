@@ -10,10 +10,10 @@ int main(int argc, char **argv)
     csg->_initTest();
     csg->_print();
 
-    // QApplication app(argc, argv);
-    // MainWidget *mw = new MainWidget();
+    QApplication app(argc, argv);
+    MainWidget *mw = new MainWidget();
 
-    // app.exec();
+    app.exec();
 
     return 0;
 }

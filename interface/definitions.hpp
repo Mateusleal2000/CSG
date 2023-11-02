@@ -8,6 +8,9 @@ namespace Definitions
         sphere,
         block
     };
+
+    static const int MAIN_WIDTH = 1040;
+    static const int MAIN_HEIGHT = 480;
 };
 
 #endif // DEFINITIONS_H

@@ -15,7 +15,7 @@ public:
   void setChild(Node *) override;
   void setChild(Node *node, int idx);
   void _print() override;
-  void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl) override;
+  void setMembership(const Ray &ray, VertexList &vl) override;
 
 private:
   Node *left;

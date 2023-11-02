@@ -10,7 +10,7 @@ public:
     ~World() {}
     void setChild(Node *node) override;
     Node *getChild(int idx) override;
-    void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl) override;
+    void setMembership(const Ray &ray, VertexList &vl) override;
     void _print() override;
 
 private:

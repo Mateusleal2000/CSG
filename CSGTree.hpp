@@ -5,6 +5,7 @@
 #include "nodes/TransNode.hpp"
 #include "nodes/SolidNode.hpp"
 #include "nodes/World.hpp"
+#include "tracer/Ray.hpp"
 // headers para métodos de teste
 #include "solids/Sphere.hpp"
 class CSGTree
@@ -15,7 +16,7 @@ public:
     ~CSGTree();
     void setRoot(OpNode *root);
     OpNode *getRoot();
-    void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl);
+    void setMembership(const Ray &ray, VertexList &vl);
     void swapRoot(Node *substituteForWorldNode);
     void add(Operation *op, TransNode *node);
     void add(Operation *op, OpNode *node);

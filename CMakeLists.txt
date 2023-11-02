@@ -20,24 +20,36 @@ qt_add_executable(
     interface/GraphicsViewWidget.cpp
     interface/InputWidget.cpp
     interface/MainWidget.cpp
-    nodes/Node.hpp
-    operations/Operation.hpp
+
+    
     tracer/Material.hpp
-    solids/Solid.hpp
-    CSGTree.cpp
-    main.cpp
+    tracer/Ray.cpp
+
+    
+    nodes/Node.hpp
     nodes/OpNode.cpp
     nodes/SolidNode.cpp
-    solids/Sphere.cpp
     nodes/TransNode.cpp
-    operations/Union.cpp
     nodes/World.cpp
-    transformations/Transformation.hpp
-    transformations/Translation.cpp
+    
+    
+    operations/Union.cpp
+    operations/Operation.hpp
+
     transformations/Scale.cpp
     transformations/Rotation.cpp
+    transformations/Transformation.hpp
+    transformations/Translation.cpp
+    
+    solids/Solid.hpp
+    solids/Sphere.cpp
+    
+    CSGTree.cpp
     Vertex.cpp
     VertexList.cpp
+
+
+    main.cpp
 )
 
 target_link_libraries(csg PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)

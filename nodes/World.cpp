@@ -1,7 +1,7 @@
 #include "World.hpp"
 #include <iostream>
 
-void World::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
+void World::setMembership(const Ray &ray, VertexList &vl)
 {
     return;
 }

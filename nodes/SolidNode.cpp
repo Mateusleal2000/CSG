@@ -16,14 +16,13 @@ void SolidNode::setSolid(Solid *solid)
   this->solid = solid;
 }
 
-void SolidNode::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl, glm::mat4 scaleMatrix, glm::mat4 translationMatrix, glm::mat4 rotationMatrix)
+void SolidNode::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &modelMatrix, const glm::mat4 &modelMatrixInv)
 {
   Solid *solid = getSolid();
-  // solid->applyTransformations(scaleMatrix, translationMatrix, rotationMatrix);
-  solid->setMembership(eye, D, vl);
+  solid->setMembership(ray, vl, modelMatrix, modelMatrixInv);
 }
 
-void SolidNode::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
+void SolidNode::setMembership(const Ray &ray, VertexList &vl)
 {
   std::cout << "Chamada de Função setMembership não utilizável do SolidNode!!\n";
   exit(-1);

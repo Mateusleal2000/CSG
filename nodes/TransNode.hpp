@@ -20,7 +20,9 @@ public:
     glm::mat4 getTranslationMatrix();
     glm::mat4 getRotationMatrix();
     glm::mat4 getTransformMatrix();
-    void setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl) override;
+    glm::mat4 getModelMatrix();
+    glm::mat4 getModelMatrixInv();
+    void setMembership(const Ray &ray, VertexList &vl) override;
     void _print() override;
     // void get
 

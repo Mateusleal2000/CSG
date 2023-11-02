@@ -63,11 +63,11 @@ void OpNode::_print()
   std::cout << "=======End of OpNode======\n";
 }
 
-void OpNode::setMembership(glm::vec3 eye, glm::vec3 D, VertexList &vl)
+void OpNode::setMembership(const Ray &ray, VertexList &vl)
 {
-  VertexList vl1 = VertexList(eye);
-  VertexList vl2 = VertexList(eye);
-  this->getChild(0)->setMembership(eye, D, vl1);
-  this->getChild(1)->setMembership(eye, D, vl2);
+  VertexList vl1 = VertexList(ray.getPoint());
+  VertexList vl2 = VertexList(ray.getPoint());
+  this->getChild(0)->setMembership(ray, vl1);
+  this->getChild(1)->setMembership(ray, vl2);
   this->getOperation()->apply(vl1, vl2, vl);
 }
