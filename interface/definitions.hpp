@@ -9,8 +9,8 @@ namespace Definitions
         block
     };
 
-    static const int MAIN_WIDTH = 1040;
-    static const int MAIN_HEIGHT = 480;
+    static const int MAIN_WIDTH = 1200;
+    static const int MAIN_HEIGHT = 600;
 };
 
 #endif // DEFINITIONS_H
