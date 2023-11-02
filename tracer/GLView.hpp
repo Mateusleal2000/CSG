@@ -7,16 +7,18 @@
 #include <QOpenGLFunctions_3_3_Core>
 #include "Canvas.hpp"
 
-class GLView : public QOpenGLWidget{
+class GLView : public QOpenGLWidget
+{
 public:
-  GLView(QWidget * parent = nullptr);
+  GLView(QWidget *parent = nullptr);
   ~GLView();
   void paintGL() override;
-  void resizeGL(int w,int h) override;
+  void resizeGL(int w, int h) override;
   void initializeGL() override;
+
 private:
-  QOpenGLFunctions_3_3_Core * f;
-  Canvas * canvas;
+  QOpenGLFunctions_3_3_Core *f;
+  Canvas *canvas;
 };
 
 #endif

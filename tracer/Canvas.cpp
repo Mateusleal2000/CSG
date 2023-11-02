@@ -21,10 +21,10 @@ void Canvas::init()
 
   vertexVector.reserve(4);
 
-  vertexVector.emplace_back(Vertex{glm::vec3(1.0, 1.0, 0.), glm::vec3(1., 0., 0.), glm::vec2(1., 0.)});
-  vertexVector.emplace_back(Vertex{glm::vec3(1.0, -1.0, 0.), glm::vec3(0., 1., 0.), glm::vec2(1., 1.)});
-  vertexVector.emplace_back(Vertex{glm::vec3(-1.0, -1.0, 0.), glm::vec3(0., 0., 1.), glm::vec2(0., 1.)});
-  vertexVector.emplace_back(Vertex{glm::vec3(-1.0, 1.0, 0.), glm::vec3(1., 1., 0.), glm::vec2(0., 0.)});
+  vertexVector.emplace_back(GLVertex{glm::vec3(1.0, 1.0, 0.), glm::vec3(1., 0., 0.), glm::vec2(1., 0.)});
+  vertexVector.emplace_back(GLVertex{glm::vec3(1.0, -1.0, 0.), glm::vec3(0., 1., 0.), glm::vec2(1., 1.)});
+  vertexVector.emplace_back(GLVertex{glm::vec3(-1.0, -1.0, 0.), glm::vec3(0., 0., 1.), glm::vec2(0., 1.)});
+  vertexVector.emplace_back(GLVertex{glm::vec3(-1.0, 1.0, 0.), glm::vec3(1., 1., 0.), glm::vec2(0., 0.)});
 
   indiciesVector.reserve(6);
   indiciesVector.emplace_back(0);
@@ -61,7 +61,7 @@ void Canvas::init()
   f->glBindVertexArray(VAO[0]);
 
   f->glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
-  f->glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertexVector.size(), vertexVector.data(), GL_DYNAMIC_DRAW);
+  f->glBufferData(GL_ARRAY_BUFFER, sizeof(GLVertex) * vertexVector.size(), vertexVector.data(), GL_DYNAMIC_DRAW);
 
   f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO[0]);
   f->glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indiciesVector.size(), indiciesVector.data(), GL_DYNAMIC_DRAW);
@@ -70,13 +70,13 @@ void Canvas::init()
   GLint color_attrib = f->glGetAttribLocation(program[0].getProgramId(), "color_a");
   GLint tex_attrib = f->glGetAttribLocation(program[0].getProgramId(), "text");
 
-  f->glVertexAttribPointer(pos_attrib, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+  f->glVertexAttribPointer(pos_attrib, 3, GL_FLOAT, GL_FALSE, sizeof(GLVertex), 0);
   f->glEnableVertexAttribArray(pos_attrib);
 
-  f->glVertexAttribPointer(color_attrib, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)sizeof(glm::vec3));
+  f->glVertexAttribPointer(color_attrib, 3, GL_FLOAT, GL_FALSE, sizeof(GLVertex), (void *)sizeof(glm::vec3));
   f->glEnableVertexAttribArray(color_attrib);
 
-  f->glVertexAttribPointer(tex_attrib, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(2 * sizeof(glm::vec3)));
+  f->glVertexAttribPointer(tex_attrib, 2, GL_FLOAT, GL_FALSE, sizeof(GLVertex), (void *)(2 * sizeof(glm::vec3)));
   f->glEnableVertexAttribArray(tex_attrib);
 
   f->glBindBuffer(GL_ARRAY_BUFFER, 0);         // unbid current VBO

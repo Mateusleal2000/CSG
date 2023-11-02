@@ -11,17 +11,18 @@
 class Camera
 {
 public:
-    Camera(float fov = 90, float near = 0.1 , float far = 100.);
+    Camera(float fov = 90, float near = 0.1, float far = 100.);
     ~Camera();
     glm::vec3 getPos() const;
     void setPos(glm::vec3 _pos);
     void setFoward(glm::vec3 _lookAt);
-    Ray computeRayDir(int x,int y);
+    Ray computeRayDir(int x, int y);
 
 private:
     glm::vec3 pos;
     glm::vec3 foward;
-    glm::vec3 up;;
+    glm::vec3 up;
+    ;
     int viewPortWidth;
     int viewPortHeight;
     float fov;
@@ -33,7 +34,7 @@ private:
     glm::mat4 invProjMatrix;
 
 private:
- void updateCamera();
+    void updateCamera();
 };
 
 #endif // EYE_H

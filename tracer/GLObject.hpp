@@ -13,47 +13,46 @@
 #include <glm/vec2.hpp>
 #include <iostream>
 
-
-
-struct Vertex{
+struct GLVertex
+{
   glm::vec3 position;
   glm::vec3 color;
   glm::vec2 tex;
 };
 
-class GLObject : public QObject{
+class GLObject : public QObject
+{
   Q_OBJECT
-  public:
-  GLObject() : QObject(){}
+public:
+  GLObject() : QObject() {}
   virtual ~GLObject() = default;
   void loadTexture(QString filePath);
 
-  protected:
+protected:
   std::vector<GLProgram> program;
-  QOpenGLFunctions_3_3_Core * f;
+  QOpenGLFunctions_3_3_Core *f;
   std::vector<uint> VBO;
   std::vector<uint> VAO;
   std::vector<uint> EBO;
-  QImage * texImage;
-  std::vector<Vertex> vertexVector;
+  QImage *texImage;
+  std::vector<GLVertex> vertexVector;
   std::vector<uint> indiciesVector;
   std::vector<uint> textures;
-  QOpenGLContext * currentContext;
+  QOpenGLContext *currentContext;
 
-  protected slots:
+protected slots:
   virtual void draw() = 0;
-  
-
 };
 
-inline void GLObject::loadTexture(QString filePath){
+inline void GLObject::loadTexture(QString filePath)
+{
   QDir dir(QDir::currentPath());
   dir.cdUp();
-  dir.cd("textures");
-  std::cout<<dir.absolutePath().toStdString()<<std::endl;
-  texImage = new QImage(dir.absolutePath().append ("/"+ filePath.toStdString()));
+  dir.cd("tracer/textures");
+  std::string s = "/" + filePath.toStdString();
+  texImage = new QImage(dir.absolutePath().append(QString::fromStdString(s)));
+  // texImage = new QImage("/home/mateus/trabalho2_modelagem/CSG/tracer/textures/container.jpg");
   texImage->convertTo(QImage::Format_RGB888);
-
 }
 
 #endif

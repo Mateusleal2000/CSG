@@ -3,9 +3,8 @@
 
 #include <QWidget>
 #include <QHBoxLayout>
-#include "GraphicsSceneWidget.hpp"
-#include "GraphicsViewWidget.hpp"
 #include "InputWidget.hpp"
+#include "../tracer/GLView.hpp"
 
 class MainWidget : public QWidget
 {
@@ -19,8 +18,7 @@ public:
 
 private:
     InputWidget *inputWidget;
-    GraphicsSceneWidget *sceneWidget;
-    GraphicsViewWidget *viewWidget;
+    GLView *glview;
 };
 
 #endif // MAIN_WIDGET_H

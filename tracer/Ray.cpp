@@ -4,7 +4,7 @@ Ray::Ray(glm::vec3 point, glm::vec3 _end)
 {
     begin = point;
     end = _end;
-    unitDir = glm::normalize(end-begin);
+    unitDir = glm::normalize(end - begin);
 }
 
 Ray::~Ray() {}

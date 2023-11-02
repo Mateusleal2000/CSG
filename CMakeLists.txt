@@ -6,7 +6,7 @@ include(CMakePrintHelpers)
 
 
 project(modelagem LANGUAGES CXX)
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets OpenGLWidgets)
 find_package(glm)
 
 
@@ -16,14 +16,16 @@ set(CMAKE_AUTOUIC ON)
 
 qt_add_executable(
     csg
-    interface/GraphicsSceneWidget.cpp
-    interface/GraphicsViewWidget.cpp
     interface/InputWidget.cpp
     interface/MainWidget.cpp
 
     
     tracer/Material.hpp
     tracer/Ray.cpp
+    tracer/GLView.cpp
+    tracer/Canvas.cpp
+    tracer/GLProgram.cpp
+    tracer/GLObject.hpp
 
     
     nodes/Node.hpp
@@ -52,4 +54,4 @@ qt_add_executable(
     main.cpp
 )
 
-target_link_libraries(csg PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
+target_link_libraries(csg PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::OpenGLWidgets)

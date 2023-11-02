@@ -26,8 +26,6 @@ void GLView::initializeGL()
 
   canvas = new Canvas(context());
   canvas->init();
-
-  std::cout << "Aqui\n";
 }
 
 void GLView::resizeGL(int w, int h) {}

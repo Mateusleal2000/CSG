@@ -10,9 +10,9 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     setContentsMargins(0, 0, 0, 0);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
-    sceneWidget = new GraphicsSceneWidget();
-    viewWidget = new GraphicsViewWidget(sceneWidget);
-    layout->addWidget(viewWidget);
+    glview = new GLView(this);
+    glview->show();
+    layout->addWidget(glview);
     layout->addWidget(inputWidget);
     setLayout(layout);
     show();
@@ -21,6 +21,5 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
 MainWidget::~MainWidget()
 {
     delete inputWidget;
-    delete sceneWidget;
-    delete viewWidget;
+    delete glview;
 }
