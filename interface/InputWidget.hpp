@@ -25,6 +25,7 @@ public slots:
     void addSolidScreen();
     void transformSolidScreen();
     void operationScreen();
+    void changeCameraScreen();
     // void confirmSolidSelection(QString solidType, QString tree);
     // void confirmSolidTransform(QString solidName);
     void confirmSolidUnion(QString solidName1, QString solidName2);

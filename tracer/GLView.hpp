@@ -6,6 +6,7 @@
 #include <QOpenGLContext>
 #include <QOpenGLFunctions_3_3_Core>
 #include <QTimer>
+#include <QEventLoop>
 #include "Canvas.hpp"
 #include "Sampler.hpp"
 #include "Camera.hpp"
@@ -24,7 +25,7 @@ public:
   void initializeGL() override;
 public slots:
   void updateCanvas();
-  void setCurrentCSGTree(CSGTree & csgtree);
+  void setCurrentCSGTree(CSGTree &csgtree);
 
 private:
   QOpenGLFunctions_3_3_Core *f;

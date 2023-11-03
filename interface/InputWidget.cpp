@@ -48,17 +48,20 @@ void InputWidget::mainScreen()
     QPushButton *buttonAdd = new QPushButton("Add Solid", this);
     QPushButton *buttonTransform = new QPushButton("Transform", this);
     QPushButton *buttonOperation = new QPushButton("Boolean Operation", this);
+    QPushButton *buttonChangeCamera = new QPushButton("Change Camera", this);
     // QObject::connect(buttonAdd, &QPushButton::clicked, addSolidScreen);
     // connect(m_button, &QPushButton::released, this, &MainWindow::handleButton);
     QPushButton::connect(buttonAdd, &QPushButton::clicked, this, &InputWidget::addSolidScreen);
     QPushButton::connect(buttonTransform, &QPushButton::clicked, this, &InputWidget::transformSolidScreen);
     QPushButton::connect(buttonOperation, &QPushButton::clicked, this, &InputWidget::operationScreen);
+    QPushButton::connect(buttonChangeCamera, &QPushButton::clicked, this, &InputWidget::changeCameraScreen);
     layout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 
     layout->addRow(label);
     layout->addRow(buttonAdd);
     layout->addRow(buttonTransform);
     layout->addRow(buttonOperation);
+    layout->addRow(buttonChangeCamera);
 }
 
 void InputWidget::addSolidScreen()
@@ -235,6 +238,43 @@ void InputWidget::operationScreen()
     layout->addRow(QString("Operand 1 "), treeOperand1);
     layout->addRow(QString("Operand 2 "), treeOperand2);
     layout->addRow(buttonConfirmOp);
+    layout->addRow(buttonReturn);
+}
+
+void InputWidget::changeCameraScreen()
+{
+    cleanLayout();
+
+    QPushButton *buttonReturn = new QPushButton("Return", this);
+    QPushButton *buttonConfirm = new QPushButton("Create new Tree", this);
+
+    QLineEdit *qlineedit1 = new QLineEdit(this);
+    qlineedit1->setVisible(true);
+    qlineedit1->setPlaceholderText(QString("Position X"));
+    QLineEdit *qlineedit2 = new QLineEdit(this);
+    qlineedit2->setVisible(true);
+    qlineedit2->setPlaceholderText(QString("Position Y"));
+    QLineEdit *qlineedit3 = new QLineEdit(this);
+    qlineedit3->setVisible(true);
+    qlineedit3->setPlaceholderText(QString("Position Z"));
+    QLineEdit *qlineedit4 = new QLineEdit(this);
+    qlineedit4->setVisible(true);
+    qlineedit4->setPlaceholderText(QString("Direction X"));
+    QLineEdit *qlineedit5 = new QLineEdit(this);
+    qlineedit5->setVisible(true);
+    qlineedit5->setPlaceholderText(QString("Direction Y"));
+    QLineEdit *qlineedit6 = new QLineEdit(this);
+    qlineedit6->setVisible(true);
+    qlineedit6->setPlaceholderText(QString("Direction Z"));
+
+    QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
+
+    layout->addRow(qlineedit1);
+    layout->addRow(qlineedit2);
+    layout->addRow(qlineedit3);
+    layout->addRow(qlineedit4);
+    layout->addRow(qlineedit5);
+    layout->addRow(qlineedit6);
     layout->addRow(buttonReturn);
 }
 

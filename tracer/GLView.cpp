@@ -5,8 +5,10 @@ GLView::GLView(QWidget *parent) : QOpenGLWidget(parent)
 {
   setFixedSize(640, 480);
   timer.setInterval(1000);
+  // QEventLoop loop;
   connect(&timer, &QTimer::timeout, this, &GLView::updateCanvas);
   timer.start();
+  // loop.exec();
 }
 
 GLView::~GLView()
