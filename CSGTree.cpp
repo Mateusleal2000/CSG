@@ -40,7 +40,7 @@ void CSGTree::add(Operation *op, TransNode *node)
     std::cout << "Adding a TransNode\n";
     if (root == nullptr)
     {
-        std::cout<<"Entrou onde deveria\n";
+        std::cout << "Entrou onde deveria\n";
         auto opnode = new OpNode(new Union());
         opnode->setChild(node, 0);
         opnode->setChild(new World(), 1);
@@ -91,7 +91,7 @@ void CSGTree::_initTest()
     glm::vec3 eye(0.);
     glm::vec3 D = glm::normalize(glm::vec3(0., 0., -1.));
     const Ray ray = Ray(eye, eye + D);
-    std::cout << "DIRECAO " << D.x << " " << D.y << " " << D.z << "\n";
+    // std::cout << "DIRECAO " << D.x << " " << D.y << " " << D.z << "\n";
 
     SolidNode *sphereNode = new SolidNode(sphere);
     TransNode *sphereTransNode = new TransNode();
@@ -114,9 +114,9 @@ void CSGTree::_print()
 
 void CSGTree::setMembership(const Ray &ray, VertexList &vl)
 {
-    std::cout<<"Before Calling root sms\n"; 
+    // std::cout<<"Before Calling root sms\n";
     this->getRoot()->setMembership(ray, vl);
-    std::cout<<"After Calling root sms\n"; 
+    // std::cout<<"After Calling root sms\n";
 }
 // void CSGTree::addOperation()
 // {

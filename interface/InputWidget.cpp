@@ -13,6 +13,7 @@ InputWidget::InputWidget(QWidget *parent) : QWidget(parent)
     setFixedSize(Definitions::MAIN_WIDTH / 3, Definitions::MAIN_HEIGHT);
     setContentsMargins(0, 0, 0, 0);
     layout = new QFormLayout(this);
+    setFocusPolicy(Qt::TabFocus);
     layout->setSpacing(0);
     layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
     mainScreen();

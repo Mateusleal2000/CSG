@@ -15,6 +15,13 @@ Node *TransNode::getChild(int idx)
 
 void TransNode::setChild(Node *node)
 {
+    // node->setParent(this);
+    // this->child = node;
+}
+
+void TransNode::setChild(SolidNode *node)
+{
+    // std::cout << "SetChild solidnode\n";
     node->setParent(this);
     this->child = node;
 }
@@ -82,15 +89,15 @@ glm::mat4 TransNode::getModelMatrixInv()
 
 void TransNode::setMembership(const Ray &ray, VertexList &vl)
 {
-    std::cout << "UM NO TRANS KKKKK\n";
+    // std::cout << "UM NO TRANS KKKKK\n";
 
-    SolidNode *sn = dynamic_cast<SolidNode *>(this->getChild(0));
+    // SolidNode *sn = dynamic_cast<SolidNode *>(this->getChild(0));
 
-    std::cout << "Depois de fazer um cast\n";
+    // std::cout << "Depois de fazer um cast\n";
 
-    sn->setMembership(ray, vl, getModelMatrix(), getModelMatrixInv());
+    child->setMembership(ray, vl, getModelMatrix(), getModelMatrixInv());
 
-    std::cout<< "completou o sms do NO TRANS\n";
+    // std::cout << "completou o sms do NO TRANS\n";
 }
 
 void TransNode::_print()

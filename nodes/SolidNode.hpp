@@ -15,7 +15,6 @@ public:
     void _print() override;
     Node *getChild(int idx) override;
     void setChild(Node *node) override;
-    void setChild(SolidNode * sn);
 
 private:
     Solid *solid;

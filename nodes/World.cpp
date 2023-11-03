@@ -3,7 +3,7 @@
 
 void World::setMembership(const Ray &ray, VertexList &vl)
 {
-    std::cout << "ENTROU NO SMS DO NO MUNDO\n";
+    // std::cout << "ENTROU NO SMS DO NO MUNDO\n";
     return;
 }
 

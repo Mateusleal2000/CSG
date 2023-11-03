@@ -18,7 +18,7 @@ void SolidNode::setSolid(Solid *solid)
 
 void SolidNode::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &modelMatrix, const glm::mat4 &modelMatrixInv)
 {
-  std::cout << "ENTROU NO SMS DO NO SOLIDO\n";
+  // std::cout << "ENTROU NO SMS DO NO SOLIDO\n";
   Solid *solid = getSolid();
   solid->setMembership(ray, vl, modelMatrix, modelMatrixInv);
 }
@@ -36,12 +36,12 @@ void SolidNode::_print()
 
 void SolidNode::setChild(Node *node)
 {
-  std::cout << "SOLIDO NAO PODE TER FILHOS!\n";
+  // std::cout << "SOLIDO NAO PODE TER FILHOS!\n";
   exit(-1);
 }
 
 Node *SolidNode::getChild(int idx)
 {
-  std::cout << "SOLIDO NAO PODE TER FILHOS!\n";
+  // std::cout << "SOLIDO NAO PODE TER FILHOS!\n";
   exit(-1);
 }

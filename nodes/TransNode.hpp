@@ -12,7 +12,7 @@ public:
     TransNode();
 
     void setChild(Node *node) override;
-    void setChild(SolidNode * sn);
+    void setChild(SolidNode *sn);
     Node *getChild(int idx);
     void addRotation(Rotation trans);
     void addScale(Scale trans);
@@ -28,7 +28,7 @@ public:
     // void get
 
 private:
-    Node *child;
+    SolidNode *child;
     Solid *transformedSolid;
     std::vector<Translation> translationVec;
     std::vector<Rotation> rotationVec;

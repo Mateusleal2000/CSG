@@ -4,7 +4,7 @@
 GLView::GLView(QWidget *parent) : QOpenGLWidget(parent)
 {
   setFixedSize(640, 480);
-  timer.setInterval(1000);
+  timer.setInterval(4000);
   connect(&timer, &QTimer::timeout, this, &GLView::updateCanvas);
   timer.start();
 }
@@ -17,7 +17,6 @@ GLView::~GLView()
 
 void GLView::initializeGL()
 {
-
   f = QOpenGLVersionFunctionsFactory::get<QOpenGLFunctions_3_3_Core>(context());
   f->initializeOpenGLFunctions();
   f->glEnable(GL_DEPTH_TEST);
@@ -46,27 +45,33 @@ void GLView::paintGL()
 
 void GLView::updateCanvas()
 {
-
+  timer.stop();
   canvas->clearCanvas();
 
-  for(int y = 0;y<height();y++){
-    for(int x = 0; x <width();x++){
-      Ray r = camera->computeRayDir(x,y);
-      VertexList list = VertexList(glm::vec3(0.,0.,0.));
-      std::cout << r.getUnitDir().x << r.getUnitDir().y << r.getUnitDir().z << "\n";
-      currentCSGTree.setMembership(r,list);
-      if(list.getVertexListSize() > 1){
-        canvas->addColor(255,0,0);
+  for (int y = 0; y < height(); y++)
+  {
+    for (int x = 0; x < width(); x++)
+    {
+      Ray r = camera->computeRayDir(x, y);
+      VertexList list = VertexList(camera->getPos());
+      // std::cout << r.getUnitDir().x << r.getUnitDir().y << r.getUnitDir().z << "\n";
+      currentCSGTree.setMembership(r, list);
+      if (list.getVertexListSize() == 3)
+      {
+        canvas->addColor(255, 0, 0);
       }
-      else{
-        canvas->addColor(0,0,0);
+      else
+      {
+        canvas->addColor(0, 0, 0);
       }
     }
   }
   update();
+  timer.start();
   return;
 }
 
-void GLView::setCurrentCSGTree(CSGTree & tree){
+void GLView::setCurrentCSGTree(CSGTree &tree)
+{
   currentCSGTree = tree;
 }
