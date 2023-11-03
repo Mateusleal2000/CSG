@@ -38,6 +38,8 @@ void TransNode::addScale(Scale trans)
 
 void TransNode::addTranslation(Translation trans)
 {
+    // glm::mat4 mat = trans.getMatrix();
+
     translationVec.push_back(trans);
 }
 

@@ -4,7 +4,7 @@
 GLView::GLView(QWidget *parent) : QOpenGLWidget(parent)
 {
   setFixedSize(640, 480);
-  timer.setInterval(4000);
+  timer.setInterval(1000);
   connect(&timer, &QTimer::timeout, this, &GLView::updateCanvas);
   timer.start();
 }
@@ -32,7 +32,7 @@ void GLView::initializeGL()
 
   canvas = new Canvas(context());
   camera = new Camera();
-  camera->init(90.0, 0.1, 100., width(), height());
+  camera->init(90.0f, 0.1f, 100.0f, width(), height());
   canvas->init();
 }
 
@@ -56,7 +56,7 @@ void GLView::updateCanvas()
       VertexList list = VertexList(camera->getPos());
       // std::cout << r.getUnitDir().x << r.getUnitDir().y << r.getUnitDir().z << "\n";
       currentCSGTree.setMembership(r, list);
-      if (list.getVertexListSize() == 3)
+      if (list.getVertexListSize() == 2)
       {
         canvas->addColor(255, 0, 0);
       }

@@ -1,5 +1,5 @@
 #include "Scale.hpp"
-Scale::Scale(float v)
+Scale::Scale(float x, float y, float z)
 {
-    matrix = glm::scale(matrix, glm::vec3(v, v, v));
+    matrix = glm::scale(matrix, glm::vec3(x, y, z));
 }

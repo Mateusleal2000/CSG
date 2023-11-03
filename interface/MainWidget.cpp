@@ -26,8 +26,8 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     // TransNode sphereTransNode = TransNode();
 
     sphereTransNode->setChild(sphereNode);
-    sphereTransNode->addScale(Scale(1.0));
-    sphereTransNode->addTranslation(Translation(0., 0., -100.));
+    sphereTransNode->addScale(Scale(0.5, 0.5, 0.5));
+    sphereTransNode->addTranslation(Translation(0., 0., -15.));
     new_csg.add(new Union(), sphereTransNode);
     new_csg.setName("Name");
     glview->setCurrentCSGTree(new_csg);

@@ -25,7 +25,7 @@ void Sphere::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mode
     {
         return;
     }
-    else if (discriminant > 0)
+    else if (discriminant > 10e-2)
     {
         float t1 = (-b + sqrt(discriminant)) / (2.0f);
         float t2 = (-b - sqrt(discriminant)) / (2.0f);
