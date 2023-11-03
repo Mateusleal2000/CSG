@@ -49,7 +49,6 @@ void Canvas::init()
   program.reserve(1);
   program.resize(1);
 
-  std::cout << "naoleu\n";
 
   f->glGenBuffers(1, &VBO[0]);
   f->glGenBuffers(1, &EBO[0]);
@@ -84,7 +83,6 @@ void Canvas::init()
   f->glBindVertexArray(0);                     // unbind current VAO
 
   loadTexture("container.jpg");
-  std::cout << "Leu\n";
 
   for (int i = 0; i < 640 * 480; i++)
   {
@@ -149,15 +147,16 @@ void Canvas::draw()
   f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Canvas::updateColor(int c1, int c2, int c3)
+
+
+void Canvas::addColor(int c1, int c2, int c3)
 {
-  v.clear();
-  for (int i = 0; i < 640 * 480; i++)
-  {
     v.push_back(c1);
     v.push_back(c2);
     v.push_back(c3);
-  }
-  std::cout << "Timer tick\n";
   return;
+}
+
+void Canvas::clearCanvas(){
+  v.clear();
 }

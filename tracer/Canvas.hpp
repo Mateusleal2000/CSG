@@ -11,7 +11,8 @@ public:
   Canvas(QOpenGLContext *_context = 0);
   ~Canvas();
   void init();
-  void updateColor(int c1, int c2, int c3);
+  void addColor(int c1, int c2, int c3);
+  void clearCanvas();
 
 public slots:
   void draw() override;

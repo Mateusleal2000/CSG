@@ -14,9 +14,22 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     layout->addWidget(glview);
     layout->addWidget(inputWidget);
     setLayout(layout);
-    connect(&timer, &QTimer::timeout, this, &MainWidget::checkTreeSize);
-    timer.setInterval(2000);
-    timer.start();
+
+    CSGTree new_csg = CSGTree();
+    Sphere * sphere = new Sphere();
+    SolidNode * sphereNode = new SolidNode(sphere);
+    TransNode * sphereTransNode = new TransNode();
+
+    sphereTransNode->setChild(sphereNode);
+    sphereTransNode->addScale(Scale(1.0));
+    sphereTransNode->addTranslation(Translation(0., 0., -100.));
+    new_csg.add(new Union(), sphereTransNode);
+    new_csg.setName("Name");
+    glview->setCurrentCSGTree(new_csg);
+                            
+    //connect(&timer, &QTimer::timeout, this, &MainWidget::checkTreeSize);
+    //timer.setInterval(2000);
+    //timer.start();
     show();
 }
 

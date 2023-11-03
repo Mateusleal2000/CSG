@@ -18,6 +18,7 @@ void SolidNode::setSolid(Solid *solid)
 
 void SolidNode::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &modelMatrix, const glm::mat4 &modelMatrixInv)
 {
+  std::cout << "ENTROU NO SMS DO NO SOLIDO\n";
   Solid *solid = getSolid();
   solid->setMembership(ray, vl, modelMatrix, modelMatrixInv);
 }

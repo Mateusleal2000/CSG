@@ -65,9 +65,17 @@ void OpNode::_print()
 
 void OpNode::setMembership(const Ray &ray, VertexList &vl)
 {
+  std::cout<< "Root set member ship\n";
   VertexList vl1 = VertexList(ray.getPoint());
+
   VertexList vl2 = VertexList(ray.getPoint());
+
+  std::cout << "before sms child 0\n";
+  if(getChild(0) == nullptr) std::cout<<"child 0 null\n";
   this->getChild(0)->setMembership(ray, vl1);
+  std::cout << "Finished sms child 0\n";
   this->getChild(1)->setMembership(ray, vl2);
+  std::cout << "Finished sms child 1\n";
   this->getOperation()->apply(vl1, vl2, vl);
+  std::cout<< "Root set member ship end\n";
 }

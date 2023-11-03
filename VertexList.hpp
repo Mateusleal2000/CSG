@@ -19,6 +19,7 @@ public:
     std::vector<Vertex> *getVertexList();
     Vertex &firstVertex();
     Vertex &lastVertex();
+    int getVertexListSize();
 
     void refactorIntervals();
     void _print();

@@ -4,8 +4,8 @@
 GLView::GLView(QWidget *parent) : QOpenGLWidget(parent)
 {
   setFixedSize(640, 480);
-  timer.setInterval(3000);
-  connect(&timer, &QTimer::timeout, this, &GLView::changeColor);
+  timer.setInterval(1000);
+  connect(&timer, &QTimer::timeout, this, &GLView::updateCanvas);
   timer.start();
 }
 
@@ -44,12 +44,29 @@ void GLView::paintGL()
   canvas->draw();
 }
 
-void GLView::changeColor()
+void GLView::updateCanvas()
 {
-  float sample1 = Sampler::getSample(0., 255.);
-  float sample2 = Sampler::getSample(0., 255.);
-  float sample3 = Sampler::getSample(0., 255.);
-  canvas->updateColor(sample1, sample2, sample3);
+
+  canvas->clearCanvas();
+
+  for(int y = 0;y<height();y++){
+    for(int x = 0; x <width();x++){
+      Ray r = camera->computeRayDir(x,y);
+      VertexList list = VertexList(glm::vec3(0.,0.,0.));
+      std::cout << r.getUnitDir().x << r.getUnitDir().y << r.getUnitDir().z << "\n";
+      currentCSGTree.setMembership(r,list);
+      if(list.getVertexListSize() > 1){
+        canvas->addColor(255,0,0);
+      }
+      else{
+        canvas->addColor(0,0,0);
+      }
+    }
+  }
   update();
   return;
+}
+
+void GLView::setCurrentCSGTree(CSGTree & tree){
+  currentCSGTree = tree;
 }

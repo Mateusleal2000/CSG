@@ -82,8 +82,15 @@ glm::mat4 TransNode::getModelMatrixInv()
 
 void TransNode::setMembership(const Ray &ray, VertexList &vl)
 {
+    std::cout << "UM NO TRANS KKKKK\n";
+
     SolidNode *sn = dynamic_cast<SolidNode *>(this->getChild(0));
+
+    std::cout << "Depois de fazer um cast\n";
+
     sn->setMembership(ray, vl, getModelMatrix(), getModelMatrixInv());
+
+    std::cout<< "completou o sms do NO TRANS\n";
 }
 
 void TransNode::_print()

@@ -86,3 +86,7 @@ void VertexList::_print()
                   << std::endl;
     }
 }
+
+int VertexList::getVertexListSize(){
+    return vertexList->size();
+}

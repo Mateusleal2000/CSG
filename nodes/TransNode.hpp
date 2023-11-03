@@ -11,7 +11,8 @@ class TransNode : public Node
 public:
     TransNode();
 
-    void setChild(Node *node);
+    void setChild(Node *node) override;
+    void setChild(SolidNode * sn);
     Node *getChild(int idx);
     void addRotation(Rotation trans);
     void addScale(Scale trans);

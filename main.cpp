@@ -13,11 +13,11 @@ int main(int argc, char **argv)
     format.setProfile(QSurfaceFormat::CoreProfile);
     QSurfaceFormat::setDefaultFormat(format);
 
-    Operation *op = new Union();
-    OpNode *root = new OpNode(op);
-    CSGTree *csg = new CSGTree();
-    csg->_initTest();
-    csg->_print();
+    // Operation *op = new Union();
+    // OpNode *root = new OpNode(op);
+    // CSGTree *csg = new CSGTree();
+    // csg->_initTest();
+    // csg->_print();
 
     QApplication app(argc, argv);
     MainWidget *mw = new MainWidget();

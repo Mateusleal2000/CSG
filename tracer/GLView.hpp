@@ -23,7 +23,8 @@ public:
   void resizeGL(int w, int h) override;
   void initializeGL() override;
 public slots:
-  void changeColor();
+  void updateCanvas();
+  void setCurrentCSGTree(CSGTree & csgtree);
 
 private:
   QOpenGLFunctions_3_3_Core *f;
