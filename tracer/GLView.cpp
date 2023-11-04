@@ -4,10 +4,10 @@
 GLView::GLView(QWidget *parent) : QOpenGLWidget(parent)
 {
   setFixedSize(640, 480);
-  timer.setInterval(1000);
+  // timer.setInterval(1000);
   // QEventLoop loop;
-  connect(&timer, &QTimer::timeout, this, &GLView::updateCanvas);
-  timer.start();
+  // connect(&timer, &QTimer::timeout, this, &GLView::updateCanvas);
+  // timer.start();
   // loop.exec();
 }
 
@@ -47,7 +47,7 @@ void GLView::paintGL()
 
 void GLView::updateCanvas()
 {
-  timer.stop();
+  // timer.stop();
   canvas->clearCanvas();
 
   for (int y = 0; y < height(); y++)
@@ -70,11 +70,12 @@ void GLView::updateCanvas()
     }
   }
   update();
-  timer.start();
+  // timer.start();
   return;
 }
 
 void GLView::setCurrentCSGTree(CSGTree &tree)
 {
   currentCSGTree = tree;
+  updateCanvas();
 }

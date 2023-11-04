@@ -22,10 +22,15 @@ void Sphere::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mode
     {
         return;
     }
-    else if (discriminant > 10e-2)
+    else if (discriminant > 1e-2)
     {
         float t1 = (-b + sqrt(discriminant)) / (2.0f);
         float t2 = (-b - sqrt(discriminant)) / (2.0f);
+        if (t1 < 0 || t2 < 0)
+        {
+            return;
+        }
+
         glm::vec3 p1 = glm::vec3(modelMatrix * glm::vec4(eye + (t1 * D), 1.));
         glm::vec3 N1 = (p1 - glm::vec3(modelMatrix * glm::vec4(0., 0., 0., 1.)));
         glm::vec3 p2 = glm::vec3(modelMatrix * glm::vec4(eye + (t2 * D), 1.));
@@ -50,6 +55,10 @@ void Sphere::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mode
     else
     {
         float t1 = (-b) / (2.);
+        if (t1 < 0)
+        {
+            return;
+        }
         glm::vec3 p1 = glm::vec3(modelMatrix * glm::vec4(eye + (t1 * D), 1.));
         glm::vec3 N1 = (p1 - glm::vec3(modelMatrix * glm::vec4(0., 0., 0., 1.)));
         Vertex v1 = Vertex(this, p1, glm::normalize(N1));

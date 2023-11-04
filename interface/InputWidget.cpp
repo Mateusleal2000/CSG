@@ -95,20 +95,18 @@ void InputWidget::addSolidScreen()
     qlineedit6->setPlaceholderText(QString("Scale Z"));
     QLineEdit *qlineedit7 = new QLineEdit(this);
     qlineedit7->setVisible(true);
-    qlineedit7->setPlaceholderText(QString("Rotate X"));
+    qlineedit7->setPlaceholderText(QString("Axis(0=x, 1=y or 2=z)"));
     QLineEdit *qlineedit8 = new QLineEdit(this);
     qlineedit8->setVisible(true);
-    qlineedit8->setPlaceholderText(QString("Rotate Y"));
-    QLineEdit *qlineedit9 = new QLineEdit(this);
-    qlineedit9->setVisible(true);
-    qlineedit9->setPlaceholderText(QString("Rotate Z"));
+    qlineedit8->setPlaceholderText(QString("Angle"));
 
     solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     solidsList->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
 
     solidsList->addItem(QString("Sphere"));
-    solidsList->addItem(QString("Block"));
+    solidsList->addItem(QString("Cylinder"));
+    solidsList->addItem(QString("Plane"));
     QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
                        {if (solidsList->currentText().toStdString() == "Sphere")
                        {
@@ -122,22 +120,14 @@ void InputWidget::addSolidScreen()
                        }
                         setNewInputs(solidsList->currentText()); });
 
-    QPushButton::connect(buttonConfirm, &QPushButton::clicked, this, [=, this](int i) -> void
-                         { std::cout << "Create a new tree called " << treeName->text().toStdString() << " and add the " << solidsList->currentText().toStdString() << "\n";
-                         if(solidsList->currentText().toStdString() == "Sphere"){
-                            CSGTree new_csg = CSGTree();
-                            Sphere sphere = Sphere();
+    QPushButton::connect(buttonConfirm, &QPushButton::clicked, this, [=, this]() -> void
+                         { 
+                         glm::vec3 t(std::stof(qlineedit1->text().toStdString()), std::stof(qlineedit2->text().toStdString()), std::stof(qlineedit3->text().toStdString()));
+                         glm::vec3 s(std::stof(qlineedit4->text().toStdString()), std::stof(qlineedit5->text().toStdString()), std::stof(qlineedit6->text().toStdString()));
+                         int axis = std::stoi(qlineedit7->text().toStdString());
+                         float angle = std::stof(qlineedit8->text().toStdString());
+                         emit callSolidOrder(solidsList->currentText().toStdString(), treeName->text().toStdString(), t,s,axis, angle); });
 
-                            SolidNode sphereNode = SolidNode(&sphere);
-                            TransNode sphereTransNode = TransNode();
-                            sphereTransNode.setChild(&sphereNode);
-                            sphereTransNode.addScale(Scale(1.0));
-                            sphereTransNode.addTranslation(Translation(0., 0., 0.));
-                            new_csg.add(new Union(), &sphereTransNode);
-                            new_csg.setName(treeName->text().toStdString());
-                            trees->push_back(new_csg);
-                            
-                         } });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
     layout->addRow(solidsList);
@@ -150,7 +140,6 @@ void InputWidget::addSolidScreen()
     layout->addRow(qlineedit6);
     layout->addRow(qlineedit7);
     layout->addRow(qlineedit8);
-    layout->addRow(qlineedit9);
     layout->addRow(buttonConfirm);
     layout->addRow(buttonReturn);
 }
@@ -228,10 +217,8 @@ void InputWidget::operationScreen()
     treeOperand2->addItem(QString("Tree 1"));
     treeOperand2->addItem(QString("Tree 2"));
     treeOperand2->addItem(QString("Tree 3"));
-    // QComboBox::connect(solidOperand1, &QComboBox::activated, this, [=, this](int i) -> void
-    //                    { setNewInputs(solidsList->currentText()); });
-    QPushButton::connect(buttonConfirmOp, &QPushButton::clicked, this, [this, treeOperand1, treeOperand2]
-                         { confirmSolidUnion(treeOperand1->currentText(), treeOperand2->currentText()); });
+    QPushButton::connect(buttonConfirmOp, &QPushButton::clicked, this, [this, operation, treeOperand1, treeOperand2]
+                         { emit callOperationOrder(operation->currentText().toStdString(), treeOperand1->currentText().toStdString(), treeOperand2->currentText().toStdString()); });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
     layout->addRow(QString("Operation "), operation);

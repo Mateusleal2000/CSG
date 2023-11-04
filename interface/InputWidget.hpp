@@ -6,6 +6,7 @@
 #include <QGridLayout>
 #include <QFormLayout>
 #include "../CSGTree.hpp"
+#include <glm/vec3.hpp>
 
 class InputWidget : public QWidget
 {
@@ -32,6 +33,8 @@ public slots:
     void setNewInputs(QString solidType);
 signals:
     void addSolid();
+    void callSolidOrder(std::string type, std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle);
+    void callOperationOrder(std::string operation, std::string operandName1, std::string operandName2);
 };
 
 #endif // INPUT_WIDGET_H
