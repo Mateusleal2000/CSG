@@ -18,8 +18,8 @@ public:
     ~MainWidget();
 public slots:
     void checkTreeSize();
-    void solidOrder(std::string type, std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle);
-    void operationOrder(std::string operation, std::string operandName1, std::string operandName2);
+    void solidRequest(std::string type, std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle);
+    void operationRequest(std::string name, std::string operation, std::string operandName1, std::string operandName2);
 
 private:
     InputWidget *inputWidget;
@@ -27,7 +27,7 @@ private:
     GLView *glview;
     std::vector<CSGTree> trees;
     QTimer timer;
-    QThread * thread;
+    QThread *thread;
 };
 
 #endif // MAIN_WIDGET_H

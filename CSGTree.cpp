@@ -3,19 +3,6 @@
 CSGTree::CSGTree()
 {
     this->root = nullptr;
-    // this->root->setChild(new World(), 0);
-    // this->root->setChild(new World(), 1);
-
-    // if (root != nullptr)
-    // {
-    //     this->root->setChild(new World(), 1);
-    // }
-    // else
-    // {
-    //     Operation *op = new Union();
-    //     this->root = new OpNode(op);
-    //     this->root->setChild(new World(), 1);
-    // }
 }
 
 CSGTree::~CSGTree()
@@ -78,6 +65,7 @@ void CSGTree::add(Operation *op, OpNode *node)
         root->setChild(opnode, 0);
         node->setChild(nullptr, 0);
         delete node->getChild(1);
+        node->setChild(nullptr, 1);
         delete node->getOperation();
         delete node;
     }

@@ -4,6 +4,7 @@
 GLView::GLView(QWidget *parent) : QOpenGLWidget(parent)
 {
   setFixedSize(640, 480);
+  light = new PointLight(glm::vec3(0.7, 0.7, 0.7), glm::vec3(0, 10, -10));
   // timer.setInterval(1000);
   // QEventLoop loop;
   // connect(&timer, &QTimer::timeout, this, &GLView::updateCanvas);
@@ -47,7 +48,6 @@ void GLView::paintGL()
 
 void GLView::updateCanvas()
 {
-  // timer.stop();
   canvas->clearCanvas();
 
   for (int y = 0; y < height(); y++)
@@ -61,7 +61,16 @@ void GLView::updateCanvas()
       if (list.getVertexListSize() == 3)
       // if(list.getVertexList()->back().getSmsPair()->first == State::ON)
       {
-        canvas->addColor(255, 0, 0);
+        glm::vec3 color = light->shade(list.getVertexList()->at(1));
+        if (std::max({color.x, color.y, color.z}) > 1)
+        {
+          float maxc = std::max({color.x, color.y, color.z});
+          color.x /= maxc;
+          color.y /= maxc;
+          color.z /= maxc;
+        }
+        color *= 255.0f;
+        canvas->addColor(color.x, color.y, color.z);
       }
       else
       {
@@ -70,7 +79,6 @@ void GLView::updateCanvas()
     }
   }
   update();
-  // timer.start();
   return;
 }
 

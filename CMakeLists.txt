@@ -28,6 +28,8 @@ qt_add_executable(
     tracer/GLObject.hpp
     tracer/Sampler.hpp
     tracer/Camera.cpp
+    tracer/Light.hpp
+    tracer/PointLight.cpp
 
     
     nodes/Node.hpp

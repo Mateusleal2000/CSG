@@ -12,51 +12,11 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     layout->setSpacing(0);
     glview = new GLView(this);
 
-
     layout->addWidget(glview);
     layout->addWidget(inputWidget);
     setLayout(layout);
-    connect(inputWidget, &InputWidget::callSolidOrder, this, &MainWidget::solidOrder);
-    connect(inputWidget, &InputWidget::callOperationOrder, this, &MainWidget::operationOrder);
-
-    //thread = new QThread();
-
-    CSGTree new_csg = CSGTree();
-
-    // Sphere *sphere = new Sphere();
-    // SolidNode *sphereNode = new SolidNode(sphere);
-    // TransNode *sphereTransNode = new TransNode();
-    // sphereTransNode->setChild(sphereNode);
-    // sphereTransNode->addScale(Scale(4.0, 4.0, 4.0));
-    // sphereTransNode->addTranslation(Translation(0., 0., -15.));
-
-    // Plane *plane = new Plane();
-    // SolidNode *planeNode = new SolidNode(plane);
-    // TransNode *planeTransNode = new TransNode();
-    // planeTransNode->setChild(planeNode);
-    // planeTransNode->addScale(Scale(8.0, 5.0, 5.0));
-    // planeTransNode->addTranslation(Translation(0., 0., -15.));
-
-    // Cylinder *cyl = new Cylinder();
-    // SolidNode *cylNode = new SolidNode(cyl);
-    // TransNode *cylTransNode = new TransNode();
-    // cylTransNode->setChild(cylNode);
-    // cylTransNode->addScale(Scale(5.0, 5.0, 5.0));
-    // cylTransNode->addTranslation(Translation(0., 0., -15.));
-    // cylTransNode->addRotation(Rotation(0, 90.));
-
-    // CSGTree new_csg = CSGTree();
-    // Sphere *sphere = new Sphere();
-    // SolidNode sphereNode = SolidNode(sphere);
-    // TransNode sphereTransNode = TransNode();
-
-    // new_csg.add(new Union(), cylTransNode);
-    // new_csg.setName("Name");
-    // glview->setCurrentCSGTree(new_csg);
-
-    // connect(&timer, &QTimer::timeout, this, &MainWidget::checkTreeSize);
-    // timer.setInterval(2000);
-    // timer.start();
+    connect(inputWidget, &InputWidget::callSolidRequest, this, &MainWidget::solidRequest);
+    connect(inputWidget, &InputWidget::callOperationRequest, this, &MainWidget::operationRequest);
     show();
 }
 
@@ -78,7 +38,7 @@ void MainWidget::checkTreeSize()
     }
 }
 
-void MainWidget::solidOrder(std::string type, std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle)
+void MainWidget::solidRequest(std::string type, std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle)
 {
 
     CSGTree new_csg = CSGTree();
@@ -87,6 +47,9 @@ void MainWidget::solidOrder(std::string type, std::string name, glm::vec3 t, glm
     if (type == "Sphere")
     {
         Sphere *sphere = new Sphere();
+        sphere->setKD(glm::vec3(1.0, 0., 0.));
+        sphere->setKE(glm::vec3(0.7, 0., 0.));
+        sphere->setShininess(300);
         SolidNode *sphereNode = new SolidNode(sphere);
         TransNode *sphereTransNode = new TransNode();
         sphereTransNode->setChild(sphereNode);
@@ -123,16 +86,33 @@ void MainWidget::solidOrder(std::string type, std::string name, glm::vec3 t, glm
     glview->setCurrentCSGTree(new_csg);
 }
 
-void MainWidget::operationOrder(std::string operation, std::string operandName1, std::string operandName2)
+void MainWidget::operationRequest(std::string name, std::string operation, std::string operandName1, std::string operandName2)
 {
-    // if (operation == "Union")
-    // {
-    //     CSGTree operand1;
-    //     CSGTree operand2;
-    //     for (int i = 0; i < trees.size(); i++)
-    //     {
-    //         if()
-    //     }
-    // }
-    return;
+    if (operandName1 != operandName2)
+    {
+
+        if (operation == "Union")
+        {
+            int operand1Index = -1;
+            int operand2Index = -1;
+            for (int i = 0; i < trees.size(); i++)
+            {
+                if (trees.at(i).getName() == operandName1)
+                {
+                    operand1Index = i;
+                }
+                if (trees.at(i).getName() == operandName2)
+                {
+                    operand2Index = i;
+                }
+            }
+            trees.at(operand1Index).add(new Union(), trees.at(operand2Index).getRoot());
+            trees.at(operand1Index).setName(name);
+            trees.erase(trees.begin() + operand2Index);
+        }
+    }
+    else
+    {
+        return;
+    }
 }

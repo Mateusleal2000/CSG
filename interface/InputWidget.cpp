@@ -126,7 +126,7 @@ void InputWidget::addSolidScreen()
                          glm::vec3 s(std::stof(qlineedit4->text().toStdString()), std::stof(qlineedit5->text().toStdString()), std::stof(qlineedit6->text().toStdString()));
                          int axis = std::stoi(qlineedit7->text().toStdString());
                          float angle = std::stof(qlineedit8->text().toStdString());
-                         emit callSolidOrder(solidsList->currentText().toStdString(), treeName->text().toStdString(), t,s,axis, angle); });
+                         emit callSolidRequest(solidsList->currentText().toStdString(), treeName->text().toStdString(), t,s,axis, angle); });
 
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
@@ -194,6 +194,9 @@ void InputWidget::operationScreen()
     layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
     QPushButton *buttonReturn = new QPushButton("Return", this);
     QPushButton *buttonConfirmOp = new QPushButton("Confirm Operation", this);
+    QLineEdit *treeName = new QLineEdit(this);
+    treeName->setPlaceholderText(QString("Tree Name"));
+    treeName->setVisible(true);
     QComboBox *operation = new QComboBox(this);
     QComboBox *treeOperand1 = new QComboBox(this);
     QComboBox *treeOperand2 = new QComboBox(this);
@@ -208,8 +211,8 @@ void InputWidget::operationScreen()
 
     operation->addItem(QString("Union"));
 
-    treeOperand1->addItem(QString(""));
-    treeOperand2->addItem(QString(""));
+    // QComboBox::connect(treeOperand1, &QComboBox::create);
+
     // Antes de fazer o addItem(), precisamos pegar as primitivas disponíveis, então temos que descobrir como fazer isso ainda
     treeOperand1->addItem(QString("Tree 1"));
     treeOperand1->addItem(QString("Tree 2"));
@@ -217,11 +220,12 @@ void InputWidget::operationScreen()
     treeOperand2->addItem(QString("Tree 1"));
     treeOperand2->addItem(QString("Tree 2"));
     treeOperand2->addItem(QString("Tree 3"));
-    QPushButton::connect(buttonConfirmOp, &QPushButton::clicked, this, [this, operation, treeOperand1, treeOperand2]
-                         { emit callOperationOrder(operation->currentText().toStdString(), treeOperand1->currentText().toStdString(), treeOperand2->currentText().toStdString()); });
+    QPushButton::connect(buttonConfirmOp, &QPushButton::clicked, this, [this, treeName, operation, treeOperand1, treeOperand2]
+                         { emit callOperationRequest(treeName->text().toStdString(), operation->currentText().toStdString(), treeOperand1->currentText().toStdString(), treeOperand2->currentText().toStdString()); });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
     layout->addRow(QString("Operation "), operation);
+    layout->addRow(treeName);
     layout->addRow(QString("Operand 1 "), treeOperand1);
     layout->addRow(QString("Operand 2 "), treeOperand2);
     layout->addRow(buttonConfirmOp);

@@ -22,32 +22,38 @@ public:
     void setShininess(float _shininess);
 
 protected:
-    glm::vec3 kd{0.,0.,0.};
-    glm::vec3 ke{0.,0.,0.};
+    glm::vec3 kd{0., 0., 0.};
+    glm::vec3 ke{0., 0., 0.};
     float shininess;
 };
 
-inline glm::vec3 Solid::getKD(){
+inline glm::vec3 Solid::getKD()
+{
     return kd;
 }
 
-inline glm::vec3 Solid::getKE(){
+inline glm::vec3 Solid::getKE()
+{
     return ke;
 }
 
-inline float Solid::getShininess(){
+inline float Solid::getShininess()
+{
     return shininess;
 }
 
-inline void Solid::setKD(glm::vec3 _kd){
+inline void Solid::setKD(glm::vec3 _kd)
+{
     kd = _kd;
 }
 
-inline void Solid::setKE(glm::vec3 _ke){
+inline void Solid::setKE(glm::vec3 _ke)
+{
     ke = _ke;
 }
 
-inline void Solid::setShininess(float _shininess){
+inline void Solid::setShininess(float _shininess)
+{
     shininess = _shininess;
 }
 

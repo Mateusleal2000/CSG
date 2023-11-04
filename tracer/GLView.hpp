@@ -32,7 +32,8 @@ private:
   Canvas *canvas;
   Camera *camera;
   QTimer timer;
+  Light *light;
   CSGTree currentCSGTree;
 };
 
-#endif
+#endif // GL_VIEW_H
