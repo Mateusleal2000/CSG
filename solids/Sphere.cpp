@@ -11,11 +11,8 @@ void Sphere::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mode
     glm::vec4 eye_aux(eye, 1.);
     glm::vec4 end_aux(end, 1.);
     eye = modelMatrixInv * eye_aux;
-    glm::vec3 D = glm::normalize(glm::vec3((modelMatrixInv * end_aux) - eye_aux));
+    glm::vec3 D = glm::normalize(glm::vec3((modelMatrixInv * end_aux) - glm::vec4(eye, 1.0)));
 
-    // glm::vec3 c_minus_o = glm::vec3(eye - getCenter());
-
-    // float a = glm::dot(D, D);
     float b = 2.0 * glm::dot(eye, D);
     float c = glm::dot(eye, eye) - 1.;
 

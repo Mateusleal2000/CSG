@@ -16,19 +16,27 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     setLayout(layout);
 
     CSGTree new_csg = CSGTree();
-    Sphere *sphere = new Sphere();
-    SolidNode *sphereNode = new SolidNode(sphere);
-    TransNode *sphereTransNode = new TransNode();
+
+    // Sphere *sphere = new Sphere();
+    // SolidNode *sphereNode = new SolidNode(sphere);
+    // TransNode *sphereTransNode = new TransNode();
+    // sphereTransNode->setChild(sphereNode);
+    // sphereTransNode->addScale(Scale(4.0, 4.0, 4.0));
+    // sphereTransNode->addTranslation(Translation(0., 0., -15.));
+
+    Plane *plane = new Plane();
+    SolidNode *planeNode = new SolidNode(plane);
+    TransNode *planeTransNode = new TransNode();
+    planeTransNode->setChild(planeNode);
+    planeTransNode->addScale(Scale(5.0, 5.0, 5.0));
+    planeTransNode->addTranslation(Translation(0., 0., -15.));
 
     // CSGTree new_csg = CSGTree();
     // Sphere *sphere = new Sphere();
     // SolidNode sphereNode = SolidNode(sphere);
     // TransNode sphereTransNode = TransNode();
 
-    sphereTransNode->setChild(sphereNode);
-    sphereTransNode->addScale(Scale(0.5, 0.5, 0.5));
-    sphereTransNode->addTranslation(Translation(0., 0., -15.));
-    new_csg.add(new Union(), sphereTransNode);
+    new_csg.add(new Union(), planeTransNode);
     new_csg.setName("Name");
     glview->setCurrentCSGTree(new_csg);
 

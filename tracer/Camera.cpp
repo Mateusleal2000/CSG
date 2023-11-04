@@ -47,21 +47,6 @@ void Camera::updateCamera()
     invViewMatrix = glm::inverse(viewMatrix);
     projMatrix = glm::perspectiveFov(glm::radians(fov), (float)viewPortWidth, (float)viewPortHeight, near, far);
     invProjMatrix = glm::inverse(projMatrix);
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            std::cout << invProjMatrix[i][j] << "\n";
-        }
-    }
-    std::cout << "\n\n\n";
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            std::cout << invViewMatrix[i][j] << "\n";
-        }
-    }
 }
 
 void Camera::setFoward(glm::vec3 _foward)

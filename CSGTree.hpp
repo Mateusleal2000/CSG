@@ -8,6 +8,7 @@
 #include "tracer/Ray.hpp"
 // headers para métodos de teste
 #include "solids/Sphere.hpp"
+#include "solids/Plane.hpp"
 #include <string>
 class CSGTree
 {
