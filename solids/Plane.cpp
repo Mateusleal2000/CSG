@@ -23,7 +23,7 @@ void Plane::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &model
 
             if (fabs(u) <= 1.0 && fabs(v) <= 1.0)
             {
-                if (fabs(u - 1.0) <= 1e-10 || fabs(v - 1.0) <= 1e-10)
+                if (fabs(fabs(u) - 1.0) <= 1e-2 || fabs(fabs(v) - 1.0) <= 1e-2)
                 {
                     glm::vec3 p = eye + (t * D);
                     p = glm::vec3(modelMatrix * glm::vec4(p, 1.0));

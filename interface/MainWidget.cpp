@@ -28,7 +28,7 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     SolidNode *planeNode = new SolidNode(plane);
     TransNode *planeTransNode = new TransNode();
     planeTransNode->setChild(planeNode);
-    planeTransNode->addScale(Scale(5.0, 5.0, 5.0));
+    planeTransNode->addScale(Scale(8.0, 5.0, 5.0));
     planeTransNode->addTranslation(Translation(0., 0., -15.));
 
     // CSGTree new_csg = CSGTree();
