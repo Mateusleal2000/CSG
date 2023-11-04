@@ -13,20 +13,42 @@ class Solid
 public:
     virtual ~Solid() {}
     virtual void setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &modelMatrix, const glm::mat4 &modelMatrixInv) = 0;
-    // Material *getMaterial();
+    glm::vec3 getKD();
+    glm::vec3 getKE();
+    float getShininess();
+
+    void setKD(glm::vec3 KD);
+    void setKE(glm::vec3 KE);
+    void setShininess(float _shininess);
 
 protected:
-    // Material *material;
+    glm::vec3 kd{0.,0.,0.};
+    glm::vec3 ke{0.,0.,0.};
+    float shininess;
 };
 
-// inline Material *Solid::getMaterial()
-// {
-//     return material;
-// }
+inline glm::vec3 Solid::getKD(){
+    return kd;
+}
 
-// inline void Solid::setColor(glm::vec3 color)
-//{
-//     this->color = color;
-// }
+inline glm::vec3 Solid::getKE(){
+    return ke;
+}
+
+inline float Solid::getShininess(){
+    return shininess;
+}
+
+inline void Solid::setKD(glm::vec3 _kd){
+    kd = _kd;
+}
+
+inline void Solid::setKE(glm::vec3 _ke){
+    ke = _ke;
+}
+
+inline void Solid::setShininess(float _shininess){
+    shininess = _shininess;
+}
 
 #endif // SOLID_H

@@ -84,12 +84,12 @@ void Canvas::init()
 
   loadTexture("container.jpg");
 
-  for (int i = 0; i < 640 * 480; i++)
-  {
-    v.push_back(150);
-    v.push_back(150);
-    v.push_back(150);
-  }
+  //for (int i = 0; i < 640 * 480; i++)
+  //{
+  //  v.push_back(150);
+  //  v.push_back(150);
+  //  v.push_back(150);
+  //}
 
   uchar *data = v.data(); // texImage->bits();
 
@@ -114,7 +114,7 @@ void Canvas::init()
   else
   {
     std::cout << "Erro! nullimage\n";
-    exit(-1);
+    //exit(-1);
   }
   f->glUseProgram(program[0].getProgramId());
   f->glUniform1i(f->glGetUniformLocation(program[0].getProgramId(), "text"), 0);

@@ -10,6 +10,7 @@
 #include "solids/Sphere.hpp"
 #include "solids/Plane.hpp"
 #include "solids/Cylinder.hpp"
+#include "tracer/Light.hpp"
 #include <string>
 class CSGTree
 {

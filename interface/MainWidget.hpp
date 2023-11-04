@@ -7,6 +7,7 @@
 #include "../tracer/GLView.hpp"
 #include "../CSGTree.hpp"
 #include <QTimer>
+#include <QThread>
 #include <glm/vec3.hpp>
 
 class MainWidget : public QWidget
@@ -26,6 +27,7 @@ private:
     GLView *glview;
     std::vector<CSGTree> trees;
     QTimer timer;
+    QThread * thread;
 };
 
 #endif // MAIN_WIDGET_H

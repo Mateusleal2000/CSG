@@ -11,11 +11,15 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     glview = new GLView(this);
+
+
     layout->addWidget(glview);
     layout->addWidget(inputWidget);
     setLayout(layout);
     connect(inputWidget, &InputWidget::callSolidOrder, this, &MainWidget::solidOrder);
     connect(inputWidget, &InputWidget::callOperationOrder, this, &MainWidget::operationOrder);
+
+    //thread = new QThread();
 
     CSGTree new_csg = CSGTree();
 

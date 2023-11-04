@@ -50,7 +50,7 @@ glm::vec3 Vertex::getNormal() const
     return this->normal;
 }
 
-Solid *Vertex::getSolid()
+Solid *Vertex::getSolid() const
 {
     return this->solid;
 }
@@ -58,4 +58,8 @@ Solid *Vertex::getSolid()
 std::pair<State, State> *Vertex::getSmsPair()
 {
     return &smsPair;
+}
+
+glm::vec3 Vertex::getEyePoint() const{
+    return eyePoint;
 }

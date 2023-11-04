@@ -21,7 +21,8 @@ public:
     void updateSmsPair(int point, State newState);
     glm::vec3 getPoint() const;
     glm::vec3 getNormal() const;
-    Solid *getSolid();
+    Solid *getSolid() const;
+    glm::vec3 getEyePoint() const;
     std::pair<State, State> *getSmsPair();
     bool operator<(const Vertex &a) const
     {
