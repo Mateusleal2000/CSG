@@ -50,7 +50,7 @@ void CSGTree::add(Operation *op, TransNode *node)
 // a convenção é que toda árvore tem um nó World como filho da direita
 void CSGTree::add(Operation *op, OpNode *node)
 {
-    std::cout << "Adding a OpNode\n";
+    std::cout << "Adding an OpNode\n";
     if (root == nullptr)
     {
         root = node;
@@ -65,7 +65,7 @@ void CSGTree::add(Operation *op, OpNode *node)
         root->setChild(opnode, 0);
         node->setChild(nullptr, 0);
         delete node->getChild(1);
-        node->setChild(nullptr, 1);
+        //  node->setChild(nullptr, 1);
         delete node->getOperation();
         delete node;
     }

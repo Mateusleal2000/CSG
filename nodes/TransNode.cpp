@@ -22,7 +22,7 @@ void TransNode::setChild(Node *node)
 void TransNode::setChild(SolidNode *node)
 {
     // std::cout << "SetChild solidnode\n";
-    node->setParent(this);
+    // node->setParent(this);
     this->child = node;
 }
 

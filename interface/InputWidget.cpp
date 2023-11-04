@@ -107,18 +107,18 @@ void InputWidget::addSolidScreen()
     solidsList->addItem(QString("Sphere"));
     solidsList->addItem(QString("Cylinder"));
     solidsList->addItem(QString("Plane"));
-    QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
-                       {if (solidsList->currentText().toStdString() == "Sphere")
-                       {
-                        // Adiciona esfera
-                        std::cout<<"Adiciona esfera\n";
-                       }
-                       if (solidsList->currentText().toStdString() == "Block")
-                       {
-                        // Adiciona bloco
-                        std::cout<<"Adiciona bloco\n";
-                       }
-                        setNewInputs(solidsList->currentText()); });
+    // QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
+    //                    {if (solidsList->currentText().toStdString() == "Sphere")
+    //                    {
+    //                     // Adiciona esfera
+    //                     std::cout<<"Adiciona esfera\n";
+    //                    }
+    //                    if (solidsList->currentText().toStdString() == "Block")
+    //                    {
+    //                     // Adiciona bloco
+    //                     std::cout<<"Adiciona bloco\n";
+    //                    }
+    //                     setNewInputs(solidsList->currentText()); });
 
     QPushButton::connect(buttonConfirm, &QPushButton::clicked, this, [=, this]() -> void
                          { 
@@ -214,14 +214,28 @@ void InputWidget::operationScreen()
     // QComboBox::connect(treeOperand1, &QComboBox::create);
 
     // Antes de fazer o addItem(), precisamos pegar as primitivas disponíveis, então temos que descobrir como fazer isso ainda
-    treeOperand1->addItem(QString("Tree 1"));
-    treeOperand1->addItem(QString("Tree 2"));
-    treeOperand1->addItem(QString("Tree 3"));
-    treeOperand2->addItem(QString("Tree 1"));
-    treeOperand2->addItem(QString("Tree 2"));
-    treeOperand2->addItem(QString("Tree 3"));
+
+    // treeOperand1->addItem(QString("Tree 1"));
+    // treeOperand1->addItem(QString("Tree 2"));
+    // treeOperand1->addItem(QString("Tree 3"));
+    // treeOperand2->addItem(QString("Tree 1"));
+    // treeOperand2->addItem(QString("Tree 2"));
+    // treeOperand2->addItem(QString("Tree 3"));
+    for (int i = 0; i < trees->size(); i++)
+    {
+        treeOperand1->addItem(QString::fromStdString(trees->at(i).getName()));
+        treeOperand2->addItem(QString::fromStdString(trees->at(i).getName()));
+    }
+
     QPushButton::connect(buttonConfirmOp, &QPushButton::clicked, this, [this, treeName, operation, treeOperand1, treeOperand2]
-                         { emit callOperationRequest(treeName->text().toStdString(), operation->currentText().toStdString(), treeOperand1->currentText().toStdString(), treeOperand2->currentText().toStdString()); });
+                         {  
+                            std::string to1 = treeOperand1->currentText().toStdString();
+                            std::string to2 = treeOperand2->currentText().toStdString();
+                            treeOperand1->addItem(treeName->text());
+                            treeOperand2->addItem(treeName->text());
+                            treeOperand1->removeItem(treeOperand2->currentIndex());
+                            treeOperand2->removeItem(treeOperand2->currentIndex());
+                            emit callOperationRequest(treeName->text().toStdString(), operation->currentText().toStdString(), to1, to2); });
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
     layout->addRow(QString("Operation "), operation);

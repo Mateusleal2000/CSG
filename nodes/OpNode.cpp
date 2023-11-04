@@ -36,13 +36,13 @@ void OpNode::setChild(Node *node, int idx)
 {
   if (idx == 0)
   {
-    node->setParent(this);
+    // node->setParent(this);
     this->left = node;
     return;
   }
   if (idx == 1)
   {
-    node->setParent(this);
+    // node->setParent(this);
     this->right = node;
     return;
   }
