@@ -24,19 +24,27 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     // sphereTransNode->addScale(Scale(4.0, 4.0, 4.0));
     // sphereTransNode->addTranslation(Translation(0., 0., -15.));
 
-    Plane *plane = new Plane();
-    SolidNode *planeNode = new SolidNode(plane);
-    TransNode *planeTransNode = new TransNode();
-    planeTransNode->setChild(planeNode);
-    planeTransNode->addScale(Scale(8.0, 5.0, 5.0));
-    planeTransNode->addTranslation(Translation(0., 0., -15.));
+    // Plane *plane = new Plane();
+    // SolidNode *planeNode = new SolidNode(plane);
+    // TransNode *planeTransNode = new TransNode();
+    // planeTransNode->setChild(planeNode);
+    // planeTransNode->addScale(Scale(8.0, 5.0, 5.0));
+    // planeTransNode->addTranslation(Translation(0., 0., -15.));
+
+    Cylinder *cyl = new Cylinder();
+    SolidNode *cylNode = new SolidNode(cyl);
+    TransNode *cylTransNode = new TransNode();
+    cylTransNode->setChild(cylNode);
+    cylTransNode->addScale(Scale(5.0, 5.0, 5.0));
+    cylTransNode->addTranslation(Translation(0., 0., -15.));
+    cylTransNode->addRotation(Rotation(0, 90.));
 
     // CSGTree new_csg = CSGTree();
     // Sphere *sphere = new Sphere();
     // SolidNode sphereNode = SolidNode(sphere);
     // TransNode sphereTransNode = TransNode();
 
-    new_csg.add(new Union(), planeTransNode);
+    new_csg.add(new Union(), cylTransNode);
     new_csg.setName("Name");
     glview->setCurrentCSGTree(new_csg);
 

@@ -58,8 +58,8 @@ void GLView::updateCanvas()
       VertexList list = VertexList(camera->getPos());
       // std::cout << r.getUnitDir().x << r.getUnitDir().y << r.getUnitDir().z << "\n";
       currentCSGTree.setMembership(r, list);
-      //if (list.getVertexListSize() == 2)
-      if(list.getVertexList()->back().getSmsPair()->first == State::ON)
+      if (list.getVertexListSize() == 3)
+      // if(list.getVertexList()->back().getSmsPair()->first == State::ON)
       {
         canvas->addColor(255, 0, 0);
       }

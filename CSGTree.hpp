@@ -9,6 +9,7 @@
 // headers para métodos de teste
 #include "solids/Sphere.hpp"
 #include "solids/Plane.hpp"
+#include "solids/Cylinder.hpp"
 #include <string>
 class CSGTree
 {

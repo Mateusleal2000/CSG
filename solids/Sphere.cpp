@@ -53,7 +53,7 @@ void Sphere::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mode
         glm::vec3 p1 = glm::vec3(modelMatrix * glm::vec4(eye + (t1 * D), 1.));
         glm::vec3 N1 = (p1 - glm::vec3(modelMatrix * glm::vec4(0., 0., 0., 1.)));
         Vertex v1 = Vertex(this, p1, glm::normalize(N1));
-        v1.setEyePoint(eye);
+        v1.setEyePoint(ray.getPoint());
         v1.setSmsPair(State::ON, State::ON);
         vl.addVertex(v1);
     }

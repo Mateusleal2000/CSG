@@ -48,6 +48,7 @@ qt_add_executable(
     solids/Solid.hpp
     solids/Sphere.cpp
     solids/Plane.cpp
+    solids/Cylinder.cpp
     
     CSGTree.cpp
     Vertex.cpp
