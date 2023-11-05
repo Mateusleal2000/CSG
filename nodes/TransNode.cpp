@@ -38,7 +38,6 @@ void TransNode::addScale(Scale trans)
 
 void TransNode::addTranslation(Translation trans)
 {
-    // glm::mat4 mat = trans.getMatrix();
 
     translationVec.push_back(trans);
 }
@@ -46,7 +45,7 @@ void TransNode::addTranslation(Translation trans)
 glm::mat4 TransNode::getScaleMatrix()
 {
     glm::mat4 resultScale(1.);
-    for (int i = 0; i < scaleVec.size(); i++)
+    for (int i = scaleVec.size() - 1; i >= 0; i--)
     {
         resultScale = resultScale * scaleVec.at(i).getMatrix();
     }
@@ -57,7 +56,7 @@ glm::mat4 TransNode::getScaleMatrix()
 glm::mat4 TransNode::getTranslationMatrix()
 {
     glm::mat4 resultTranslation(1.);
-    for (int i = 0; i < translationVec.size(); i++)
+    for (int i = translationVec.size() - 1; i >= 0; i--)
     {
         resultTranslation = resultTranslation * translationVec.at(i).getMatrix();
     }
@@ -68,7 +67,7 @@ glm::mat4 TransNode::getTranslationMatrix()
 glm::mat4 TransNode::getRotationMatrix()
 {
     glm::mat4 resultRotation(1.);
-    for (int i = 0; i < rotationVec.size(); i++)
+    for (int i = rotationVec.size() - 1; i >= 0; i--)
     {
         resultRotation = resultRotation * rotationVec.at(i).getMatrix();
     }

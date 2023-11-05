@@ -30,7 +30,6 @@ void Plane::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &model
                     glm::vec3 localNormal = glm::vec3(0., 0., 1.0);
                     glm::vec3 globalNormal = glm::vec3(modelMatrix * glm::vec4(localNormal, 1.0)) - p; ////
                     globalNormal = glm::normalize(globalNormal);
-                    // Talvez seja melhor trocar essa normal who knows...
                     Vertex v = Vertex(this, p, globalNormal);
                     v.setEyePoint(ray.getPoint());
                     v.setSmsPair(State::ON, State::ON);
@@ -43,7 +42,6 @@ void Plane::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &model
                     glm::vec3 localNormal = glm::vec3(0., 0., 1.0);
                     glm::vec3 globalNormal = glm::vec3(modelMatrix * glm::vec4(localNormal, 1.0)) - p;
                     globalNormal = glm::normalize(globalNormal);
-                    // Talvez seja melhor trocar essa normal who knows...
                     Vertex v = Vertex(this, p, globalNormal);
                     v.setEyePoint(ray.getPoint());
                     v.setSmsPair(State::IN, State::IN);
