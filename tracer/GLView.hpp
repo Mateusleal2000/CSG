@@ -32,7 +32,7 @@ private:
   Canvas *canvas;
   Camera *camera;
   QTimer timer;
-  Light *light;
+  PointLight *light;
   CSGTree currentCSGTree;
 };
 

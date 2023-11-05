@@ -47,9 +47,9 @@ void MainWidget::solidRequest(std::string type, std::string name, glm::vec3 t, g
     if (type == "Sphere")
     {
         Sphere *sphere = new Sphere();
-        sphere->setKD(glm::vec3(1.0, 0., 0.));
+        sphere->setKD(glm::vec3(0.7, 0., 0.));
         sphere->setKE(glm::vec3(0.7, 0., 0.));
-        sphere->setShininess(300);
+        sphere->setShininess(10);
         SolidNode *sphereNode = new SolidNode(sphere);
         TransNode *sphereTransNode = new TransNode();
         sphereTransNode->setChild(sphereNode);
@@ -62,6 +62,9 @@ void MainWidget::solidRequest(std::string type, std::string name, glm::vec3 t, g
     else if (type == "Cylinder")
     {
         Cylinder *cyl = new Cylinder();
+        cyl->setKD(glm::vec3(1.0, 0., 0.));
+        cyl->setKE(glm::vec3(0.7, 0., 0.));
+        cyl->setShininess(50);
         SolidNode *cylNode = new SolidNode(cyl);
         TransNode *cylTransNode = new TransNode();
         cylTransNode->setChild(cylNode);
@@ -74,6 +77,9 @@ void MainWidget::solidRequest(std::string type, std::string name, glm::vec3 t, g
     else if (type == "Plane")
     {
         Plane *plane = new Plane();
+        plane->setKD(glm::vec3(1.0, 0., 0.));
+        plane->setKE(glm::vec3(0.7, 0., 0.));
+        plane->setShininess(50);
         SolidNode *planeNode = new SolidNode(plane);
         TransNode *planeTransNode = new TransNode();
         planeTransNode->setChild(planeNode);

@@ -151,9 +151,9 @@ void Canvas::draw()
 
 void Canvas::addColor(int c1, int c2, int c3)
 {
-    v.push_back(c1);
-    v.push_back(c2);
-    v.push_back(c3);
+    v.push_back(uchar(c1));
+    v.push_back(uchar(c2));
+    v.push_back(uchar(c3));
   return;
 }
 
