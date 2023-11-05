@@ -7,11 +7,6 @@ GLView::GLView(QWidget *parent) : QOpenGLWidget(parent)
   light = new PointLight(glm::vec3(0.7, 0.7, 0.7), glm::vec3(0, 0, 0));
   state = State::IN;
   depth = 1;
-  // timer.setInterval(1000);
-  // QEventLoop loop;
-  // connect(&timer, &QTimer::timeout, this, &GLView::updateCanvas);
-  // timer.start();
-  // loop.exec();
 }
 
 GLView::~GLView()
@@ -58,24 +53,16 @@ void GLView::updateCanvas()
     {
       Ray r = camera->computeRayDir(x, y);
       VertexList list = VertexList(camera->getPos());
-      // std::cout << r.getUnitDir().x << r.getUnitDir().y << r.getUnitDir().z << "\n";
       currentCSGTree.setMembership(r, list);
-      // list.getVertexList()->at(1).getSmsPair()->first == State::ON
       if (list.getVertexListSize() > depth && (list.getVertexList()->at(depth).getSmsPair()->first == state || list.getVertexList()->at(depth).getSmsPair()->second == state))
       {
-        // glm::vec3 color(1.,0.,0.);//light->shade(list.getVertexList()->at(1));
         glm::vec3 color = light->shade(list.getVertexList()->at(1));
         if (std::max({color.x, color.y, color.z}) > 1)
         {
           float maxc = std::max({color.x, color.y, color.z});
-          // std::cout<<maxc <<std::endl;
           color.x = color.x / maxc;
           color.y = color.y / maxc;
           color.z = color.z / maxc;
-          // color.x =0.;
-          //  //color.y =1.;
-          //  //color.z = 0.;
-          //
         }
         color = color * 255.0f;
         canvas->addColor(color.x, color.y, color.z);

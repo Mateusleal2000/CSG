@@ -101,11 +101,8 @@ void MainWidget::operationRequest(std::string name, std::string operation, std::
 {
     if (operandName1 != operandName2)
     {
-        std::cout << "Entrou no if do operation request\n";
-
         if (operation == "Union")
         {
-            std::cout << "Eh uma uniao\n";
             int operand1Index = -1;
             int operand2Index = -1;
             for (int i = 0; i < trees.size(); i++)
@@ -120,6 +117,26 @@ void MainWidget::operationRequest(std::string name, std::string operation, std::
                 }
             }
             trees.at(operand1Index).add(new Union(), trees.at(operand2Index).getRoot());
+            trees.at(operand1Index).setName(name);
+            trees.erase(trees.begin() + operand2Index);
+            glview->setCurrentCSGTree(trees.at(operand1Index));
+        }
+        else if (operation == "Intersection")
+        {
+            int operand1Index = -1;
+            int operand2Index = -1;
+            for (int i = 0; i < trees.size(); i++)
+            {
+                if (trees.at(i).getName() == operandName1)
+                {
+                    operand1Index = i;
+                }
+                if (trees.at(i).getName() == operandName2)
+                {
+                    operand2Index = i;
+                }
+            }
+            trees.at(operand1Index).add(new Intersection(), trees.at(operand2Index).getRoot());
             trees.at(operand1Index).setName(name);
             trees.erase(trees.begin() + operand2Index);
             glview->setCurrentCSGTree(trees.at(operand1Index));

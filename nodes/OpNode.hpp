@@ -2,6 +2,7 @@
 #define OPNODE_HPP
 
 #include "../operations/Union.hpp"
+#include "../operations/Intersection.hpp"
 #include "Node.hpp"
 #include <iostream>
 class OpNode : public Node

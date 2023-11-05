@@ -237,6 +237,7 @@ void InputWidget::operationScreen()
     treeOperand2->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
 
     operation->addItem(QString("Union"));
+    operation->addItem(QString("Intersection"));
 
     // QComboBox::connect(treeOperand1, &QComboBox::create);
 

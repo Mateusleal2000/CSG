@@ -40,6 +40,7 @@ qt_add_executable(
     
     
     operations/Union.cpp
+    operations/Intersection.cpp
     operations/Operation.hpp
 
     transformations/Scale.cpp
