@@ -30,11 +30,11 @@ public slots:
     // void confirmSolidSelection(QString solidType, QString tree);
     // void confirmSolidTransform(QString solidName);
     void confirmSolidUnion(QString solidName1, QString solidName2);
-    void setNewInputs(QString solidType);
 signals:
     void addSolid();
     void callSolidRequest(std::string type, std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle);
     void callOperationRequest(std::string name, std::string operation, std::string operandName1, std::string operandName2);
+    void callTransformationRequest(std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle);
     void callCanvasParameters(const State state, const int depth);
 };
 

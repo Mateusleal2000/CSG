@@ -20,6 +20,7 @@ public slots:
     void checkTreeSize();
     void solidRequest(std::string type, std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle);
     void operationRequest(std::string name, std::string operation, std::string operandName1, std::string operandName2);
+    void transformationRequest(std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle);
 
 private:
     InputWidget *inputWidget;

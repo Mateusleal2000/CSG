@@ -15,6 +15,7 @@ public:
     void _print() override;
     Node *getChild(int idx) override;
     void setChild(Node *node) override;
+    void transformationRequest(glm::vec3 t, glm::vec3 s, int axis, float angle) override;
 
 private:
     Solid *solid;

@@ -24,7 +24,7 @@ void Cylinder::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mo
     // O valor inteiro no par representa se a interseção é com cilindro ou com a tampa
     std::vector<std::pair<float, int>> intersectPair = {};
     // bool t1Valid, t2Valid, t3Valid, t4Valid;
-    if (delta > 0.5)
+    if (delta > 0.0)
     {
         float t0 = (-b + delta) / (2 * a);
         float t1 = (-b - delta) / (2 * a);

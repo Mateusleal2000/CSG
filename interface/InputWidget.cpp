@@ -126,18 +126,6 @@ void InputWidget::addSolidScreen()
     solidsList->addItem(QString("Sphere"));
     solidsList->addItem(QString("Cylinder"));
     solidsList->addItem(QString("Plane"));
-    // QComboBox::connect(solidsList, &QComboBox::activated, this, [=, this](int i) -> void
-    //                    {if (solidsList->currentText().toStdString() == "Sphere")
-    //                    {
-    //                     // Adiciona esfera
-    //                     std::cout<<"Adiciona esfera\n";
-    //                    }
-    //                    if (solidsList->currentText().toStdString() == "Block")
-    //                    {
-    //                     // Adiciona bloco
-    //                     std::cout<<"Adiciona bloco\n";
-    //                    }
-    //                     setNewInputs(solidsList->currentText()); });
 
     QPushButton::connect(buttonConfirm, &QPushButton::clicked, this, [=, this]() -> void
                          { 
@@ -167,42 +155,62 @@ void InputWidget::transformSolidScreen()
 {
     cleanLayout();
     layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
+
+    QComboBox *tree = new QComboBox(this);
+    tree->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    tree->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
+
     QPushButton *buttonReturn = new QPushButton("Return", this);
     QPushButton *buttonTransform = new QPushButton("Transform", this);
     QLineEdit *qlineedit1 = new QLineEdit(this);
-    qlineedit1->setPlaceholderText(QString("X value"));
-    QLineEdit *qlineedit2 = new QLineEdit(this);
-    qlineedit2->setPlaceholderText(QString("Y value"));
-    QLineEdit *qlineedit3 = new QLineEdit(this);
-    qlineedit3->setPlaceholderText(QString("Z value"));
-    QComboBox *solidsList = new QComboBox(this);
-    QComboBox *transformationList = new QComboBox(this);
-
-    solidsList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-    transformationList->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-
-    solidsList->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
-    transformationList->setMaximumSize(Definitions::MAIN_WIDTH / 4, Definitions::MAIN_HEIGHT / 20);
-
     qlineedit1->setVisible(true);
+    qlineedit1->setPlaceholderText(QString("Translate X"));
+    QLineEdit *qlineedit2 = new QLineEdit(this);
     qlineedit2->setVisible(true);
+    qlineedit2->setPlaceholderText(QString("Translate Y"));
+    QLineEdit *qlineedit3 = new QLineEdit(this);
     qlineedit3->setVisible(true);
-    // solidsList->addItem(QString(""));
-    // Antes de fazer o addItem(), precisamos pegar as primitivas disponíveis, então temos que descobrir como fazer isso ainda
-    solidsList->addItem(QString("Primitive 1"));
-    solidsList->addItem(QString("Primitive 2"));
-    solidsList->addItem(QString("Primitive 3"));
-    transformationList->addItem(QString("Scale"));
-    transformationList->addItem(QString("Translation"));
-    QPushButton::connect(buttonTransform, &QPushButton::clicked, this, [=, this](int i) -> void
-                         { std::cout << "Performing a " << transformationList->currentText().toStdString() << " to " << solidsList->currentText().toStdString() << "\n"; });
+    qlineedit3->setPlaceholderText(QString("Translate Z"));
+    QLineEdit *qlineedit4 = new QLineEdit(this);
+    qlineedit4->setVisible(true);
+    qlineedit4->setPlaceholderText(QString("Scale X"));
+    QLineEdit *qlineedit5 = new QLineEdit(this);
+    qlineedit5->setVisible(true);
+    qlineedit5->setPlaceholderText(QString("Scale Y"));
+    QLineEdit *qlineedit6 = new QLineEdit(this);
+    qlineedit6->setVisible(true);
+    qlineedit6->setPlaceholderText(QString("Scale Z"));
+    QLineEdit *qlineedit7 = new QLineEdit(this);
+    qlineedit7->setVisible(true);
+    qlineedit7->setPlaceholderText(QString("Axis(0=x, 1=y or 2=z)"));
+    QLineEdit *qlineedit8 = new QLineEdit(this);
+    qlineedit8->setVisible(true);
+    qlineedit8->setPlaceholderText(QString("Angle"));
+
     QPushButton::connect(buttonReturn, &QPushButton::clicked, this, &InputWidget::mainScreen);
 
-    layout->addRow(transformationList);
-    layout->addRow(solidsList);
+    for (int i = 0; i < trees->size(); i++)
+    {
+        tree->addItem(QString::fromStdString(trees->at(i).getName()));
+    }
+
+    QPushButton::connect(buttonTransform, &QPushButton::clicked, this, [=, this](int i) -> void
+                         {
+                            glm::vec3 t(std::stof(qlineedit1->text().toStdString()), std::stof(qlineedit2->text().toStdString()), std::stof(qlineedit3->text().toStdString()));
+                            glm::vec3 s(std::stof(qlineedit4->text().toStdString()), std::stof(qlineedit5->text().toStdString()), std::stof(qlineedit6->text().toStdString()));
+                            int axis = std::stoi(qlineedit7->text().toStdString());
+                            float angle = std::stof(qlineedit8->text().toStdString());
+                            emit callTransformationRequest(tree->currentText().toStdString(),t, s, axis, angle); });
+
+    layout->addRow(tree);
     layout->addRow(qlineedit1);
     layout->addRow(qlineedit2);
     layout->addRow(qlineedit3);
+    layout->addRow(qlineedit4);
+    layout->addRow(qlineedit5);
+    layout->addRow(qlineedit6);
+    layout->addRow(qlineedit7);
+    layout->addRow(qlineedit8);
     layout->addRow(buttonTransform);
     layout->addRow(buttonReturn);
 }
@@ -294,22 +302,6 @@ void InputWidget::changeCameraScreen()
     layout->addRow(qlineedit5);
     layout->addRow(qlineedit6);
     layout->addRow(buttonReturn);
-}
-
-void InputWidget::setNewInputs(QString solidType)
-{
-    if (solidType.toStdString() == "Sphere")
-    {
-        std::cout << "Sphere selected\n";
-        return;
-    }
-    else if (solidType.toStdString() == "Block")
-    {
-        std::cout << "Block selected\n";
-        return;
-    }
-    std::cout << "Adding a " << solidType.toStdString() << "\n";
-    return;
 }
 
 void InputWidget::confirmSolidUnion(QString solidName1, QString solidName2)

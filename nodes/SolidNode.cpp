@@ -45,3 +45,8 @@ Node *SolidNode::getChild(int idx)
   // std::cout << "SOLIDO NAO PODE TER FILHOS!\n";
   exit(-1);
 }
+
+void SolidNode::transformationRequest(glm::vec3 t, glm::vec3 s, int axis, float angle)
+{
+  return;
+}

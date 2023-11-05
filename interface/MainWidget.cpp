@@ -17,6 +17,7 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
     setLayout(layout);
     connect(inputWidget, &InputWidget::callSolidRequest, this, &MainWidget::solidRequest);
     connect(inputWidget, &InputWidget::callOperationRequest, this, &MainWidget::operationRequest);
+    connect(inputWidget, &InputWidget::callTransformationRequest, this, &MainWidget::transformationRequest);
     connect(inputWidget, &InputWidget::callCanvasParameters, glview, &GLView::setCanvasParameters);
     show();
 }
@@ -128,4 +129,23 @@ void MainWidget::operationRequest(std::string name, std::string operation, std::
     {
         return;
     }
+}
+
+void MainWidget::transformationRequest(std::string name, glm::vec3 t, glm::vec3 s, int axis, float angle)
+{
+    int treeIndex = -1;
+    for (int i = 0; i < trees.size(); i++)
+    {
+        if (trees.at(i).getName() == name)
+        {
+            treeIndex = i;
+        }
+    }
+    if (treeIndex != -1)
+    {
+        trees.at(treeIndex).getRoot()->transformationRequest(t, s, axis, angle);
+        glview->setCurrentCSGTree(trees.at(treeIndex));
+    }
+
+    return;
 }

@@ -108,3 +108,10 @@ void TransNode::_print()
     this->getChild(0)->_print();
     std::cout << "====end of TransNode====\n";
 }
+
+void TransNode::transformationRequest(glm::vec3 t, glm::vec3 s, int axis, float angle)
+{
+    addTranslation(Translation(t.x, t.y, t.z));
+    addRotation(Rotation(axis, angle));
+    addScale(Scale(s.x, s.y, s.z));
+}

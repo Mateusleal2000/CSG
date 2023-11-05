@@ -22,3 +22,8 @@ void World::_print()
 {
     std::cout << "World\n";
 }
+
+void World::transformationRequest(glm::vec3 t, glm::vec3 s, int axis, float angle)
+{
+    return;
+}

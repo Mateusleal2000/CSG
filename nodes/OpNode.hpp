@@ -16,6 +16,7 @@ public:
   void setChild(Node *node, int idx);
   void _print() override;
   void setMembership(const Ray &ray, VertexList &vl) override;
+  void transformationRequest(glm::vec3 t, glm::vec3 s, int axis, float angle) override;
 
 private:
   Node *left;

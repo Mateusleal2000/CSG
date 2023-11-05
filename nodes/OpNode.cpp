@@ -27,7 +27,7 @@ Node *OpNode::getChild(int idx)
   }
   else
   {
-    std::cout << "Not a valid index\n";
+    std::cout << "Not a valid index, Returning right child\n";
     return right;
   }
 }
@@ -78,4 +78,10 @@ void OpNode::setMembership(const Ray &ray, VertexList &vl)
   // std::cout << "Finished sms child 1\n";
   this->getOperation()->apply(vl1, vl2, vl);
   // std::cout<< "Root set member ship end\n";
+}
+
+void OpNode::transformationRequest(glm::vec3 t, glm::vec3 s, int axis, float angle)
+{
+  right->transformationRequest(t, s, axis, angle);
+  left->transformationRequest(t, s, axis, angle);
 }

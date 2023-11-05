@@ -15,6 +15,7 @@ public:
     virtual void setChild(Node *node) = 0;
     virtual Node *getChild(int idx) = 0;
     virtual void setMembership(const Ray &ray, VertexList &vl) = 0;
+    virtual void transformationRequest(glm::vec3 t, glm::vec3 s, int axis, float angle) = 0;
     virtual void _print() = 0;
 
 private:

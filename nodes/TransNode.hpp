@@ -25,6 +25,7 @@ public:
     glm::mat4 getModelMatrixInv();
     void setMembership(const Ray &ray, VertexList &vl) override;
     void _print() override;
+    void transformationRequest(glm::vec3 t, glm::vec3 s, int axis, float angle) override;
     // void get
 
 private:
