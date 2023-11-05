@@ -11,11 +11,11 @@
 InputWidget::InputWidget(QWidget *parent) : QWidget(parent)
 {
     setFixedSize(Definitions::MAIN_WIDTH / 3, Definitions::MAIN_HEIGHT);
-    setContentsMargins(0, 0, 0, 0);
+    setContentsMargins(0, 100, 0, 100);
     layout = new QFormLayout(this);
     setFocusPolicy(Qt::TabFocus);
     layout->setSpacing(0);
-    layout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
+    layout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
     mainScreen();
     setLayout(layout);
 }
@@ -44,24 +44,43 @@ void InputWidget::cleanLayout()
 void InputWidget::mainScreen()
 {
     cleanLayout();
-    QLabel *label = new QLabel("Available Operations", this);
     QPushButton *buttonAdd = new QPushButton("Add Solid", this);
     QPushButton *buttonTransform = new QPushButton("Transform", this);
     QPushButton *buttonOperation = new QPushButton("Boolean Operation", this);
-    QPushButton *buttonChangeCamera = new QPushButton("Change Camera", this);
-    // QObject::connect(buttonAdd, &QPushButton::clicked, addSolidScreen);
-    // connect(m_button, &QPushButton::released, this, &MainWindow::handleButton);
+    QPushButton *buttonApply = new QPushButton("Apply", this);
     QPushButton::connect(buttonAdd, &QPushButton::clicked, this, &InputWidget::addSolidScreen);
     QPushButton::connect(buttonTransform, &QPushButton::clicked, this, &InputWidget::transformSolidScreen);
     QPushButton::connect(buttonOperation, &QPushButton::clicked, this, &InputWidget::operationScreen);
-    QPushButton::connect(buttonChangeCamera, &QPushButton::clicked, this, &InputWidget::changeCameraScreen);
+
+    QComboBox *chooseState = new QComboBox(this);
+    chooseState->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    chooseState->setContentsMargins(0, 0, 0, 0);
+    chooseState->setAttribute(Qt::WA_LayoutUsesWidgetRect);
+    chooseState->setMaximumSize(Definitions::MAIN_WIDTH / 8, Definitions::MAIN_HEIGHT / 20);
+    chooseState->addItem(QString("IN"));
+    chooseState->addItem(QString("ON"));
+
+    QLineEdit *chooseDepth = new QLineEdit(this);
+    chooseDepth->setVisible(true);
+    chooseDepth->setPlaceholderText(QString("Depth"));
+
+    QPushButton::connect(buttonApply, &QPushButton::clicked, this, [=, this]() -> void
+                         {
+                         if(chooseState->currentText().toStdString() == "ON"){
+                            emit callCanvasParameters(State::ON,std::stoi(chooseDepth->text().toStdString()));
+                         }
+                         else{
+                            emit callCanvasParameters(State::IN,std::stoi(chooseDepth->text().toStdString()));
+                         } });
+
     layout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 
-    layout->addRow(label);
     layout->addRow(buttonAdd);
     layout->addRow(buttonTransform);
     layout->addRow(buttonOperation);
-    layout->addRow(buttonChangeCamera);
+    layout->addRow(chooseState);
+    layout->addRow(chooseDepth);
+    layout->addRow(buttonApply);
 }
 
 void InputWidget::addSolidScreen()
@@ -215,12 +234,6 @@ void InputWidget::operationScreen()
 
     // Antes de fazer o addItem(), precisamos pegar as primitivas disponíveis, então temos que descobrir como fazer isso ainda
 
-    // treeOperand1->addItem(QString("Tree 1"));
-    // treeOperand1->addItem(QString("Tree 2"));
-    // treeOperand1->addItem(QString("Tree 3"));
-    // treeOperand2->addItem(QString("Tree 1"));
-    // treeOperand2->addItem(QString("Tree 2"));
-    // treeOperand2->addItem(QString("Tree 3"));
     for (int i = 0; i < trees->size(); i++)
     {
         treeOperand1->addItem(QString::fromStdString(trees->at(i).getName()));

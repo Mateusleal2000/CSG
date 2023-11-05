@@ -22,7 +22,7 @@ void Sphere::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mode
     {
         return;
     }
-    else if (discriminant > 1e-2)
+    else if (discriminant > 1e-1)
     {
         float t1 = (-b + sqrt(discriminant)) / (2.0f);
         float t2 = (-b - sqrt(discriminant)) / (2.0f);
@@ -37,9 +37,9 @@ void Sphere::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mode
         glm::vec3 N2 = (p2 - glm::vec3(modelMatrix * glm::vec4(0., 0., 0., 1.)));
         Vertex v1 = Vertex(this, p1, glm::normalize(N1));
         Vertex v2 = Vertex(this, p2, glm::normalize(N2));
-        //v1.setEyePoint(eye);
+        // v1.setEyePoint(eye);
         v1.setEyePoint(ray.getPoint());
-        //v2.setEyePoint(eye);
+        // v2.setEyePoint(eye);
         v2.setEyePoint(ray.getPoint());
         if (v1 < v2)
         {

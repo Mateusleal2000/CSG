@@ -24,7 +24,7 @@ void Cylinder::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mo
     // O valor inteiro no par representa se a interseção é com cilindro ou com a tampa
     std::vector<std::pair<float, int>> intersectPair = {};
     // bool t1Valid, t2Valid, t3Valid, t4Valid;
-    if (delta > 0.0)
+    if (delta > 0.5)
     {
         float t0 = (-b + delta) / (2 * a);
         float t1 = (-b - delta) / (2 * a);
@@ -44,7 +44,7 @@ void Cylinder::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mo
         }
     }
 
-    if (fabs(D.z) >= 1e-7f)
+    if (fabs(D.z) >= 1e-21f)
     {
         float t2 = (eye.z - 1.0) / (-D.z);
         float t3 = (eye.z + 1.0) / (-D.z);
@@ -88,15 +88,18 @@ void Cylinder::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mo
         else
         {
             glm::vec3 poi = eye + (intersectPair.at(0).first * D);
-            glm::vec3 poiw = modelMatrix * glm::vec4(poi, 1.0);
-            glm::vec3 poip(0.0, 0.0, poi.z);
-            glm::vec3 poipw = modelMatrix * glm::vec4(poip, 1.0);
-            glm::vec3 globalOrigin = modelMatrix * glm::vec4(0., 0., 0., 1.0);
-            glm::vec3 newNormal = poipw - globalOrigin;
-            Vertex v(this, poiw, glm::normalize(newNormal));
-            v.setEyePoint(ray.getPoint());
-            v.setSmsPair(State::ON, State::ON);
-            vl.addVertex(v);
+            if (1 - std::sqrt((poi.x * poi.x) + (poi.y * poi.y)) <= 0.01)
+            {
+                glm::vec3 poiw = modelMatrix * glm::vec4(poi, 1.0);
+                glm::vec3 poip(0.0, 0.0, poi.z);
+                glm::vec3 poipw = modelMatrix * glm::vec4(poip, 1.0);
+                glm::vec3 globalOrigin = modelMatrix * glm::vec4(0., 0., 0., 1.0);
+                glm::vec3 newNormal = poipw - globalOrigin;
+                Vertex v(this, poiw, glm::normalize(newNormal));
+                v.setEyePoint(ray.getPoint());
+                v.setSmsPair(State::ON, State::ON);
+                vl.addVertex(v);
+            }
         }
     }
     else if (intersectPair.size() == 2)
@@ -236,24 +239,4 @@ void Cylinder::setMembership(const Ray &ray, VertexList &vl, const glm::mat4 &mo
             }
         }
     }
-
-    // int minIndex = 0;
-    // float minValue = 10e6;
-
-    // for (int i = 0; i < 4; i++)
-    // {
-    //     if (t.at(i) < minValue)
-    //     {
-    //         minValue = t.at(i);
-    //         minIndex = i;
-    //     }
-    // }
-
-    // glm::vec3 validPoi = poi.at(minIndex);
-    // if (minIndex < 2)
-    // {
-    // }
-    // else
-    // {
-    // }
 }

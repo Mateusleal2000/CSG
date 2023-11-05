@@ -26,6 +26,7 @@ public:
 public slots:
   void updateCanvas();
   void setCurrentCSGTree(CSGTree &csgtree);
+  void setCanvasParameters(const State state, const int depth);
 
 private:
   QOpenGLFunctions_3_3_Core *f;
@@ -34,6 +35,8 @@ private:
   QTimer timer;
   PointLight *light;
   CSGTree currentCSGTree;
+  State state;
+  int depth;
 };
 
 #endif // GL_VIEW_H

@@ -35,7 +35,7 @@ Ray Camera::computeRayDir(int x, int y)
     float ndcX = (float)x / ((float)viewPortWidth - 1);
     float ndcY = (float)y / ((float)viewPortHeight - 1);
     float screenX = (ndcX * 2.0f) - 1.0f;
-    float screenY = (ndcY * 2.0f) - 1.0f;
+    float screenY = 1.0f - (ndcY * 2.0f);
     glm::vec4 screenPoint(screenX, screenY, 1., 1.);
     screenPoint = invProjMatrix * screenPoint;
     return Ray(pos, pos + glm::vec3(invViewMatrix * glm::vec4(glm::normalize(glm::vec3(screenPoint) / screenPoint.w), 0.0)));
